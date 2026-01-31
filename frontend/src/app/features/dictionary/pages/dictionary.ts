@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
   selector: 'app-dictionary',
   imports: [CommonModule],
   templateUrl: './dictionary.html',
-  styleUrl: './dictionary.css',
 })
 export class Dictionary {
 

@@ -5,9 +5,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   selector: 'app-sidebar',
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './sidebar.html',
-  styleUrl: './sidebar.css',
 })
 export class Sidebar {
-   user = { name: 'Guest' };
+   @Input() user!: { name: string;};
    @Input() version!: string;
 }

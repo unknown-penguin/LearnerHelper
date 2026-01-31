@@ -5,8 +5,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-settings',
   imports: [CommonModule, FormsModule],
-  templateUrl: './settings.html',
-  styleUrl: './settings.css',
+  templateUrl: './settings.html'
 })
 export class Settings {
 
