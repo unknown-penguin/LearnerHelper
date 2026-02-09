@@ -1,0 +1,86 @@
+<div *ngIf="isOpen" class="fixed inset-0 z-40">
+	<div class="absolute inset-0 bg-surface-950/80 backdrop-blur-sm" (click)="onCancel()"></div>
+	<div class="relative z-10 flex min-h-full items-center justify-center px-4 py-10" (click)="onCancel()">
+		<section role="dialog" aria-modal="true"
+			class="w-full max-w-3xl rounded-2xl border border-primary-900/60 bg-surface-950/90 p-6 text-surface-100 shadow-2xl"
+			(click)="$event.stopPropagation()">
+			<header class="flex flex-wrap items-center justify-between gap-4 border-b border-primary-900/50 pb-4">
+				<div>
+					<p class="text-[11px] uppercase tracking-[0.32em] text-primary-200/70">Dictionary</p>
+					<h2 class="text-2xl font-semibold text-white">{{ entry ? 'Edit' : 'Create' }} term</h2>
+				</div>
+				<app-level-label [level]="form.controls.languageLevel.value"></app-level-label>
+			</header>
+
+			<form class="mt-6 space-y-5" [formGroup]="form" (ngSubmit)="onSubmit()">
+				<div class="grid gap-5 md:grid-cols-2">
+					<label class="space-y-2">
+						<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Word</span>
+						<input type="text" formControlName="word" placeholder="Enter the word"
+							class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-white placeholder:text-surface-500 focus:border-primary-500 focus:outline-none" />
+						<span class="text-xs text-danger-300"
+							*ngIf="form.controls.word.touched && form.controls.word.invalid">
+							Word is required.
+						</span>
+					</label>
+
+					<label class="space-y-2">
+						<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Part of
+							speech</span>
+						<select formControlName="partOfSpeech"
+							class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-white focus:border-primary-500 focus:outline-none">
+							<option *ngFor="let option of partOfSpeechOptions" [value]="option">
+								{{ option }}
+							</option>
+						</select>
+					</label>
+				</div>
+
+				<label class="space-y-2">
+					<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Definition</span>
+					<textarea rows="4" formControlName="definition" placeholder="Explain the meaning"
+						class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-white placeholder:text-surface-500 focus:border-primary-500 focus:outline-none"></textarea>
+					<span class="text-xs text-danger-300"
+						*ngIf="form.controls.definition.touched && form.controls.definition.invalid">
+						Definition is required.
+					</span>
+				</label>
+
+				<div class="grid gap-5 md:grid-cols-2">
+					<label class="space-y-2">
+						<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Language
+							level</span>
+						<select formControlName="languageLevel"
+							class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-white focus:border-primary-500 focus:outline-none">
+							<option *ngFor="let level of languageLevels" [value]="level">
+								{{ level }}
+							</option>
+						</select>
+					</label>
+
+					<label class="space-y-2">
+						<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Language</span>
+						<select formControlName="language"
+							class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-white focus:border-primary-500 focus:outline-none">
+							<option *ngFor="let language of languages" [value]="language">
+								{{ language }}
+							</option>
+						</select>
+					</label>
+				</div>
+
+				<footer class="flex flex-wrap items-center justify-between gap-4 pt-4">
+					<button type="button"
+						class="rounded-full border border-surface-700/70 px-5 py-2 text-sm font-semibold text-surface-200 transition hover:border-surface-500 hover:text-white"
+						(click)="onCancel()">
+						Cancel
+					</button>
+					<button type="submit"
+						class="rounded-full bg-primary-500 px-6 py-2 text-sm font-semibold text-surface-950 shadow-lg shadow-primary-500/30 transition hover:bg-primary-400">
+						{{ entry ? 'Update term' : 'Create term' }}
+					</button>
+				</footer>
+			</form>
+		</section>
+	</div>
+</div>

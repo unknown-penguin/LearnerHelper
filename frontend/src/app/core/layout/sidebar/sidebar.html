@@ -1,7 +1,7 @@
-<div class="flex h-full min-h-screen w-64 flex-col bg-gradient-to-b from-slate-950 via-slate-950 to-cyan-950 text-slate-100 shadow-2xl ring-1 ring-cyan-900/40">
-    <div class="flex items-center justify-between border-b border-cyan-900/50 px-4 py-5">
-        <div class="border-l-4 border-cyan-400/70 pl-3">
-            <p class="text-[11px] uppercase tracking-[0.24em] text-cyan-200/80">Learner</p>
+<div class="flex h-full min-h-screen w-64 flex-col bg-gradient-to-b from-surface-950 via-surface-950 to-primary-950 text-surface-100 shadow-2xl ring-1 ring-primary-900/40">
+    <div class="flex items-center justify-between border-b border-primary-900/50 px-4 py-5">
+        <div class="border-l-4 border-primary-400/70 pl-3">
+            <p class="text-[11px] uppercase tracking-[0.24em] text-primary-200/80">Learner</p>
             <h2 class="text-xl font-semibold leading-tight text-white">Helper</h2>
         </div>
     </div>
@@ -10,33 +10,33 @@
         <ul class="space-y-1">
             <li>
                 <a routerLink="/dictionary" [routerLinkActiveOptions]="{ exact: true }"
-                    routerLinkActive="bg-cyan-900/50 text-white shadow-inner ring-1 ring-cyan-700/50"
-                    class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-200 transition-colors hover:bg-cyan-900/40 hover:text-cyan-50">
+                    routerLinkActive="bg-primary-900/50 text-white shadow-inner ring-1 ring-primary-700/50"
+                    class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-surface-200 transition-colors hover:bg-primary-900/40 hover:text-primary-50">
                     Dictionary
                 </a>
             </li>
-            <li>
-                <a routerLink="/courses" routerLinkActive="bg-cyan-900/50 text-white shadow-inner ring-1 ring-cyan-700/50"
-                    class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-200 transition-colors hover:bg-cyan-900/40 hover:text-cyan-50">
+            <!-- <li>
+                <a routerLink="/courses" routerLinkActive="bg-primary-900/50 text-white shadow-inner ring-1 ring-primary-700/50"
+                    class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-surface-200 transition-colors hover:bg-primary-900/40 hover:text-primary-50">
                     Courses
                 </a>
-            </li>
+            </li> -->
             <li>
-                <a routerLink="/settings" routerLinkActive="bg-cyan-900/50 text-white shadow-inner ring-1 ring-cyan-700/50"
-                    class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-200 transition-colors hover:bg-cyan-900/40 hover:text-cyan-50">
+                <a routerLink="/settings" routerLinkActive="bg-primary-900/50 text-white shadow-inner ring-1 ring-primary-700/50"
+                    class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-surface-200 transition-colors hover:bg-primary-900/40 hover:text-primary-50">
                     Settings
                 </a>
             </li>
         </ul>
     </nav>
 
-    <div class="border-t border-cyan-900/50 px-4 py-3 text-sm bg-slate-950/60">
+    <div class="border-t border-primary-900/50 px-4 py-3 text-sm bg-surface-950/60">
         <div class="flex items-center justify-between">
             <div>
-                <p class="text-xs uppercase tracking-[0.18em] text-cyan-200/80">Welcome back</p>
+                <p class="text-xs uppercase tracking-[0.18em] text-primary-200/80">Welcome back</p>
                 <p class="font-semibold text-white">{{ user?.name || 'Guest' }}</p>
             </div>
-            <span class="rounded-full border border-cyan-700/50 bg-cyan-900/60 px-2.5 py-1 text-[10px] font-semibold text-cyan-100 shadow-lg shadow-cyan-900/40">v{{ version }}</span>
+            <span class="rounded-full border border-primary-700/50 bg-primary-900/60 px-2.5 py-1 text-[10px] font-semibold text-primary-100 shadow-lg shadow-primary-900/40">v{{ version }}</span>
         </div>
     </div>
 </div>

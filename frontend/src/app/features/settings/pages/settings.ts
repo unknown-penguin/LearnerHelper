@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ThemeService } from '../../../core/services/theme.service';
 
 @Component({
   selector: 'app-settings',
@@ -8,6 +9,8 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './settings.html'
 })
 export class Settings {
+
+  readonly themeService = inject(ThemeService);
 
   notifications = {
     email: true,

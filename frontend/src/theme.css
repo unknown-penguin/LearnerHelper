@@ -1,0 +1,164 @@
+/*
+ * ─── LearnerHelper Theme ──────────────────────────────────────────────
+ *
+ * @theme registers colour tokens with Tailwind → utility classes are
+ * generated (bg-surface-950, text-primary-400 …).
+ *
+ * The .theme-* class blocks below are OUTSIDE any @layer, so they
+ * always beat Tailwind's @layer theme in the cascade.  ThemeService
+ * toggles the class on <html> at runtime.
+ *
+ * To add a theme:  copy a .theme-* block, change the hex values,
+ * and register it in  core/services/theme.service.ts  →  THEMES[].
+ * ─────────────────────────────────────────────────────────────────────── */
+
+/* ── Token registration (Tailwind needs this to generate utilities) ── */
+@theme {
+  --color-surface-950: #020617;
+  --color-surface-900: #0f172a;
+  --color-surface-800: #1e293b;
+  --color-surface-700: #334155;
+  --color-surface-500: #64748b;
+  --color-surface-400: #94a3b8;
+  --color-surface-300: #cbd5e1;
+  --color-surface-200: #e2e8f0;
+  --color-surface-100: #f1f5f9;
+
+  --color-primary-950: #083344;
+  --color-primary-900: #164e63;
+  --color-primary-800: #155e75;
+  --color-primary-700: #0e7490;
+  --color-primary-600: #0891b2;
+  --color-primary-500: #06b6d4;
+  --color-primary-400: #22d3ee;
+  --color-primary-200: #a5f3fc;
+  --color-primary-100: #cffafe;
+  --color-primary-50:  #ecfeff;
+
+  --color-success-900: #064e3b;
+  --color-success-400: #34d399;
+  --color-success-100: #d1fae5;
+
+  --color-warning-900: #78350f;
+  --color-warning-400: #fbbf24;
+  --color-warning-100: #fef3c7;
+
+  --color-danger-900: #881337;
+  --color-danger-400: #fb7185;
+  --color-danger-300: #fda4af;
+  --color-danger-100: #ffe4e6;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+ *  CYAN  — surface: slate · primary: cyan  (default)
+ *  Unlayered → always overrides @layer theme
+ * ═══════════════════════════════════════════════════════════════════════ */
+:root.theme-cyan {
+  --color-surface-950: #020617;
+  --color-surface-900: #0f172a;
+  --color-surface-800: #1e293b;
+  --color-surface-700: #334155;
+  --color-surface-500: #64748b;
+  --color-surface-400: #94a3b8;
+  --color-surface-300: #cbd5e1;
+  --color-surface-200: #e2e8f0;
+  --color-surface-100: #f1f5f9;
+
+  --color-primary-950: #083344;
+  --color-primary-900: #164e63;
+  --color-primary-800: #155e75;
+  --color-primary-700: #0e7490;
+  --color-primary-600: #0891b2;
+  --color-primary-500: #06b6d4;
+  --color-primary-400: #22d3ee;
+  --color-primary-200: #a5f3fc;
+  --color-primary-100: #cffafe;
+  --color-primary-50:  #ecfeff;
+
+  --color-success-900: #064e3b;
+  --color-success-400: #34d399;
+  --color-success-100: #d1fae5;
+
+  --color-warning-900: #78350f;
+  --color-warning-400: #fbbf24;
+  --color-warning-100: #fef3c7;
+
+  --color-danger-900: #881337;
+  --color-danger-400: #fb7185;
+  --color-danger-300: #fda4af;
+  --color-danger-100: #ffe4e6;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+ *  GREEN  — surface: gray · primary: emerald
+ * ═══════════════════════════════════════════════════════════════════════ */
+:root.theme-green {
+  --color-surface-950: #030712;
+  --color-surface-900: #051b1b;
+  --color-surface-800: #1f2937;
+  --color-surface-700: #374151;
+  --color-surface-500: #6b7280;
+  --color-surface-400: #9ca3af;
+  --color-surface-300: #d1d5db;
+  --color-surface-200: #e5e7eb;
+  --color-surface-100: #f3f4f6;
+
+  --color-primary-950: #022c22;
+  --color-primary-900: #064e3b;
+  --color-primary-800: #065f46;
+  --color-primary-700: #047857;
+  --color-primary-600: #059669;
+  --color-primary-500: #10b981;
+  --color-primary-400: #34d399;
+  --color-primary-200: #a7f3d0;
+  --color-primary-100: #d1fae5;
+  --color-primary-50:  #ecfdf5;
+
+  --color-success-900: #1e3a5f;
+  --color-success-400: #38bdf8;
+  --color-success-100: #e0f2fe;
+
+  --color-warning-900: #78350f;
+  --color-warning-400: #fbbf24;
+  --color-warning-100: #fef3c7;
+
+  --color-danger-900: #881337;
+  --color-danger-400: #fb7185;
+  --color-danger-300: #fda4af;
+  --color-danger-100: #ffe4e6;
+}
+/* ═══════════════════════════════════════════════════════════════════════
+ *  LIGHT GRAY  — surface: gray · primary: gray
+ *  A more neutral, less "colorful" option for users who prefer it
+ * ═══════════════════════════════════════════════════════════════════════ */
+
+:root.theme-medium-gray {
+  /* Surface: Compressed scale starting at Medium Gray (950) up to White (100) */
+  --color-surface-950: #52525b; /* Medium Gray Background (Zinc 600) */
+  --color-surface-900: #5f6168; /* Slightly lighter/tinted surface */
+  --color-surface-800: #71717a; /* Zinc 500 */
+  --color-surface-700: #a1a1aa; /* Zinc 400 */
+  --color-surface-500: #d4d4d8; /* Zinc 300 */
+  --color-surface-400: #e4e4e7;
+  --color-surface-300: #f4f4f5;
+  --color-surface-200: #fafafa;
+  --color-surface-100: #ffffff; /* Pure White Text */
+
+  /* Primary: Bright Silver/White to contrast with Medium Gray BG */
+  --color-primary-950: #18181b; /* Darkest for contrast text on primary buttons */
+  --color-primary-900: #27272a;
+  --color-primary-800: #3f3f46;
+  --color-primary-700: #52525b;
+  --color-primary-600: #a1a1aa;
+  --color-primary-500: #e4e4e7; /* Primary Button is Light Silver/White */
+  --color-primary-400: #f4f4f5;
+  --color-primary-200: #fafafa;
+  --color-primary-100: #ffffff;
+  --color-primary-50:  #ffffff;
+
+  /* Functional Colors: Adjusted to ensure visibility on Gray-600 background */
+  
+  --color-success-900: #064e3b; /* Deep Green (Backgrounds) */
+  --color-success-400: #34d399; /* Bright Emerald (Text/Icons) */
+  --color-success-100: #ecfdf5;
+}

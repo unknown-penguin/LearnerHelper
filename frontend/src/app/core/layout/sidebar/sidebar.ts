@@ -7,6 +7,6 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './sidebar.html',
 })
 export class Sidebar {
-   @Input() user!: { name: string;};
-   @Input() version!: string;
+  @Input() user?: { name: string };
+  @Input() version!: string;
 }
