@@ -21,15 +21,11 @@ async function bootstrap() {
     }),
   );
 
-  // Swagger API documentation
   const config = new DocumentBuilder()
     .setTitle('Learner Helper API')
     .setDescription('API for the Learner Helper learning management system')
     .setVersion('1.0')
-    .addTag('users', 'User management endpoints')
-    .addTag('courses', 'Course management endpoints')
-    .addTag('lessons', 'Lesson management endpoints')
-    .addTag('progress', 'Progress tracking endpoints')
+    .addTag('dictionary', 'Dictionary endpoints')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
