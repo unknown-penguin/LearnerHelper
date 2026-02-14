@@ -2,7 +2,8 @@ import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common'
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { LanguageService } from './language.service';
 import { Language } from '@prisma/client';
-import { CreateLanguageDto, UpdateLanguageDto } from './language.dto';
+import { CreateLanguageDto } from './dto/create-language.dto';
+import { UpdateLanguageDto } from './dto/update-language.dto';
 
 @ApiTags('languages')
 @Controller('languages')

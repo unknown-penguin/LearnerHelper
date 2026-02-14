@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { prisma } from 'src/prisma';
 import { Word } from '@prisma/client';
-import { CreateWordDto, UpdateWordDto } from './word.dto';
+import { CreateWordDto } from './dto/create-word.dto';
+import { UpdateWordDto } from './dto/update-word.dto';
 
 export interface WordWithLanguage {
   id: string;

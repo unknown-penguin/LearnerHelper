@@ -38,6 +38,18 @@ export abstract class BaseHttpService<T, ID = string> {
     }
   }
 
+  protected async query(params: Record<string, any>): Promise<T[]> {
+    try {
+      return await firstValueFrom(
+        this.http.get<T[]>(this.buildUrl(), { params })
+      );
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : 'Failed to query';
+      console.error(msg, error);
+      return [];
+    }
+  }
+
   async create(data: Partial<T>): Promise<T> {
     this.loading.set(true);
     this.error.set(null);

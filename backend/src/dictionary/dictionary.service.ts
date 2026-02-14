@@ -1,7 +1,8 @@
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 import { prisma } from 'src/prisma';
 import { Dictionary } from '@prisma/client';
-import { CreateDictionaryDto, UpdateDictionaryDto } from './dictionary.dto';
+import { CreateDictionaryDto } from './dto/create-dictionary.dto';
+import { UpdateDictionaryDto } from './dto/update-dictionary.dto';
 
 const DICTIONARY_INCLUDE = {
   _count: { select: { words: true } },

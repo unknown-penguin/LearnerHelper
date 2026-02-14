@@ -2,7 +2,8 @@ import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common'
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { DictionaryService } from './dictionary.service';
 import { Dictionary } from '@prisma/client';
-import { CreateDictionaryDto, UpdateDictionaryDto } from './dictionary.dto';
+import { CreateDictionaryDto } from './dto/create-dictionary.dto';
+import { UpdateDictionaryDto } from './dto/update-dictionary.dto';
 
 @ApiTags('dictionaries')
 @Controller('dictionaries')

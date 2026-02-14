@@ -95,52 +95,46 @@ export class Dictionary {
     this.selectedEntry = null;
   }
 
-  handleSave(entry: WordEntry): void {
+  async handleSave(entry: WordEntry): Promise<void> {
     const dictionaryId = this.dictionaryState.currentDictionaryId();
     if (!dictionaryId) return;
 
     const isEditing = entry.id?.trim().length > 0;
 
     if (isEditing) {
-      this.wordService.update(entry.id, {
+      await this.wordService.updateWord(entry.id, {
         word: entry.word,
         definition: entry.definition,
         partOfSpeech: entry.partOfSpeech,
         languageLevel: entry.languageLevel,
-      }).subscribe(() => {
-        this.loadEntries(dictionaryId);
-        this.dictionaryState.loadDictionaries();
-        this.closeForm();
       });
     } else {
-      this.wordService.create({
+      await this.wordService.createWord({
         word: entry.word,
         definition: entry.definition,
         partOfSpeech: entry.partOfSpeech,
         languageLevel: entry.languageLevel,
         dictionaryId,
-      }).subscribe(() => {
-        this.loadEntries(dictionaryId);
-        this.dictionaryState.loadDictionaries();
-        this.closeForm();
       });
     }
+    
+    await this.loadEntries(dictionaryId);
+    await this.dictionaryState.loadDictionaries();
+    this.closeForm();
   }
 
-  handleDelete(entry: WordEntry): void {
+  async handleDelete(entry: WordEntry): Promise<void> {
     const dictionaryId = this.dictionaryState.currentDictionaryId();
     if (!dictionaryId || !entry.id) return;
 
-    this.wordService.delete(entry.id).subscribe(() => {
-      this.loadEntries(dictionaryId);
-      this.dictionaryState.loadDictionaries();
-      this.closeForm();
-    });
+    await this.wordService.deleteWord(entry.id);
+    await this.loadEntries(dictionaryId);
+    await this.dictionaryState.loadDictionaries();
+    this.closeForm();
   }
 
-  private loadEntries(dictionaryId: string): void {
-    this.wordService
-      .getByDictionary(dictionaryId)
-      .subscribe((data) => this.entries.set(data));
+  private async loadEntries(dictionaryId: string): Promise<void> {
+    const data = await this.wordService.getByDictionary(dictionaryId);
+    this.entries.set(data);
   }
 }

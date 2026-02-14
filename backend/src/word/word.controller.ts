@@ -2,7 +2,8 @@ import { Controller, Get, Post, Put, Delete, Param, Query, Body } from '@nestjs/
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { WordService, WordWithLanguage } from './word.service';
 import { Word } from '@prisma/client';
-import { CreateWordDto, UpdateWordDto } from './word.dto';
+import { CreateWordDto } from './dto/create-word.dto';
+import { UpdateWordDto } from './dto/update-word.dto';
 
 @ApiTags('words')
 @Controller('words')

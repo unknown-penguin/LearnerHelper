@@ -41,17 +41,16 @@ export class Quiz implements OnInit {
     this.loadQuiz(dictionaryId);
   }
 
-  private loadQuiz(dictionaryId: string): void {
-    this.wordService.getByDictionary(dictionaryId).subscribe((words) => {
-      if (words.length === 0) {
-        this.router.navigate(['/quiz-setup']);
-        return;
-      }
-      const shuffled = [...words].sort(() => Math.random() - 0.5);
-      this.questions.set(shuffled);
-      this.currentQuestionIndex.set(0);
-      this.score.set(0);
-    });
+  private async loadQuiz(dictionaryId: string): Promise<void> {
+    const words = await this.wordService.getByDictionary(dictionaryId);
+    if (words.length === 0) {
+      this.router.navigate(['/quiz-setup']);
+      return;
+    }
+    const shuffled = [...words].sort(() => Math.random() - 0.5);
+    this.questions.set(shuffled);
+    this.currentQuestionIndex.set(0);
+    this.score.set(0);
   }
 
   submitAnswer(): void {
