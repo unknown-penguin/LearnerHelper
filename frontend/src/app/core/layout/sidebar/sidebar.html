@@ -2,7 +2,7 @@
     <div class="flex items-center justify-between border-b border-primary-900/50 px-4 py-5">
         <div class="border-l-4 border-primary-400/70 pl-3">
             <p class="text-[11px] uppercase tracking-[0.24em] text-primary-200/80">Learner</p>
-            <h2 class="text-xl font-semibold leading-tight text-white">Helper</h2>
+            <h2 class="text-xl font-semibold leading-tight text-surface-100">Helper</h2>
         </div>
     </div>
 
@@ -29,7 +29,7 @@
                         <button (click)="selectDictionary(dict.id)"
                             class="flex w-full items-center justify-between rounded-md px-3 py-1.5 text-xs font-medium transition-colors hover:bg-primary-900/30 hover:text-primary-50"
                             [class.bg-primary-900/50]="dict.id === dictionaryState.currentDictionaryId()"
-                            [class.text-white]="dict.id === dictionaryState.currentDictionaryId()"
+                            [class.text-surface-100]="dict.id === dictionaryState.currentDictionaryId()"
                             [class.text-surface-300]="dict.id !== dictionaryState.currentDictionaryId()">
                             <span class="truncate">{{ dict.name }}</span>
                             @if(dict._count?.words !== undefined) {
@@ -43,25 +43,25 @@
                 }
             </li>
             <!-- <li>
-                <a routerLink="/courses" routerLinkActive="bg-primary-900/50 text-white shadow-inner ring-1 ring-primary-700/50"
+                <a routerLink="/quiz" routerLinkActive="bg-primary-900/50 text-surface-100 shadow-inner ring-1 ring-primary-700/50"
                     class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-surface-200 transition-colors hover:bg-primary-900/40 hover:text-primary-50">
-                    Courses
+                    Quiz
                 </a>
             </li> -->
             <li>
-                <a routerLink="/manage-dictionaries" routerLinkActive="bg-primary-900/50 text-white shadow-inner ring-1 ring-primary-700/50"
+                <a routerLink="/manage-dictionaries" routerLinkActive="bg-primary-900/50 text-surface-100 shadow-inner ring-1 ring-primary-700/50"
                     class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-surface-200 transition-colors hover:bg-primary-900/40 hover:text-primary-50">
                     Manage Dictionaries
                 </a>
             </li>
             <li>
-                <a routerLink="/languages" routerLinkActive="bg-primary-900/50 text-white shadow-inner ring-1 ring-primary-700/50"
+                <a routerLink="/languages" routerLinkActive="bg-primary-900/50 text-surface-100 shadow-inner ring-1 ring-primary-700/50"
                     class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-surface-200 transition-colors hover:bg-primary-900/40 hover:text-primary-50">
                     Languages
                 </a>
             </li>
             <li>
-                <a routerLink="/settings" routerLinkActive="bg-primary-900/50 text-white shadow-inner ring-1 ring-primary-700/50"
+                <a routerLink="/settings" routerLinkActive="bg-primary-900/50 text-surface-100 shadow-inner ring-1 ring-primary-700/50"
                     class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-surface-200 transition-colors hover:bg-primary-900/40 hover:text-primary-50">
                     Settings
                 </a>
@@ -73,7 +73,7 @@
         <div class="flex items-center justify-between">
             <div>
                 <p class="text-xs uppercase tracking-[0.18em] text-primary-200/80">Welcome back</p>
-                <p class="font-semibold text-white">{{ user?.name || 'Guest' }}</p>
+                <p class="font-semibold text-surface-100">{{ user?.name || 'Guest' }}</p>
             </div>
             <span class="rounded-full border border-primary-700/50 bg-primary-900/60 px-2.5 py-1 text-[10px] font-semibold text-primary-100 shadow-lg shadow-primary-900/40">v{{ version }}</span>
         </div>

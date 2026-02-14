@@ -1,76 +1,56 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Dictionary } from '../models/dictionary.model';
-import { environment } from '../../../../environments/environment';
-import { firstValueFrom } from 'rxjs';
+import { BaseHttpService } from '../../../core/utils/base-http.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DictionaryStateService {
-  private dictionaries = signal<Dictionary[]>([]);
+export class DictionaryStateService extends BaseHttpService<Dictionary> {
+  protected endpoint = 'dictionaries';
+  
   private selectedDictionaryId = signal<string | null>(null);
 
-  public readonly allDictionaries = this.dictionaries.asReadonly();
+  public readonly allDictionaries = this.all;
   public readonly currentDictionaryId = this.selectedDictionaryId.asReadonly();
   
   public readonly selectedDictionary = computed(() => {
     const id = this.selectedDictionaryId();
-    return this.dictionaries().find(d => d.id === id) || null;
+    return this.items().find(d => d.id === id) || null;
   });
 
-  constructor(private readonly http: HttpClient) {
+  constructor(http: HttpClient) {
+    super(http);
     this.loadDictionaries();
   }
 
   public async loadDictionaries(): Promise<void> {
-    try {
-      const dicts = await firstValueFrom(
-        this.http.get<Dictionary[]>(`${environment.apiUrl}/dictionaries`)
-      );
-      this.dictionaries.set(dicts);
-      
-      // Auto-select first dictionary if none selected
-      if (!this.selectedDictionaryId() && dicts.length > 0) {
-        this.selectedDictionaryId.set(dicts[0].id);
-      }
-    } catch (error) {
-      console.error('Error loading dictionaries:', error);
-      this.dictionaries.set([]);
+    await this.load();
+    
+    if (!this.selectedDictionaryId() && this.items().length > 0) {
+      this.selectedDictionaryId.set(this.items()[0].id);
     }
   }
 
   public selectDictionary(id: string): void {
-    const exists = this.dictionaries().some(d => d.id === id);
+    const exists = this.items().some(d => d.id === id);
     if (exists) {
       this.selectedDictionaryId.set(id);
     }
   }
 
   public async createDictionary(data: { name: string; languageId: string }): Promise<Dictionary> {
-    const dict = await firstValueFrom(
-      this.http.post<Dictionary>(`${environment.apiUrl}/dictionaries`, data)
-    );
-    await this.loadDictionaries();
-    return dict;
+    return await this.create(data);
   }
 
   public async updateDictionary(id: string, data: { name?: string; languageId?: string }): Promise<Dictionary> {
-    const dict = await firstValueFrom(
-      this.http.put<Dictionary>(`${environment.apiUrl}/dictionaries/${id}`, data)
-    );
-    await this.loadDictionaries();
-    return dict;
+    return await this.update(id, data);
   }
 
   public async deleteDictionary(id: string): Promise<void> {
-    await firstValueFrom(
-      this.http.delete(`${environment.apiUrl}/dictionaries/${id}`)
-    );
-    // If we deleted the selected dictionary, clear selection
     if (this.selectedDictionaryId() === id) {
       this.selectedDictionaryId.set(null);
     }
-    await this.loadDictionaries();
+    await this.delete(id);
   }
 }

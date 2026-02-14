@@ -1,7 +1,10 @@
 import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { DictionaryService } from './dictionary.service';
 import { Dictionary } from '@prisma/client';
+import { CreateDictionaryDto, UpdateDictionaryDto } from './dictionary.dto';
 
+@ApiTags('dictionaries')
 @Controller('dictionaries')
 export class DictionaryController {
   constructor(private readonly dictionaryService: DictionaryService) {}
@@ -17,14 +20,14 @@ export class DictionaryController {
   }
 
   @Post()
-  createDictionary(@Body() body: { name: string; languageId: string }): Promise<Dictionary> {
+  createDictionary(@Body() body: CreateDictionaryDto): Promise<Dictionary> {
     return this.dictionaryService.createDictionary(body);
   }
 
   @Put(':id')
   updateDictionary(
     @Param('id') id: string,
-    @Body() body: { name?: string; languageId?: string },
+    @Body() body: UpdateDictionaryDto,
   ): Promise<Dictionary> {
     return this.dictionaryService.updateDictionary(id, body);
   }

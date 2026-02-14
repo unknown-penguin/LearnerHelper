@@ -1,7 +1,10 @@
 import { Controller, Get, Post, Put, Delete, Param, Query, Body } from '@nestjs/common';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { WordService, WordWithLanguage } from './word.service';
 import { Word } from '@prisma/client';
+import { CreateWordDto, UpdateWordDto } from './word.dto';
 
+@ApiTags('words')
 @Controller('words')
 export class WordController {
   constructor(private readonly wordService: WordService) {}
@@ -17,12 +20,12 @@ export class WordController {
   }
 
   @Post()
-  create(@Body() data: Omit<Word, 'id'>): Promise<Word> {
+  create(@Body() data: CreateWordDto): Promise<Word> {
     return this.wordService.create(data);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() data: Partial<Omit<Word, 'id'>>): Promise<Word> {
+  update(@Param('id') id: string, @Body() data: UpdateWordDto): Promise<Word> {
     return this.wordService.update(id, data);
   }
 

@@ -1,7 +1,10 @@
 import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { LanguageService } from './language.service';
 import { Language } from '@prisma/client';
+import { CreateLanguageDto, UpdateLanguageDto } from './language.dto';
 
+@ApiTags('languages')
 @Controller('languages')
 export class LanguageController {
   constructor(private readonly languageService: LanguageService) {}
@@ -17,14 +20,14 @@ export class LanguageController {
   }
 
   @Post()
-  createLanguage(@Body() body: { name: string; code: string }): Promise<Language> {
+  createLanguage(@Body() body: CreateLanguageDto): Promise<Language> {
     return this.languageService.createLanguage(body);
   }
 
   @Put(':id')
   updateLanguage(
     @Param('id') id: string,
-    @Body() body: { name?: string; code?: string },
+    @Body() body: UpdateLanguageDto,
   ): Promise<Language> {
     return this.languageService.updateLanguage(id, body);
   }

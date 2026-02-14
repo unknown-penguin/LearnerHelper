@@ -13,7 +13,7 @@ export class ThemeService {
   static readonly THEMES: ThemeOption[] = [
     { id: 'cyan',  label: 'Cyan' },
     { id: 'green', label: 'Green' },
-    { id: 'medium-gray', label: 'Medium Gray' },
+    { id: 'medium-gray', label: 'Light' },
   ];
 
   readonly themes = ThemeService.THEMES;

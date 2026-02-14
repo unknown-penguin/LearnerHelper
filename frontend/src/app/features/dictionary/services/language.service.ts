@@ -1,52 +1,33 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Language } from '../models/language.model';
-import { environment } from '../../../../environments/environment';
-import { firstValueFrom } from 'rxjs';
+import { BaseHttpService } from '../../../core/utils/base-http.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LanguageService {
-  private languages = signal<Language[]>([]);
-  public readonly allLanguages = this.languages.asReadonly();
+export class LanguageService extends BaseHttpService<Language> {
+  protected endpoint = 'languages';
+  public readonly allLanguages = this.all;
 
-  constructor(private readonly http: HttpClient) {
+  constructor(http: HttpClient) {
+    super(http);
     this.loadLanguages();
   }
 
-  public async loadLanguages(): Promise<void> {
-    try {
-      const languages = await firstValueFrom(
-        this.http.get<Language[]>(`${environment.apiUrl}/languages`)
-      );
-      this.languages.set(languages);
-    } catch (error) {
-      console.error('Error loading languages:', error);
-      this.languages.set([]);
-    }
+  async loadLanguages(): Promise<void> {
+    return this.load();
   }
 
-  public async createLanguage(data: { name: string; code: string }): Promise<Language> {
-    const language = await firstValueFrom(
-      this.http.post<Language>(`${environment.apiUrl}/languages`, data)
-    );
-    await this.loadLanguages();
-    return language;
+  async createLanguage(data: { name: string; code: string }): Promise<Language> {
+    return this.create(data);
   }
 
-  public async updateLanguage(id: string, data: { name?: string; code?: string }): Promise<Language> {
-    const language = await firstValueFrom(
-      this.http.put<Language>(`${environment.apiUrl}/languages/${id}`, data)
-    );
-    await this.loadLanguages();
-    return language;
+  async updateLanguage(id: string, data: { name?: string; code?: string }): Promise<Language> {
+    return this.update(id, data);
   }
 
-  public async deleteLanguage(id: string): Promise<void> {
-    await firstValueFrom(
-      this.http.delete(`${environment.apiUrl}/languages/${id}`)
-    );
-    await this.loadLanguages();
+  async deleteLanguage(id: string): Promise<void> {
+    return this.delete(id);
   }
 }

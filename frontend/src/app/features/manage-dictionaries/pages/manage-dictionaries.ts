@@ -1,83 +1,61 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DictionaryStateService } from '../../dictionary/services/dictionary-state.service';
 import { LanguageService } from '../../dictionary/services/language.service';
 import { Dictionary } from '../../dictionary/models/dictionary.model';
+import { BaseModalForm } from '../../../core/utils/base-modal-form';
+import { FormConfigFactory, FormDefaultValues, DictionaryFormValue } from '../../../core/utils/form-config.factory';
+import { findNameById } from '../../../core/utils/lookup.util';
+
 
 @Component({
   selector: 'app-manage-dictionaries',
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './manage-dictionaries.html',
 })
-export class ManageDictionaries {
+export class ManageDictionaries extends BaseModalForm<Dictionary, DictionaryFormValue> {
   readonly dictionaryState = inject(DictionaryStateService);
   readonly languageService = inject(LanguageService);
-  private readonly fb = inject(FormBuilder);
+  private readonly formFactory = inject(FormConfigFactory);
 
-  isFormOpen = signal(false);
-  editingDictionary = signal<Dictionary | null>(null);
+  readonly editingDictionary = this.editingItem;
 
-  form: FormGroup<{
+  protected form: FormGroup<{
     name: FormControl<string>;
     languageId: FormControl<string>;
   }>;
 
   constructor() {
-    this.form = this.fb.nonNullable.group({
-      name: ['', Validators.required],
-      languageId: ['', Validators.required],
-    });
+    super();
+    this.form = this.formFactory.createDictionaryForm();
   }
 
-  openCreateForm(): void {
-    this.editingDictionary.set(null);
-    this.form.reset({ name: '', languageId: '' });
-    this.isFormOpen.set(true);
+  protected override getDefaultFormValues(): DictionaryFormValue {
+    return FormDefaultValues.dictionary();
   }
 
-  openEditForm(dict: Dictionary): void {
-    this.editingDictionary.set(dict);
-    this.form.reset({ name: dict.name, languageId: dict.languageId });
-    this.isFormOpen.set(true);
+  protected override mapEntityToFormValues(dictionary: Dictionary): DictionaryFormValue {
+    return { name: dictionary.name, languageId: dictionary.languageId };
   }
 
-  closeForm(): void {
-    this.isFormOpen.set(false);
-    this.editingDictionary.set(null);
+  protected override getEntityId(dictionary: Dictionary): string {
+    return dictionary.id;
   }
 
-  async onSubmit(): Promise<void> {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-
-    const values = this.form.getRawValue();
-    const editing = this.editingDictionary();
-
-    try {
-      if (editing) {
-        await this.dictionaryState.updateDictionary(editing.id, values);
-      } else {
-        await this.dictionaryState.createDictionary(values);
-      }
-      this.closeForm();
-    } catch (error) {
-      console.error('Error saving dictionary:', error);
-    }
+  protected override async create(values: DictionaryFormValue): Promise<Dictionary> {
+    return this.dictionaryState.createDictionary(values);
   }
 
-  async onDelete(dict: Dictionary): Promise<void> {
-    try {
-      await this.dictionaryState.deleteDictionary(dict.id);
-    } catch (error) {
-      console.error('Error deleting dictionary:', error);
-    }
+  protected override async update(id: string, values: DictionaryFormValue): Promise<Dictionary> {
+    return this.dictionaryState.updateDictionary(id, values);
+  }
+
+  protected override async delete(id: string): Promise<void> {
+    return this.dictionaryState.deleteDictionary(id);
   }
 
   getLanguageName(languageId: string): string {
-    const lang = this.languageService.allLanguages().find(l => l.id === languageId);
-    return lang?.name ?? '—';
+    return findNameById(this.languageService.allLanguages(), languageId);
   }
 }

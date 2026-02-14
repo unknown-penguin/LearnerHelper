@@ -9,7 +9,7 @@ import { ThemeService } from './core/services/theme.service';
   templateUrl: './app.html',
 })
 export class App {
-  private readonly theme = inject(ThemeService);   // ensure theme is applied on startup
+  private readonly theme = inject(ThemeService);
   protected readonly title = signal('frontend');
   user = { name: 'The Creator' };
   version = '1.0.0 alpha';

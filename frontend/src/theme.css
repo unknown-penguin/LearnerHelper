@@ -128,37 +128,41 @@
   --color-danger-100: #ffe4e6;
 }
 /* ═══════════════════════════════════════════════════════════════════════
- *  LIGHT GRAY  — surface: gray · primary: gray
- *  A more neutral, less "colorful" option for users who prefer it
+ *  LIGHT  — light theme with neutral gray tones
  * ═══════════════════════════════════════════════════════════════════════ */
 
 :root.theme-medium-gray {
-  /* Surface: Compressed scale starting at Medium Gray (950) up to White (100) */
-  --color-surface-950: #52525b; /* Medium Gray Background (Zinc 600) */
-  --color-surface-900: #5f6168; /* Slightly lighter/tinted surface */
-  --color-surface-800: #71717a; /* Zinc 500 */
-  --color-surface-700: #a1a1aa; /* Zinc 400 */
-  --color-surface-500: #d4d4d8; /* Zinc 300 */
-  --color-surface-400: #e4e4e7;
-  --color-surface-300: #f4f4f5;
-  --color-surface-200: #fafafa;
-  --color-surface-100: #ffffff; /* Pure White Text */
+  --color-surface-950: #ffffff;
+  --color-surface-900: #f9fafb;
+  --color-surface-800: #f3f4f6;
+  --color-surface-700: #e5e7eb;
+  --color-surface-500: #9ca3af;
+  --color-surface-400: #6b7280;
+  --color-surface-300: #4b5563;
+  --color-surface-200: #374151;
+  --color-surface-100: #1f2937;
 
-  /* Primary: Bright Silver/White to contrast with Medium Gray BG */
-  --color-primary-950: #18181b; /* Darkest for contrast text on primary buttons */
-  --color-primary-900: #27272a;
-  --color-primary-800: #3f3f46;
-  --color-primary-700: #52525b;
+  --color-primary-950: #fafafa;
+  --color-primary-900: #f4f4f5;
+  --color-primary-800: #e4e4e7;
+  --color-primary-700: #d4d4d8;
   --color-primary-600: #a1a1aa;
-  --color-primary-500: #e4e4e7; /* Primary Button is Light Silver/White */
-  --color-primary-400: #f4f4f5;
-  --color-primary-200: #fafafa;
-  --color-primary-100: #ffffff;
-  --color-primary-50:  #ffffff;
+  --color-primary-500: #71717a;
+  --color-primary-400: #52525b;
+  --color-primary-200: #3f3f46;
+  --color-primary-100: #27272a;
+  --color-primary-50:  #18181b;
 
-  /* Functional Colors: Adjusted to ensure visibility on Gray-600 background */
-  
-  --color-success-900: #064e3b; /* Deep Green (Backgrounds) */
-  --color-success-400: #34d399; /* Bright Emerald (Text/Icons) */
-  --color-success-100: #ecfdf5;
+  --color-success-900: #d1fae5;
+  --color-success-400: #059669;
+  --color-success-100: #064e3b;
+
+  --color-warning-900: #fef3c7;
+  --color-warning-400: #f59e0b;
+  --color-warning-100: #78350f;
+
+  --color-danger-900: #ffe4e6;
+  --color-danger-400: #e11d48;
+  --color-danger-300: #be123c;
+  --color-danger-100: #881337;
 }

@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { prisma } from 'src/prisma';
 import { Word } from '@prisma/client';
+import { CreateWordDto, UpdateWordDto } from './word.dto';
 
 export interface WordWithLanguage {
   id: string;
@@ -30,18 +31,43 @@ export class WordService {
   }
 
   async getById(id: string): Promise<Word | null> {
-    return prisma.word.findUnique({ where: { id } });
+    const word = await prisma.word.findUnique({ where: { id } });
+    if (!word) {
+      throw new NotFoundException('Word not found');
+    }
+    return word;
   }
 
-  async create(data: Omit<Word, 'id'>): Promise<Word> {
-    return prisma.word.create({ data });
+  async create(data: CreateWordDto): Promise<Word> {
+    try {
+      return await prisma.word.create({ data });
+    } catch (error) {
+      if (error.code === 'P2003') {
+        throw new NotFoundException('Dictionary not found');
+      }
+      throw error;
+    }
   }
 
-  async update(id: string, data: Partial<Omit<Word, 'id'>>): Promise<Word> {
-    return prisma.word.update({ where: { id }, data });
+  async update(id: string, data: UpdateWordDto): Promise<Word> {
+    try {
+      return await prisma.word.update({ where: { id }, data });
+    } catch (error) {
+      if (error.code === 'P2025') {
+        throw new NotFoundException('Word not found');
+      }
+      throw error;
+    }
   }
 
   async delete(id: string): Promise<Word> {
-    return prisma.word.delete({ where: { id } });
+    try {
+      return await prisma.word.delete({ where: { id } });
+    } catch (error) {
+      if (error.code === 'P2025') {
+        throw new NotFoundException('Word not found');
+      }
+      throw error;
+    }
   }
 }

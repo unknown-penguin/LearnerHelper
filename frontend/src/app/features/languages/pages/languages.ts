@@ -1,76 +1,68 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LanguageService } from '../../dictionary/services/language.service';
+import { DictionaryStateService } from '../../dictionary/services/dictionary-state.service';
 import { Language } from '../../dictionary/models/language.model';
+import { BaseModalForm } from '../../../core/utils/base-modal-form';
+import { FormConfigFactory, FormDefaultValues, LanguageFormValue } from '../../../core/utils/form-config.factory';
+
 
 @Component({
   selector: 'app-languages',
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './languages.html',
 })
-export class Languages {
+export class Languages extends BaseModalForm<Language, LanguageFormValue> {
   readonly languageService = inject(LanguageService);
-  private readonly fb = inject(FormBuilder);
+  readonly dictionaryState = inject(DictionaryStateService);
+  private readonly formFactory = inject(FormConfigFactory);
 
-  isFormOpen = signal(false);
-  editingLanguage = signal<Language | null>(null);
+  readonly editingLanguage = this.editingItem;
 
-  form: FormGroup<{
+  protected form: FormGroup<{
     name: FormControl<string>;
     code: FormControl<string>;
   }>;
 
   constructor() {
-    this.form = this.fb.nonNullable.group({
-      name: ['', Validators.required],
-      code: ['', [Validators.required, Validators.maxLength(5)]],
-    });
+    super();
+    this.form = this.formFactory.createLanguageForm();
   }
 
-  openCreateForm(): void {
-    this.editingLanguage.set(null);
-    this.form.reset({ name: '', code: '' });
-    this.isFormOpen.set(true);
+  protected override getDefaultFormValues(): LanguageFormValue {
+    return FormDefaultValues.language();
   }
 
-  openEditForm(language: Language): void {
-    this.editingLanguage.set(language);
-    this.form.reset({ name: language.name, code: language.code });
-    this.isFormOpen.set(true);
+  protected override mapEntityToFormValues(language: Language): LanguageFormValue {
+    return { name: language.name, code: language.code };
   }
 
-  closeForm(): void {
-    this.isFormOpen.set(false);
-    this.editingLanguage.set(null);
+  protected override getEntityId(language: Language): string {
+    return language.id;
   }
 
-  async onSubmit(): Promise<void> {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
+  protected override validateDelete(language: Language): string | null {
+    const dictionariesWithLanguage = this.dictionaryState.allDictionaries().filter(
+      d => d.languageId === language.id
+    );
+
+    if (dictionariesWithLanguage.length > 0) {
+      return `Cannot delete this language. It is used by ${dictionariesWithLanguage.length} dictionary(ies): ${dictionariesWithLanguage.map(d => d.name).join(', ')}`;
     }
 
-    const values = this.form.getRawValue();
-    const editing = this.editingLanguage();
-
-    try {
-      if (editing) {
-        await this.languageService.updateLanguage(editing.id, values);
-      } else {
-        await this.languageService.createLanguage(values);
-      }
-      this.closeForm();
-    } catch (error) {
-      console.error('Error saving language:', error);
-    }
+    return null;
   }
 
-  async onDelete(language: Language): Promise<void> {
-    try {
-      await this.languageService.deleteLanguage(language.id);
-    } catch (error) {
-      console.error('Error deleting language:', error);
-    }
+  protected override async create(values: LanguageFormValue): Promise<Language> {
+    return this.languageService.createLanguage(values);
+  }
+
+  protected override async update(id: string, values: LanguageFormValue): Promise<Language> {
+    return this.languageService.updateLanguage(id, values);
+  }
+
+  protected override async delete(id: string): Promise<void> {
+    return this.languageService.deleteLanguage(id);
   }
 }

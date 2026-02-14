@@ -5,11 +5,11 @@
 			<p class="text-[11px] uppercase tracking-[0.24em] text-primary-200/80">Dictionary</p>
 			<div class="relative">
 				<button (click)="toggleDropdown()"
-					class="flex items-center gap-2 text-3xl font-semibold text-white hover:text-primary-50 transition-colors group">
+					class="flex items-center gap-2 text-3xl font-semibold text-surface-100 hover:text-primary-50 transition-colors group">
 					@if(dictionaryState.selectedDictionary(); as dict) {
 					<span>{{ dict.name }}</span>
 					} @else {
-					<span class="text-white/50">No Dictionary Selected</span>
+					<span class="text-surface-100/50">No Dictionary Selected</span>
 					}
 					<svg class="h-6 w-6 transition-transform text-primary-400 group-hover:text-primary-300" [class.rotate-180]="isDropdownOpen()" xmlns="http://www.w3.org/2000/svg"
 						viewBox="0 0 20 20" fill="currentColor">
@@ -75,16 +75,16 @@
 					@else {
 					<tr *ngFor="let entry of entries(); let i = index" (click)="openEditForm(entry)"
 						class="border-b border-surface-800/60 bg-surface-900/40 hover:bg-primary-900/40 hover:text-primary-50 transition-colors cursor-pointer">
-						<td class="px-5 py-4 text-base font-semibold text-white truncate">{{ entry.word }}</td>
-						<td class="px-5 py-4 capitalize text-surface-300 truncate">{{ entry.partOfSpeech }}</td>
-						<td class="px-5 py-4 text-surface-100 truncate">{{ entry.definition }}</td>
-						<td class="px-5 py-4 text-surface-200 truncate">
+						<td class="px-5 py-5 text-base font-semibold text-surface-100 truncate">{{ entry.word }}</td>
+						<td class="px-5 py-5 capitalize text-surface-300 truncate">{{ entry.partOfSpeech }}</td>
+						<td class="px-5 py-5 text-surface-100 truncate">{{ entry.definition }}</td>
+						<td class="px-5 py-5 text-surface-200 truncate">
 							<span
 								class="inline-flex items-center rounded bg-primary-900/70 px-2.5 py-1 text-[11px] font-semibold text-primary-100 ring-1 ring-primary-600/40">{{
 								entry.language }}</span>
 
 						</td>
-						<td class="px-5 py-4">
+						<td class="px-5 py-5">
 							<app-level-label [level]="entry.languageLevel"></app-level-label>
 						</td>
 					</tr>
