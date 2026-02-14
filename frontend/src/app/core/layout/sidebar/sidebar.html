@@ -9,11 +9,38 @@
     <nav class="flex-1 px-3 py-4">
         <ul class="space-y-1">
             <li>
-                <a routerLink="/dictionary" [routerLinkActiveOptions]="{ exact: true }"
-                    routerLinkActive="bg-primary-900/50 text-white shadow-inner ring-1 ring-primary-700/50"
-                    class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-surface-200 transition-colors hover:bg-primary-900/40 hover:text-primary-50">
-                    Dictionary
-                </a>
+                <!-- Dictionary expandable section -->
+                <button (click)="toggleDictionary()"
+                    class="flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-medium text-surface-200 transition-colors hover:bg-primary-900/40 hover:text-primary-50">
+                    <span>Dictionary</span>
+                    <svg class="h-4 w-4 transition-transform" [class.rotate-90]="isDictionaryExpanded()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                
+                <!-- Dictionary list -->
+                @if(isDictionaryExpanded()) {
+                <ul class="mt-1 space-y-0.5 pl-3 border-l border-primary-900/40 ml-3">
+                    @if(dictionaryState.allDictionaries().length === 0) {
+                    <li class="px-3 py-1.5 text-xs text-surface-500">No dictionaries</li>
+                    } @else {
+                    @for (dict of dictionaryState.allDictionaries(); track dict.id) {
+                    <li>
+                        <button (click)="selectDictionary(dict.id)"
+                            class="flex w-full items-center justify-between rounded-md px-3 py-1.5 text-xs font-medium transition-colors hover:bg-primary-900/30 hover:text-primary-50"
+                            [class.bg-primary-900/50]="dict.id === dictionaryState.currentDictionaryId()"
+                            [class.text-white]="dict.id === dictionaryState.currentDictionaryId()"
+                            [class.text-surface-300]="dict.id !== dictionaryState.currentDictionaryId()">
+                            <span class="truncate">{{ dict.name }}</span>
+                            @if(dict._count?.words !== undefined) {
+                            <span class="ml-2 text-[10px] text-surface-400">{{ dict._count?.words }}</span>
+                            }
+                        </button>
+                    </li>
+                    }
+                    }
+                </ul>
+                }
             </li>
             <!-- <li>
                 <a routerLink="/courses" routerLinkActive="bg-primary-900/50 text-white shadow-inner ring-1 ring-primary-700/50"

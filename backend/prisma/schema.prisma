@@ -13,8 +13,21 @@ datasource db {
   schemas  = ["knowledge"]
 }
 
+enum PartOfSpeech {
+  noun
+  verb
+  adjective
+  adverb
+  pronoun
+  preposition
+  conjunction
+  interjection
+
+  @@schema("knowledge")
+}
+
 model Language{
-  id Int @id @default(autoincrement())
+  id String @id @default(cuid())
   name String @unique
   code String @unique
   dictionaries Dictionary[]
@@ -23,23 +36,23 @@ model Language{
 }
 
 model Dictionary{
-  id Int @id @default(autoincrement())
+  id String @id @default(cuid())
   name String @unique
   language Language  @relation(fields: [languageId], references: [id])
-  languageId Int
+  languageId String
   words Word[]
 
   @@schema("knowledge")
 }
 
 model Word{
-  id Int @id @default(autoincrement())
-  name String
-  partOfSpeech String
+  id String @id @default(cuid())
+  word String
+  partOfSpeech PartOfSpeech
   definition String
   languageLevel String
   dictionary Dictionary @relation(fields: [dictionaryId], references: [id])
-  dictionaryId Int
+  dictionaryId String
 
   @@schema("knowledge")
 }

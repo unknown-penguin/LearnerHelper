@@ -5,6 +5,12 @@ import { Dictionary } from '@prisma/client';
 @Injectable()
 export class DictionaryService {
   async getDictionary(): Promise<Dictionary[]> { 
-    return await prisma.dictionary.findMany();
+    return await prisma.dictionary.findMany({
+      include: {
+        _count: {
+          select: { words: true }
+        }
+      }
+    });
   }
 }

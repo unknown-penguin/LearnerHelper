@@ -1,32 +1,53 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, effect, inject, OnInit, signal } from '@angular/core';
 import { CreateEditForm } from '../components/create-edit-form/create-edit-form';
 import { wordEntity } from '../models/wordEntity.model';
 import { LevelLabel } from '../components/level-label/level-label';
 import { DictionaryService } from '../services/dictionary-service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DictionaryStateService } from '../services/dictionary-state.service';
+
 @Component({
   selector: 'app-dictionary',
   imports: [CommonModule, CreateEditForm, LevelLabel],
   templateUrl: './dictionary.html',
 })
+
 export class Dictionary implements OnInit {
   private readonly dictionaryService = inject(DictionaryService);
+  readonly dictionaryState = inject(DictionaryStateService);
 
   isFormOpen = false;
   entries = signal<wordEntity[]>([]);
   selectedEntry: wordEntity | null = null;
+  isDropdownOpen = signal(false);
 
-  ngOnInit(): void {
-    this.getEntries();
+  constructor() {
+    effect(() => {
+      const dictionaryId = this.dictionaryState.currentDictionaryId();
+      if (dictionaryId) {
+        this.getEntries(dictionaryId);
+      }
+    });
   }
 
-  getEntries(): void {
+  ngOnInit(): void {
+  }
+
+  getEntries(dictionaryId: string): void {
     this.dictionaryService
-      .getEntries()
+      .getEntries(dictionaryId)
       .subscribe((data) => {
         this.entries.set(data);
       });
+  }
+
+  toggleDropdown(): void {
+    this.isDropdownOpen.update(v => !v);
+  }
+
+  selectDictionary(id: string): void {
+    this.dictionaryState.selectDictionary(id);
+    this.isDropdownOpen.set(false);
   }
 
   openNewEntryForm(): void {
