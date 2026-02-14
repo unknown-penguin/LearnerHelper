@@ -1,4 +1,5 @@
-<div *ngIf="isOpen" class="fixed inset-0 z-40">
+@if(isOpen) {
+<div class="fixed inset-0 z-40">
 	<div class="absolute inset-0 bg-surface-950/80 backdrop-blur-sm" (click)="onCancel()"></div>
 	<div class="relative z-10 flex min-h-full items-center justify-center px-4 py-10" (click)="onCancel()">
 		<section role="dialog" aria-modal="true"
@@ -18,10 +19,11 @@
 						<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Word</span>
 						<input type="text" formControlName="word" placeholder="Enter the word"
 							class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100 placeholder:text-surface-500 focus:border-primary-500 focus:outline-none" />
-						<span class="text-xs text-danger-300"
-							*ngIf="form.controls.word.touched && form.controls.word.invalid">
+						@if(form.controls.word.touched && form.controls.word.invalid) {
+						<span class="text-xs text-danger-300">
 							Word is required.
 						</span>
+						}
 					</label>
 
 					<label class="space-y-2">
@@ -29,9 +31,11 @@
 							speech</span>
 						<select formControlName="partOfSpeech"
 							class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100 focus:border-primary-500 focus:outline-none">
-							<option *ngFor="let option of partOfSpeechOptions" [value]="option">
+							@for(option of partOfSpeechOptions; track option) {
+							<option [value]="option">
 								{{ option }}
 							</option>
+							}
 						</select>
 					</label>
 				</div>
@@ -40,10 +44,11 @@
 					<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Definition</span>
 					<textarea rows="4" formControlName="definition" placeholder="Explain the meaning"
 						class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100 placeholder:text-surface-500 focus:border-primary-500 focus:outline-none"></textarea>
-					<span class="text-xs text-danger-300"
-						*ngIf="form.controls.definition.touched && form.controls.definition.invalid">
+					@if(form.controls.definition.touched && form.controls.definition.invalid) {
+					<span class="text-xs text-danger-300">
 						Definition is required.
 					</span>
+					}
 				</label>
 
 				<div class="grid gap-5 md:grid-cols-2">
@@ -52,14 +57,17 @@
 							level</span>
 						<select formControlName="languageLevel"
 							class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100 focus:border-primary-500 focus:outline-none">
-							<option *ngFor="let level of languageLevels" [value]="level">
+							@for(level of languageLevels; track level) {
+							<option [value]="level">
 								{{ level }}
 							</option>
+							}
 						</select>
 					</label>
 
 					<label class="space-y-2">
-						<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Language</span>
+						<span
+							class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Language</span>
 						<div
 							class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100">
 							{{ language || '—' }}
@@ -74,11 +82,13 @@
 							(click)="onCancel()">
 							Cancel
 						</button>
-						<button *ngIf="isEditing" type="button"
+						@if(isEditing) {
+						<button type="button"
 							class="rounded-full border border-danger-700/50 px-5 py-2 text-sm font-semibold text-danger-300 transition hover:bg-danger-900/50 hover:text-surface-100"
 							(click)="onDelete()">
 							Delete
 						</button>
+						}
 					</div>
 					<button type="submit"
 						class="rounded-full bg-primary-500 px-6 py-2 text-sm font-semibold text-surface-950 shadow-lg shadow-primary-500/30 transition hover:bg-primary-400">
@@ -89,3 +99,4 @@
 		</section>
 	</div>
 </div>
+}

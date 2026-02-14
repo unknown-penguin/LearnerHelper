@@ -1,7 +1,9 @@
-import { Component, inject, Input, signal } from '@angular/core';
+import { Component, inject, Input, signal, computed, effect } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { DictionaryStateService } from '../../../features/dictionary/services/dictionary-state.service';
 import { CommonModule } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,6 +18,24 @@ export class Sidebar {
   readonly dictionaryState = inject(DictionaryStateService);
   isDictionaryExpanded = signal(true);
 
+  readonly currentUrl = toSignal(this.router.events.pipe(map(() => this.router.url)),
+    { initialValue: this.router.url }
+  );
+
+  readonly isDictionaryRoute = computed(() => 
+    this.currentUrl()?.startsWith('/dictionary') ?? false
+  );
+
+  constructor() {
+    effect(() => {
+      if (this.isDictionaryRoute()) {
+        this.isDictionaryExpanded.set(true);
+      } else {
+        this.unselectDictionary();
+      }
+    });
+  }
+
   toggleDictionary(): void {
     this.isDictionaryExpanded.update(v => !v);
   }
@@ -23,5 +43,9 @@ export class Sidebar {
   selectDictionary(id: string): void {
     this.dictionaryState.selectDictionary(id);
     this.router.navigate(['/dictionary']);
+  }
+
+  unselectDictionary(): void {
+    this.dictionaryState.unselectDictionary();
   }
 }

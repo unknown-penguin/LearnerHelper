@@ -39,6 +39,11 @@ export class DictionaryStateService extends BaseHttpService<Dictionary> {
     }
   }
 
+  public unselectDictionary(): void {
+    this.selectedDictionaryId.set(null);
+  }
+
+
   public async createDictionary(data: { name: string; languageId: string }): Promise<Dictionary> {
     return await this.create(data);
   }

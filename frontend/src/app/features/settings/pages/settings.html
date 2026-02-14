@@ -80,7 +80,9 @@
 			<label class="block text-sm">
 				<span class="text-surface-300">Color scheme</span>
 				<select [ngModel]="themeService.current()" (ngModelChange)="themeService.set($event)" class="mt-2 w-full rounded-lg border border-surface-800 bg-surface-950 px-3 py-2 text-sm text-surface-100 focus:border-primary-600 focus:outline-none focus:ring-1 focus:ring-primary-600">
-					<option *ngFor="let t of themeService.themes" [value]="t.id">{{ t.label }}</option>
+				@for(t of themeService.themes; track t.id) {
+				<option [value]="t.id">{{ t.label }}</option>
+				}
 				</select>
 			</label>
 			<label class="block text-sm">

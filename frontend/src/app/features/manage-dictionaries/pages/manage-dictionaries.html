@@ -49,30 +49,34 @@
 						<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Name</span>
 						<input type="text" formControlName="name" placeholder="e.g. My English Dictionary"
 							class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100 placeholder:text-surface-500 focus:border-primary-500 focus:outline-none" />
-						<span class="text-xs text-danger-300"
-							*ngIf="form.controls.name.touched && form.controls.name.invalid">
-							Name is required.
-						</span>
-					</label>
+					@if(form.controls.name.touched && form.controls.name.invalid) {
+					<span class="text-xs text-danger-300">
+						Name is required.
+					</span>
+					}
+			</label>
 
-					<label class="space-y-2">
-						<span
-							class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Language</span>
+			<label class="space-y-2">
+				<span
+					class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Language</span>
 						<select formControlName="languageId"
 							class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100 focus:border-primary-500 focus:outline-none">
 							<option value="" disabled>Select a language</option>
-							<option *ngFor="let lang of languageService.allLanguages()" [value]="lang.id">
-								{{ lang.name }} ({{ lang.code }})
-							</option>
+						@for(lang of languageService.allLanguages(); track lang.id) {
+						<option [value]="lang.id">
+							{{ lang.name }} ({{ lang.code }})
+						</option>
+						}
 						</select>
-						<span class="text-xs text-danger-300"
-							*ngIf="form.controls.languageId.touched && form.controls.languageId.invalid">
-							Language is required.
-						</span>
-					</label>
+					@if(form.controls.languageId.touched && form.controls.languageId.invalid) {
+					<span class="text-xs text-danger-300">
+						Language is required.
+					</span>
+					}
+				</label>
 
-					<footer class="flex flex-wrap items-center justify-between gap-4 pt-4">
-						<div class="flex gap-2">
+				<footer class="flex flex-wrap items-center justify-between gap-4 pt-4">
+					<div class="flex gap-2">
 							<button type="button"
 								class="rounded-full border border-surface-700/70 px-5 py-2 text-sm font-semibold text-surface-200 transition hover:border-surface-500 hover:text-surface-100"
 								(click)="closeForm()">
