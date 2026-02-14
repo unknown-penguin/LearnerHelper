@@ -13,6 +13,11 @@ export class DictionaryService {
     return await prisma.dictionary.findMany({ include: DICTIONARY_INCLUDE });
   }
 
+  async getDictionariesWithWords(): Promise<Dictionary[]> {
+    const dictionaries = await prisma.dictionary.findMany({ include: DICTIONARY_INCLUDE });
+    return dictionaries.filter((dict: any) => dict._count?.words > 0);
+  }
+
   async getDictionaryById(id: string): Promise<Dictionary | null> {
     const dictionary = await prisma.dictionary.findUnique({ where: { id }, include: DICTIONARY_INCLUDE });
     if (!dictionary) {

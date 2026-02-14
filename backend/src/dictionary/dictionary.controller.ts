@@ -14,6 +14,11 @@ export class DictionaryController {
     return this.dictionaryService.getDictionaries();
   }
 
+  @Get('quiz/available')
+  getDictionariesWithWords(): Promise<Dictionary[]> {
+    return this.dictionaryService.getDictionariesWithWords();
+  }
+
   @Get(':id')
   getDictionaryById(@Param('id') id: string): Promise<Dictionary | null> {
     return this.dictionaryService.getDictionaryById(id);
