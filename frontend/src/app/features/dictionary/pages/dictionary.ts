@@ -1,44 +1,40 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, effect, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { CreateEditForm } from '../components/create-edit-form/create-edit-form';
-import { wordEntity } from '../models/wordEntity.model';
+import { WordEntry } from '../models/wordEntity.model';
 import { LevelLabel } from '../components/level-label/level-label';
-import { DictionaryService } from '../services/dictionary-service';
+import { WordService } from '../services/word.service';
 import { DictionaryStateService } from '../services/dictionary-state.service';
+import { LanguageService } from '../services/language.service';
 
 @Component({
   selector: 'app-dictionary',
   imports: [CommonModule, CreateEditForm, LevelLabel],
   templateUrl: './dictionary.html',
 })
-
-export class Dictionary implements OnInit {
-  private readonly dictionaryService = inject(DictionaryService);
+export class Dictionary {
+  private readonly wordService = inject(WordService);
   readonly dictionaryState = inject(DictionaryStateService);
+  private readonly languageService = inject(LanguageService);
 
   isFormOpen = false;
-  entries = signal<wordEntity[]>([]);
-  selectedEntry: wordEntity | null = null;
+  entries = signal<WordEntry[]>([]);
+  selectedEntry: WordEntry | null = null;
   isDropdownOpen = signal(false);
+
+  readonly dictionaryLanguage = computed(() => {
+    const dict = this.dictionaryState.selectedDictionary();
+    if (!dict) return '';
+    return this.languageService.allLanguages().find(l => l.id === dict.languageId)?.name ?? '';
+  });
 
   constructor() {
     effect(() => {
       const dictionaryId = this.dictionaryState.currentDictionaryId();
       if (dictionaryId) {
-        this.getEntries(dictionaryId);
+        this.loadEntries(dictionaryId);
       }
     });
-  }
-
-  ngOnInit(): void {
-  }
-
-  getEntries(dictionaryId: string): void {
-    this.dictionaryService
-      .getEntries(dictionaryId)
-      .subscribe((data) => {
-        this.entries.set(data);
-      });
   }
 
   toggleDropdown(): void {
@@ -55,30 +51,62 @@ export class Dictionary implements OnInit {
     this.isFormOpen = true;
   }
 
+  openEditForm(entry: WordEntry): void {
+    this.selectedEntry = entry;
+    this.isFormOpen = true;
+  }
+
   closeForm(): void {
     this.isFormOpen = false;
+    this.selectedEntry = null;
   }
 
-  handleSave(entry: wordEntity): void {
-    const trimmedId = entry.id.trim();
-    const entryId = trimmedId.length > 0 ? trimmedId : this.generateId();
-    const currentEntries = this.entries();
-    const exists = currentEntries.some((item) => item.id === entryId);
+  handleSave(entry: WordEntry): void {
+    const dictionaryId = this.dictionaryState.currentDictionaryId();
+    if (!dictionaryId) return;
 
-    if (exists) {
-      this.entries.set(
-        currentEntries.map((item) =>
-          item.id === entryId ? { ...entry, id: entryId } : item,
-        ),
-      );
+    const isEditing = entry.id?.trim().length > 0;
+
+    if (isEditing) {
+      this.wordService.update(entry.id, {
+        word: entry.word,
+        definition: entry.definition,
+        partOfSpeech: entry.partOfSpeech,
+        languageLevel: entry.languageLevel,
+      }).subscribe(() => {
+        this.loadEntries(dictionaryId);
+        this.dictionaryState.loadDictionaries();
+        this.closeForm();
+      });
     } else {
-      this.entries.set([...currentEntries, { ...entry, id: entryId }]);
+      this.wordService.create({
+        word: entry.word,
+        definition: entry.definition,
+        partOfSpeech: entry.partOfSpeech,
+        languageLevel: entry.languageLevel,
+        dictionaryId,
+      }).subscribe(() => {
+        this.loadEntries(dictionaryId);
+        this.dictionaryState.loadDictionaries();
+        this.closeForm();
+      });
     }
-
-    this.closeForm();
   }
 
-  private generateId(): string {
-    return `entry-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+  handleDelete(entry: WordEntry): void {
+    const dictionaryId = this.dictionaryState.currentDictionaryId();
+    if (!dictionaryId || !entry.id) return;
+
+    this.wordService.delete(entry.id).subscribe(() => {
+      this.loadEntries(dictionaryId);
+      this.dictionaryState.loadDictionaries();
+      this.closeForm();
+    });
+  }
+
+  private loadEntries(dictionaryId: string): void {
+    this.wordService
+      .getByDictionary(dictionaryId)
+      .subscribe((data) => this.entries.set(data));
   }
 }

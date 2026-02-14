@@ -46,4 +46,31 @@ export class DictionaryStateService {
       this.selectedDictionaryId.set(id);
     }
   }
+
+  public async createDictionary(data: { name: string; languageId: string }): Promise<Dictionary> {
+    const dict = await firstValueFrom(
+      this.http.post<Dictionary>(`${environment.apiUrl}/dictionaries`, data)
+    );
+    await this.loadDictionaries();
+    return dict;
+  }
+
+  public async updateDictionary(id: string, data: { name?: string; languageId?: string }): Promise<Dictionary> {
+    const dict = await firstValueFrom(
+      this.http.put<Dictionary>(`${environment.apiUrl}/dictionaries/${id}`, data)
+    );
+    await this.loadDictionaries();
+    return dict;
+  }
+
+  public async deleteDictionary(id: string): Promise<void> {
+    await firstValueFrom(
+      this.http.delete(`${environment.apiUrl}/dictionaries/${id}`)
+    );
+    // If we deleted the selected dictionary, clear selection
+    if (this.selectedDictionaryId() === id) {
+      this.selectedDictionaryId.set(null);
+    }
+    await this.loadDictionaries();
+  }
 }

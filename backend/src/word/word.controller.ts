@@ -1,33 +1,33 @@
-import { Controller, Get, Query, Post, Delete } from '@nestjs/common';
-import { WordService } from './word.service';
+import { Controller, Get, Post, Put, Delete, Param, Query, Body } from '@nestjs/common';
+import { WordService, WordWithLanguage } from './word.service';
 import { Word } from '@prisma/client';
-@Controller('word')
+
+@Controller('words')
 export class WordController {
   constructor(private readonly wordService: WordService) {}
 
-  @Get('GetDictionaryWords')
-  async getWords(@Query('dictionaryId') dictionaryId: string): Promise<any[]> {
-    return await this.wordService.getWords(dictionaryId);
+  @Get()
+  getByDictionary(@Query('dictionaryId') dictionaryId: string): Promise<WordWithLanguage[]> {
+    return this.wordService.getByDictionary(dictionaryId);
   }
 
-  @Get('GetWordById')
-  async getWordById(@Query('id') id: string): Promise<Word | null> {
-    return await this.wordService.getWordById(id);
+  @Get(':id')
+  getById(@Param('id') id: string): Promise<Word | null> {
+    return this.wordService.getById(id);
   }
 
-  @Post('CreateWord')
-  async createWord(@Query() wordData: Omit<Word, 'id'>): Promise<Word> {
-    return await this.wordService.createWord(wordData);
-  }
-  
-  @Post('UpdateWord')
-  async updateWord(@Query('id') id: string, @Query() wordData: Partial<Omit<Word, 'id'>>): Promise<Word> {
-    return await this.wordService.updateWord(id, wordData);
+  @Post()
+  create(@Body() data: Omit<Word, 'id'>): Promise<Word> {
+    return this.wordService.create(data);
   }
 
-  @Delete('DeleteWord')
-  async deleteWord(@Query('id') id: string): Promise<Word> {
-    return await this.wordService.deleteWord(id);
+  @Put(':id')
+  update(@Param('id') id: string, @Body() data: Partial<Omit<Word, 'id'>>): Promise<Word> {
+    return this.wordService.update(id, data);
   }
 
+  @Delete(':id')
+  delete(@Param('id') id: string): Promise<Word> {
+    return this.wordService.delete(id);
+  }
 }

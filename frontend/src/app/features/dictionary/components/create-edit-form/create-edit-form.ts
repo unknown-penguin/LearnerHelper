@@ -1,26 +1,29 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PartOfSpeech, wordEntity } from '../../models/wordEntity.model';
+import { PartOfSpeech, WordEntry } from '../../models/wordEntity.model';
 import { LevelLabel } from '../level-label/level-label';
+
 @Component({
   selector: 'app-create-edit-form',
   imports: [CommonModule, ReactiveFormsModule, LevelLabel],
   templateUrl: './create-edit-form.html'
 })
 export class CreateEditForm implements OnChanges {
-  private readonly defaultValue: wordEntity = {
+  private readonly defaultValue: WordEntry = {
     id: '',
     word: '',
     definition: '',
     languageLevel: 'Intermediate',
-    language: 'English',
+    language: '',
     partOfSpeech: 'noun',
   };
 
   @Input() isOpen = true;
-  @Input() entry: wordEntity = this.defaultValue;
-  @Output() save = new EventEmitter<wordEntity>();
+  @Input() entry: WordEntry | null = this.defaultValue;
+  @Input() language = '';
+  @Output() save = new EventEmitter<WordEntry>();
+  @Output() delete = new EventEmitter<WordEntry>();
   @Output() cancel = new EventEmitter<void>();
 
   public readonly partOfSpeechOptions: PartOfSpeech[] = [
@@ -34,13 +37,12 @@ export class CreateEditForm implements OnChanges {
     'interjection',
   ];
   public readonly languageLevels = ['Beginner', 'Intermediate', 'Advanced'];
-  public readonly languages = ['English', 'Spanish', 'French', 'German'];
+
   public form: FormGroup<{
     id: FormControl<string>;
     word: FormControl<string>;
     definition: FormControl<string>;
     languageLevel: FormControl<string>;
-    language: FormControl<string>;
     partOfSpeech: FormControl<PartOfSpeech>;
   }>;
 
@@ -50,7 +52,6 @@ export class CreateEditForm implements OnChanges {
       word: [this.defaultValue.word, Validators.required],
       definition: [this.defaultValue.definition, Validators.required],
       languageLevel: [this.defaultValue.languageLevel, Validators.required],
-      language: [this.defaultValue.language, Validators.required],
       partOfSpeech: [this.defaultValue.partOfSpeech, Validators.required],
     });
   }
@@ -65,6 +66,10 @@ export class CreateEditForm implements OnChanges {
     }
   }
 
+  public get isEditing(): boolean {
+    return !!this.entry?.id?.trim();
+  }
+
   public onSubmit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -74,12 +79,19 @@ export class CreateEditForm implements OnChanges {
     const payload = {
       ...this.entry,
       ...this.form.getRawValue(),
-    } as wordEntity;
+      language: this.language,
+    } as WordEntry;
 
     this.save.emit(payload);
   }
 
-  public onCancel():  void {
+  public onDelete(): void {
+    if (this.entry) {
+      this.delete.emit(this.entry);
+    }
+  }
+
+  public onCancel(): void {
     this.isOpen = false;
     this.cancel.emit();
   };

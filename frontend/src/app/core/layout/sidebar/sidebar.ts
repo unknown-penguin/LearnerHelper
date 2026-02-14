@@ -1,5 +1,5 @@
 import { Component, inject, Input, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { DictionaryStateService } from '../../../features/dictionary/services/dictionary-state.service';
 import { CommonModule } from '@angular/common';
 
@@ -12,6 +12,7 @@ export class Sidebar {
   @Input() user?: { name: string };
   @Input() version!: string;
 
+  private readonly router = inject(Router);
   readonly dictionaryState = inject(DictionaryStateService);
   isDictionaryExpanded = signal(true);
 
@@ -21,5 +22,6 @@ export class Sidebar {
 
   selectDictionary(id: string): void {
     this.dictionaryState.selectDictionary(id);
+    this.router.navigate(['/dictionary']);
   }
 }

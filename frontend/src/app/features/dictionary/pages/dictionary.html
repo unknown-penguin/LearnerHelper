@@ -55,14 +55,14 @@
 	<div
 		class="flex-1 overflow-hidden rounded-2xl border border-primary-900/60 bg-surface-900/70 shadow-2xl ring-1 ring-primary-700/40">
 		<div class="overflow-x-auto">
-			<table class="min-w-full text-left text-sm text-surface-200 bg-surface-950/80 text-primary-100">
+			<table class="w-full table-fixed min-w-[950px] text-left text-sm text-surface-200 bg-surface-950/80 text-primary-100">
 				<thead class="bg-surface-950/80 text-primary-100">
 					<tr class="border-b border-primary-900/60">
-						<th scope="col" class="px-5 py-3 font-semibold">Word</th>
-						<th scope="col" class="px-5 py-3 font-semibold">Part of Speech</th>
-						<th scope="col" class="px-5 py-3 font-semibold">Definition</th>
-						<th scope="col" class="px-5 py-3 font-semibold">Language</th>
-						<th scope="col" class="px-5 py-3 font-semibold">Level</th>
+						<th scope="col" class="px-5 py-3 font-semibold w-[15%]">Word</th>
+						<th scope="col" class="px-5 py-3 font-semibold w-[15%]">Part of Speech</th>
+						<th scope="col" class="px-5 py-3 font-semibold w-[45%]">Definition</th>
+						<th scope="col" class="px-5 py-3 font-semibold w-[12%]">Language</th>
+						<th scope="col" class="px-5 py-3 font-semibold w-[13%]">Level</th>
 					</tr>
 				</thead>
 				<tbody class="bg-surface-950/80">
@@ -73,12 +73,12 @@
 					</tr>
 					}
 					@else {
-					<tr *ngFor="let entry of entries(); let i = index"
-						class="border-b border-surface-800/60 bg-surface-900/40 hover:bg-primary-900/40 hover:text-primary-50 transition-colors">
-						<td class="px-5 py-4 text-base font-semibold text-white">{{ entry.word }}</td>
-						<td class="px-5 py-4 capitalize text-surface-300">{{ entry.partOfSpeech }}</td>
-						<td class="px-5 py-4 text-surface-100">{{ entry.definition }}</td>
-						<td class="px-5 py-4 text-surface-200">
+					<tr *ngFor="let entry of entries(); let i = index" (click)="openEditForm(entry)"
+						class="border-b border-surface-800/60 bg-surface-900/40 hover:bg-primary-900/40 hover:text-primary-50 transition-colors cursor-pointer">
+						<td class="px-5 py-4 text-base font-semibold text-white truncate">{{ entry.word }}</td>
+						<td class="px-5 py-4 capitalize text-surface-300 truncate">{{ entry.partOfSpeech }}</td>
+						<td class="px-5 py-4 text-surface-100 truncate">{{ entry.definition }}</td>
+						<td class="px-5 py-4 text-surface-200 truncate">
 							<span
 								class="inline-flex items-center rounded bg-primary-900/70 px-2.5 py-1 text-[11px] font-semibold text-primary-100 ring-1 ring-primary-600/40">{{
 								entry.language }}</span>
@@ -94,7 +94,5 @@
 		</div>
 	</div>
 
-	<app-create-edit-form [isOpen]="isFormOpen" (cancel)="closeForm()"></app-create-edit-form>
-	<!-- [entry]="selectedEntry"
-		(save)="handleSave($event)" -->
+	<app-create-edit-form [entry]="selectedEntry" [isOpen]="isFormOpen" [language]="dictionaryLanguage()" (save)="handleSave($event)" (delete)="handleDelete($event)" (cancel)="closeForm()"></app-create-edit-form>
 </div>
