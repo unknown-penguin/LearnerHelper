@@ -17,42 +17,13 @@
 		</div>
 	</div>
 
-	<div
-		class="flex-1 overflow-hidden rounded-2xl border border-primary-900/60 bg-surface-900/70 shadow-2xl ring-1 ring-primary-700/40">
-		<div class="overflow-x-auto">
-			<table class="w-full table-fixed min-w-[1000px] text-left text-sm text-surface-200 bg-surface-950/80 text-primary-100">
-				<thead class="bg-surface-950/80 text-primary-100">
-					<tr class="border-b border-primary-900/60">
-						<th scope="col" class="px-5 py-3 font-semibold w-[35%]">Name</th>
-						<th scope="col" class="px-5 py-3 font-semibold w-[25%]">Language</th>
-						<th scope="col" class="px-5 py-3 font-semibold w-[40%]">Words</th>
-					</tr>
-				</thead>
-				<tbody class="bg-surface-950/80">
-					@if(!dictionaryState.allDictionaries().length) {
-					<tr class="border-b border-surface-800/60 bg-surface-900/40">
-						<td colspan="3" class="px-5 py-4 text-center text-sm text-surface-500">No dictionaries found.
-							Create your first dictionary!</td>
-					</tr>
-					} @else {
-					@for (dict of dictionaryState.allDictionaries(); track dict.id) {
-					<tr (click)="openEditForm(dict)"
-						class="border-b border-surface-800/60 bg-surface-900/40 hover:bg-primary-900/40 hover:text-primary-50 transition-colors cursor-pointer">
-						<td class="px-5 py-4 text-base font-semibold text-surface-100 truncate">{{ dict.name }}</td>
-						<td class="px-5 py-4 text-surface-300 truncate">
-							<span
-								class="inline-flex items-center rounded bg-primary-900/70 px-2.5 py-1 text-[11px] font-semibold text-primary-100 ring-1 ring-primary-600/40">
-								{{ getLanguageName(dict.languageId) }}
-							</span>
-						</td>
-						<td class="px-5 py-4 text-surface-300 truncate">{{ dict._count?.words ?? 0 }}</td>
-					</tr>
-					}
-					}
-				</tbody>
-			</table>
-		</div>
-	</div>
+	<app-data-table 
+		[columns]="columns" 
+		[rows]="dictionaryState.allDictionaries()" 
+		[minWidth]="'1000px'"
+		[emptyMessage]="'No dictionaries found. Create your first dictionary!'"
+		(rowClick)="openEditForm($event)">
+	</app-data-table>
 
 	@if(isFormOpen()) {
 	<div class="fixed inset-0 z-40">

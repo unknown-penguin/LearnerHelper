@@ -3,12 +3,12 @@ import { signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
-export abstract class BaseHttpService<T> {
-  protected items = signal<T[]>([]);
+export abstract class BaseHttpService<T, ID = string> {
+  protected rows = signal<T[]>([]);
   protected loading = signal<boolean>(false);
   protected error = signal<string | null>(null);
 
-  public readonly all = this.items.asReadonly();
+  public readonly all = this.rows.asReadonly();
   public readonly isLoading = this.loading.asReadonly();
   public readonly errorMessage = this.error.asReadonly();
 
@@ -24,14 +24,14 @@ export abstract class BaseHttpService<T> {
     this.loading.set(true);
     this.error.set(null);
     try {
-      const data = await firstValueFrom(
+      const rows = await firstValueFrom(
         this.http.get<T[]>(this.buildUrl())
       );
-      this.items.set(data);
+      this.rows.set(rows);
     } catch (error) {
       const msg = error instanceof Error ? error.message : 'Failed to load';
       this.error.set(msg);
-      this.items.set([]);
+      this.rows.set([]);
       throw error;
     } finally {
       this.loading.set(false);
@@ -42,11 +42,11 @@ export abstract class BaseHttpService<T> {
     this.loading.set(true);
     this.error.set(null);
     try {
-      const item = await firstValueFrom(
+      const row = await firstValueFrom(
         this.http.post<T>(this.buildUrl(), data)
       );
       await this.load();
-      return item;
+      return row;
     } catch (error) {
       const msg = error instanceof Error ? error.message : 'Failed to create';
       this.error.set(msg);
@@ -56,15 +56,15 @@ export abstract class BaseHttpService<T> {
     }
   }
 
-  async update(id: string, data: Partial<T>): Promise<T> {
+  async update(id: ID, data: Partial<T>): Promise<T> {
     this.loading.set(true);
     this.error.set(null);
     try {
-      const item = await firstValueFrom(
+      const row = await firstValueFrom(
         this.http.put<T>(this.buildUrl(`/${id}`), data)
       );
       await this.load();
-      return item;
+      return row;
     } catch (error) {
       const msg = error instanceof Error ? error.message : 'Failed to update';
       this.error.set(msg);
@@ -74,7 +74,7 @@ export abstract class BaseHttpService<T> {
     }
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: ID): Promise<void> {
     this.loading.set(true);
     this.error.set(null);
     try {

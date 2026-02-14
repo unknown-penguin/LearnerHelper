@@ -6,11 +6,12 @@ import { DictionaryStateService } from '../../dictionary/services/dictionary-sta
 import { Language } from '../../dictionary/models/language.model';
 import { BaseModalForm } from '../../../core/utils/base-modal-form';
 import { FormConfigFactory, FormDefaultValues, LanguageFormValue } from '../../../core/utils/form-config.factory';
+import { DataTableComponent, TableColumn } from '../../../core/components/data-table/data-table';
 
 
 @Component({
   selector: 'app-languages',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, DataTableComponent],
   templateUrl: './languages.html',
 })
 export class Languages extends BaseModalForm<Language, LanguageFormValue> {
@@ -19,6 +20,21 @@ export class Languages extends BaseModalForm<Language, LanguageFormValue> {
   private readonly formFactory = inject(FormConfigFactory);
 
   readonly editingLanguage = this.editingItem;
+
+  readonly columns: TableColumn<Language>[] = [
+    { 
+      field: 'name', 
+      label: 'Name', 
+      width: '60%',
+      cellClass: 'text-base font-semibold text-surface-100'
+    },
+    { 
+      field: 'code', 
+      label: 'Code', 
+      width: '40%',
+      format: (row) => `<span class="inline-flex items-center rounded bg-primary-900/70 px-2.5 py-1 text-[11px] font-semibold text-primary-100 ring-1 ring-primary-600/40">${row.code}</span>`
+    },
+  ];
 
   protected form: FormGroup<{
     name: FormControl<string>;

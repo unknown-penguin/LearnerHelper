@@ -6,10 +6,11 @@ import { LevelLabel } from '../components/level-label/level-label';
 import { WordService } from '../services/word.service';
 import { DictionaryStateService } from '../services/dictionary-state.service';
 import { LanguageService } from '../services/language.service';
+import { DataTableComponent, TableColumn } from '../../../core/components/data-table/data-table';
 
 @Component({
   selector: 'app-dictionary',
-  imports: [CommonModule, CreateEditForm, LevelLabel],
+  imports: [CommonModule, CreateEditForm, LevelLabel, DataTableComponent],
   templateUrl: './dictionary.html',
 })
 export class Dictionary {
@@ -21,6 +22,39 @@ export class Dictionary {
   entries = signal<WordEntry[]>([]);
   selectedEntry: WordEntry | null = null;
   isDropdownOpen = signal(false);
+
+  readonly columns: TableColumn<WordEntry>[] = [
+    { 
+      field: 'word', 
+      label: 'Word', 
+      width: '15%',
+      cellClass: 'text-base font-semibold text-surface-100'
+    },
+    { 
+      field: 'partOfSpeech', 
+      label: 'Part of Speech', 
+      width: '15%',
+      cellClass: 'capitalize text-surface-300'
+    },
+    { 
+      field: 'definition', 
+      label: 'Definition', 
+      width: '45%',
+      cellClass: 'text-surface-100'
+    },
+    { 
+      field: 'language', 
+      label: 'Language', 
+      width: '12%',
+      format: (row) => `<span class="inline-flex items-center rounded bg-primary-900/70 px-2.5 py-1 text-[11px] font-semibold text-primary-100 ring-1 ring-primary-600/40">${row.language}</span>`
+    },
+    { 
+      field: 'languageLevel', 
+      label: 'Level', 
+      width: '13%',
+      component: true
+    },
+  ];
 
   readonly dictionaryLanguage = computed(() => {
     const dict = this.dictionaryState.selectedDictionary();

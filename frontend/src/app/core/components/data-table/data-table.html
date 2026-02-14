@@ -1,0 +1,40 @@
+<div
+  class="flex-1 overflow-hidden rounded-2xl border border-primary-900/60 bg-surface-900/70 shadow-2xl ring-1 ring-primary-700/40">
+  <div class="overflow-x-auto">
+    <table [style.min-width]="minWidth()"
+      class="w-full table-fixed text-left text-sm text-surface-200 bg-surface-950/80 text-primary-100">
+      <thead class="bg-surface-950/80 text-primary-100">
+        <tr class="border-b border-primary-900/60">
+          @for (col of columns(); track col.field) {
+          <th scope="col" class="px-5 py-3 font-semibold" [style.width]="col.width">{{ col.label }}</th>
+          }
+        </tr>
+      </thead>
+      <tbody class="bg-surface-950/80">
+        @if(!rows().length) {
+        <tr class="border-b border-surface-800/60 bg-surface-900/40">
+          <td [attr.colspan]="columns().length" class="px-5 py-4 text-center text-sm text-surface-500">
+            {{ emptyMessage() }}
+          </td>
+        </tr>
+        } @else {
+        @for (row of rows(); track $index) {
+        <tr (click)="onRowClick(row)"
+          class="border-b border-surface-800/60 bg-surface-900/40 hover:bg-primary-900/40 hover:text-primary-50 transition-colors cursor-pointer">
+          @for (col of columns(); track col.field) {
+          <td class="px-5 py-4 truncate" [ngClass]="getCellClass(col)">
+            @if (col.component && cellTemplate()) {
+            <ng-container *ngTemplateOutlet="cellTemplate()!; context: { $implicit: row, column: col }">
+            </ng-container>
+            } @else {
+            <span [innerHTML]="getCellValue(row, col)"></span>
+            }
+          </td>
+          }
+        </tr>
+        }
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

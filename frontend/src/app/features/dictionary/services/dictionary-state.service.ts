@@ -16,7 +16,7 @@ export class DictionaryStateService extends BaseHttpService<Dictionary> {
   
   public readonly selectedDictionary = computed(() => {
     const id = this.selectedDictionaryId();
-    return this.items().find(d => d.id === id) || null;
+    return this.rows().find(d => d.id === id) || null;
   });
 
   constructor(http: HttpClient) {
@@ -27,13 +27,13 @@ export class DictionaryStateService extends BaseHttpService<Dictionary> {
   public async loadDictionaries(): Promise<void> {
     await this.load();
     
-    if (!this.selectedDictionaryId() && this.items().length > 0) {
-      this.selectedDictionaryId.set(this.items()[0].id);
+    if (!this.selectedDictionaryId() && this.rows().length > 0) {
+      this.selectedDictionaryId.set(this.rows()[0].id);
     }
   }
 
   public selectDictionary(id: string): void {
-    const exists = this.items().some(d => d.id === id);
+    const exists = this.rows().some(d => d.id === id);
     if (exists) {
       this.selectedDictionaryId.set(id);
     }

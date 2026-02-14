@@ -52,47 +52,18 @@
 		</div>
 	</div>
 
-	<div
-		class="flex-1 overflow-hidden rounded-2xl border border-primary-900/60 bg-surface-900/70 shadow-2xl ring-1 ring-primary-700/40">
-		<div class="overflow-x-auto">
-			<table class="w-full table-fixed min-w-[950px] text-left text-sm text-surface-200 bg-surface-950/80 text-primary-100">
-				<thead class="bg-surface-950/80 text-primary-100">
-					<tr class="border-b border-primary-900/60">
-						<th scope="col" class="px-5 py-3 font-semibold w-[15%]">Word</th>
-						<th scope="col" class="px-5 py-3 font-semibold w-[15%]">Part of Speech</th>
-						<th scope="col" class="px-5 py-3 font-semibold w-[45%]">Definition</th>
-						<th scope="col" class="px-5 py-3 font-semibold w-[12%]">Language</th>
-						<th scope="col" class="px-5 py-3 font-semibold w-[13%]">Level</th>
-					</tr>
-				</thead>
-				<tbody class="bg-surface-950/80">
-					@if(!entries().length) {
-					<tr class="border-b border-surface-800/60 bg-surface-900/40">
-						<td colspan="5" class="px-5 py-4 text-center text-sm text-surface-500">No entries found. Add your
-							first word!</td>
-					</tr>
-					}
-					@else {
-					<tr *ngFor="let entry of entries(); let i = index" (click)="openEditForm(entry)"
-						class="border-b border-surface-800/60 bg-surface-900/40 hover:bg-primary-900/40 hover:text-primary-50 transition-colors cursor-pointer">
-						<td class="px-5 py-5 text-base font-semibold text-surface-100 truncate">{{ entry.word }}</td>
-						<td class="px-5 py-5 capitalize text-surface-300 truncate">{{ entry.partOfSpeech }}</td>
-						<td class="px-5 py-5 text-surface-100 truncate">{{ entry.definition }}</td>
-						<td class="px-5 py-5 text-surface-200 truncate">
-							<span
-								class="inline-flex items-center rounded bg-primary-900/70 px-2.5 py-1 text-[11px] font-semibold text-primary-100 ring-1 ring-primary-600/40">{{
-								entry.language }}</span>
-
-						</td>
-						<td class="px-5 py-5">
-							<app-level-label [level]="entry.languageLevel"></app-level-label>
-						</td>
-					</tr>
-					}
-				</tbody>
-			</table>
-		</div>
-	</div>
+	<app-data-table 
+		[columns]="columns" 
+		[rows]="entries()" 
+		[minWidth]="'1200px'"
+		[emptyMessage]="'No entries found. Add your first word!'"
+		(rowClick)="openEditForm($event)">
+		<ng-template #cellTemplate let-row let-col="column">
+			@if(col.field === 'languageLevel') {
+			<app-level-label [level]="row.languageLevel"></app-level-label>
+			}
+		</ng-template>
+	</app-data-table>
 
 	<app-create-edit-form [entry]="selectedEntry" [isOpen]="isFormOpen" [language]="dictionaryLanguage()" (save)="handleSave($event)" (delete)="handleDelete($event)" (cancel)="closeForm()"></app-create-edit-form>
 </div>

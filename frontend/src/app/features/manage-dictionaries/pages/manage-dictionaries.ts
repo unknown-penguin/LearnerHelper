@@ -7,11 +7,12 @@ import { Dictionary } from '../../dictionary/models/dictionary.model';
 import { BaseModalForm } from '../../../core/utils/base-modal-form';
 import { FormConfigFactory, FormDefaultValues, DictionaryFormValue } from '../../../core/utils/form-config.factory';
 import { findNameById } from '../../../core/utils/lookup.util';
+import { DataTableComponent, TableColumn } from '../../../core/components/data-table/data-table';
 
 
 @Component({
   selector: 'app-manage-dictionaries',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, DataTableComponent],
   templateUrl: './manage-dictionaries.html',
 })
 export class ManageDictionaries extends BaseModalForm<Dictionary, DictionaryFormValue> {
@@ -20,6 +21,31 @@ export class ManageDictionaries extends BaseModalForm<Dictionary, DictionaryForm
   private readonly formFactory = inject(FormConfigFactory);
 
   readonly editingDictionary = this.editingItem;
+
+  readonly columns: TableColumn<Dictionary>[] = [
+    { 
+      field: 'name', 
+      label: 'Name', 
+      width: '35%',
+      cellClass: 'text-base font-semibold text-surface-100'
+    },
+    { 
+      field: 'languageId', 
+      label: 'Language', 
+      width: '25%',
+      format: (row) => {
+        const langName = this.getLanguageName(row.languageId);
+        return `<span class="inline-flex items-center rounded bg-primary-900/70 px-2.5 py-1 text-[11px] font-semibold text-primary-100 ring-1 ring-primary-600/40">${langName}</span>`;
+      }
+    },
+    { 
+      field: '_count', 
+      label: 'Words', 
+      width: '40%',
+      cellClass: 'text-surface-300',
+      format: (row) => String(row._count?.words ?? 0)
+    },
+  ];
 
   protected form: FormGroup<{
     name: FormControl<string>;

@@ -17,40 +17,13 @@
 		</div>
 	</div>
 
-	<div
-		class="flex-1 overflow-hidden rounded-2xl border border-primary-900/60 bg-surface-900/70 shadow-2xl ring-1 ring-primary-700/40">
-		<div class="overflow-x-auto">
-			<table class="w-full table-fixed min-w-[650px] text-left text-sm text-surface-200 bg-surface-950/80 text-primary-100">
-				<thead class="bg-surface-950/80 text-primary-100">
-					<tr class="border-b border-primary-900/60">
-						<th scope="col" class="px-5 py-3 font-semibold w-[60%]">Name</th>
-						<th scope="col" class="px-5 py-3 font-semibold w-[40%]">Code</th>
-					</tr>
-				</thead>
-				<tbody class="bg-surface-950/80">
-					@if(!languageService.allLanguages().length) {
-					<tr class="border-b border-surface-800/60 bg-surface-900/40">
-						<td colspan="2" class="px-5 py-4 text-center text-sm text-surface-500">No languages found. Add
-							your first language!</td>
-					</tr>
-					} @else {
-					@for (lang of languageService.allLanguages(); track lang.id) {
-					<tr (click)="openEditForm(lang)"
-						class="border-b border-surface-800/60 bg-surface-900/40 hover:bg-primary-900/40 hover:text-primary-50 transition-colors cursor-pointer">
-						<td class="px-5 py-4 text-base font-semibold text-surface-100 truncate">{{ lang.name }}</td>
-						<td class="px-5 py-4 text-surface-300 truncate">
-							<span
-								class="inline-flex items-center rounded bg-primary-900/70 px-2.5 py-1 text-[11px] font-semibold text-primary-100 ring-1 ring-primary-600/40">
-								{{ lang.code }}
-							</span>
-						</td>
-					</tr>
-					}
-					}
-				</tbody>
-			</table>
-		</div>
-	</div>
+	<app-data-table 
+		[columns]="columns" 
+		[rows]="languageService.allLanguages()" 
+		[minWidth]="'650px'"
+		[emptyMessage]="'No languages found. Add your first language!'"
+		(rowClick)="openEditForm($event)">
+	</app-data-table>
 
 	@if(isFormOpen()) {
 	<div class="fixed inset-0 z-40">
