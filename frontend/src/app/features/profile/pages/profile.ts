@@ -2,10 +2,11 @@ import { Component, inject, signal, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { UserService } from '../../../core/services/user.service';
+import { Settings } from '../../settings/pages/settings';
 
 @Component({
   selector: 'app-profile',
-  imports: [FormsModule, DatePipe],
+  imports: [FormsModule, DatePipe, Settings],
   templateUrl: './profile.html',
 })
 export class Profile implements OnInit {

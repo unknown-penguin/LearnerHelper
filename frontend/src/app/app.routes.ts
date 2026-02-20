@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { Dictionary } from './features/dictionary/pages/dictionary';
-import { Settings } from './features/settings/pages/settings';
 import { Languages } from './features/languages/pages/languages';
 import { ManageDictionaries } from './features/manage-dictionaries/pages/manage-dictionaries';
 import { QuizSetup } from './features/quiz/pages/quiz-setup';
@@ -16,5 +15,4 @@ export const routes: Routes = [
     {path: 'quiz-results', component: QuizResults},
     {path: 'manage-dictionaries', component: ManageDictionaries},
     {path: 'languages', component: Languages},
-    {path: 'settings', component: Settings},
 ];
