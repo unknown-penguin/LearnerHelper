@@ -59,7 +59,7 @@ export class Dictionary {
   readonly dictionaryLanguage = computed(() => {
     const dict = this.dictionaryState.selectedDictionary();
     if (!dict) return '';
-    return this.languageService.allLanguages().find(l => l.id === dict.languageId)?.name ?? '';
+    return this.languageService.all().find(l => l.id === dict.languageId)?.name ?? '';
   });
 
   constructor() {
@@ -102,14 +102,14 @@ export class Dictionary {
     const isEditing = entry.id?.trim().length > 0;
 
     if (isEditing) {
-      await this.wordService.updateWord(entry.id, {
+      await this.wordService.update(entry.id, {
         word: entry.word,
         definition: entry.definition,
         partOfSpeech: entry.partOfSpeech,
         languageLevel: entry.languageLevel,
       });
     } else {
-      await this.wordService.createWord({
+      await this.wordService.create({
         word: entry.word,
         definition: entry.definition,
         partOfSpeech: entry.partOfSpeech,
@@ -127,7 +127,7 @@ export class Dictionary {
     const dictionaryId = this.dictionaryState.currentDictionaryId();
     if (!dictionaryId || !entry.id) return;
 
-    await this.wordService.deleteWord(entry.id);
+    await this.wordService.delete(entry.id);
     await this.loadEntries(dictionaryId);
     await this.dictionaryState.loadDictionaries();
     this.closeForm();

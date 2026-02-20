@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { signal } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { HttpRequestBuilder } from './http-request.builder';
 
 export abstract class BaseHttpService<T, ID = string> {
   protected rows = signal<T[]>([]);
@@ -16,17 +16,28 @@ export abstract class BaseHttpService<T, ID = string> {
 
   constructor(protected readonly http: HttpClient) {}
 
-  protected buildUrl(path: string = ''): string {
-    return `${environment.apiUrl}/${this.endpoint}${path}`;
+  /**
+   * Creates a fluent request builder scoped to this service's endpoint.
+   *
+   * Usage:
+   *   this.request<User>().path('/login').params({ email }).get()
+   *   this.request<User[]>().params({ status: 'active' }).get()
+   *   this.request<User>().body(data).post()
+   *   this.request<User>().path(`/${id}`).body(data).put()
+   *   this.request<void>().path(`/${id}`).delete()
+   */
+  protected request<R = T>(): HttpRequestBuilder<R> {
+    return new HttpRequestBuilder<R>(
+      this.http,
+      `${environment.apiUrl}/${this.endpoint}`
+    );
   }
 
   async load(): Promise<void> {
     this.loading.set(true);
     this.error.set(null);
     try {
-      const rows = await firstValueFrom(
-        this.http.get<T[]>(this.buildUrl())
-      );
+      const rows = await this.request<T[]>().get();
       this.rows.set(rows);
     } catch (error) {
       const msg = error instanceof Error ? error.message : 'Failed to load';
@@ -38,25 +49,11 @@ export abstract class BaseHttpService<T, ID = string> {
     }
   }
 
-  protected async query(params: Record<string, any>): Promise<T[]> {
-    try {
-      return await firstValueFrom(
-        this.http.get<T[]>(this.buildUrl(), { params })
-      );
-    } catch (error) {
-      const msg = error instanceof Error ? error.message : 'Failed to query';
-      console.error(msg, error);
-      return [];
-    }
-  }
-
   async create(data: Partial<T>): Promise<T> {
     this.loading.set(true);
     this.error.set(null);
     try {
-      const row = await firstValueFrom(
-        this.http.post<T>(this.buildUrl(), data)
-      );
+      const row = await this.request<T>().body(data).post();
       await this.load();
       return row;
     } catch (error) {
@@ -72,9 +69,7 @@ export abstract class BaseHttpService<T, ID = string> {
     this.loading.set(true);
     this.error.set(null);
     try {
-      const row = await firstValueFrom(
-        this.http.put<T>(this.buildUrl(`/${id}`), data)
-      );
+      const row = await this.request<T>().path(`/${id}`).body(data).put();
       await this.load();
       return row;
     } catch (error) {
@@ -90,9 +85,7 @@ export abstract class BaseHttpService<T, ID = string> {
     this.loading.set(true);
     this.error.set(null);
     try {
-      await firstValueFrom(
-        this.http.delete(this.buildUrl(`/${id}`))
-      );
+      await this.request<void>().path(`/${id}`).delete();
       await this.load();
     } catch (error) {
       const msg = error instanceof Error ? error.message : 'Failed to delete';

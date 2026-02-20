@@ -7,4 +7,5 @@ export interface WordEntry {
     languageLevel: string;
     language: string;
     partOfSpeech: PartOfSpeech;
+    dictionaryId: string;
 }

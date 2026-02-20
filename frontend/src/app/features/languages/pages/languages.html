@@ -8,7 +8,7 @@
 		<div class="flex items-center gap-4">
 			<span
 				class="rounded-full border border-primary-500/40 bg-primary-900/60 px-4 py-2 text-xs font-semibold text-primary-100 shadow-lg shadow-primary-900/40">
-				{{ languageService.allLanguages().length }} languages
+				{{ languageService.all().length }} languages
 			</span>
 			<button (click)="openCreateForm()"
 				class="rounded-full border border-primary-500/40 bg-primary-900/60 px-4 py-2 text-xs font-semibold text-primary-100 shadow-lg shadow-primary-900/40 transition hover:bg-primary-900/70">
@@ -19,7 +19,7 @@
 
 	<app-data-table 
 		[columns]="columns" 
-		[rows]="languageService.allLanguages()" 
+		[rows]="languageService.all()" 
 		[minWidth]="'650px'"
 		[emptyMessage]="'No languages found. Add your first language!'"
 		(rowClick)="openEditForm($event)">

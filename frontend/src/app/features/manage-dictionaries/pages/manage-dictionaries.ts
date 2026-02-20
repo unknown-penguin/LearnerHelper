@@ -82,6 +82,6 @@ export class ManageDictionaries extends BaseModalForm<Dictionary, DictionaryForm
   }
 
   getLanguageName(languageId: string): string {
-    return findNameById(this.languageService.allLanguages(), languageId);
+    return findNameById(this.languageService.all(), languageId);
   }
 }

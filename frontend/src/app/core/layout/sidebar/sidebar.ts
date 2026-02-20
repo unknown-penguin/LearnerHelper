@@ -1,9 +1,20 @@
-import { Component, inject, Input, signal, computed, effect } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  signal,
+  computed,
+  effect,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { DictionaryStateService } from '../../../features/dictionary/services/dictionary-state.service';
 import { CommonModule } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs/operators';
+import { User } from '../../models/user.model';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,19 +22,21 @@ import { map } from 'rxjs/operators';
   templateUrl: './sidebar.html',
 })
 export class Sidebar {
-  @Input() user?: { name: string };
+  @Input() user!: User | null;
   @Input() version!: string;
 
   private readonly router = inject(Router);
   readonly dictionaryState = inject(DictionaryStateService);
+  private readonly userService = inject(UserService);
+  protected readonly isLoggedIn = this.userService.isLoggedIn;
   isDictionaryExpanded = signal(true);
 
-  readonly currentUrl = toSignal(this.router.events.pipe(map(() => this.router.url)),
-    { initialValue: this.router.url }
-  );
+  readonly currentUrl = toSignal(this.router.events.pipe(map(() => this.router.url)), {
+    initialValue: this.router.url,
+  });
 
-  readonly isDictionaryRoute = computed(() => 
-    this.currentUrl()?.startsWith('/dictionary') ?? false
+  readonly isDictionaryRoute = computed(
+    () => this.currentUrl()?.startsWith('/dictionary') ?? false,
   );
 
   constructor() {
@@ -37,7 +50,7 @@ export class Sidebar {
   }
 
   toggleDictionary(): void {
-    this.isDictionaryExpanded.update(v => !v);
+    this.isDictionaryExpanded.update((v) => !v);
   }
 
   selectDictionary(id: string): void {
@@ -47,5 +60,15 @@ export class Sidebar {
 
   unselectDictionary(): void {
     this.dictionaryState.unselectDictionary();
+  }
+
+  @Output() loginRequested = new EventEmitter<void>();
+
+  logoutUser(): void {
+    this.userService.logoutUser();
+  }
+
+  login(): void {
+    this.loginRequested.emit();
   }
 }

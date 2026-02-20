@@ -62,7 +62,7 @@
 						<select formControlName="languageId"
 							class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100 focus:border-primary-500 focus:outline-none">
 							<option value="" disabled>Select a language</option>
-						@for(lang of languageService.allLanguages(); track lang.id) {
+						@for(lang of languageService.all(); track lang.id) {
 						<option [value]="lang.id">
 							{{ lang.name }} ({{ lang.code }})
 						</option>

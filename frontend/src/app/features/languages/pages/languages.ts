@@ -71,14 +71,14 @@ export class Languages extends BaseModalForm<Language, LanguageFormValue> {
   }
 
   protected override async create(values: LanguageFormValue): Promise<Language> {
-    return this.languageService.createLanguage(values);
+    return this.languageService.create(values);
   }
 
   protected override async update(id: string, values: LanguageFormValue): Promise<Language> {
-    return this.languageService.updateLanguage(id, values);
+    return this.languageService.update(id, values);
   }
 
   protected override async delete(id: string): Promise<void> {
-    return this.languageService.deleteLanguage(id);
+    return this.languageService.delete(id);
   }
 }

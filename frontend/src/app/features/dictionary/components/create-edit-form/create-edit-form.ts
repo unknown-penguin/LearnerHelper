@@ -17,6 +17,7 @@ export class CreateEditForm implements OnChanges {
     languageLevel: 'Intermediate',
     language: '',
     partOfSpeech: 'noun',
+    dictionaryId: '',
   };
 
   @Input() isOpen = true;

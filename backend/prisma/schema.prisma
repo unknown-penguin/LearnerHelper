@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  schemas  = ["knowledge"]
+  schemas  = ["knowledge","users"]
 }
 
 enum PartOfSpeech {
@@ -31,6 +31,8 @@ model Language{
   name String @unique
   code String @unique
   dictionaries Dictionary[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@schema("knowledge")
 }
@@ -41,6 +43,8 @@ model Dictionary{
   language Language  @relation(fields: [languageId], references: [id])
   languageId String
   words Word[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@schema("knowledge")
 }
@@ -53,8 +57,31 @@ model Word{
   languageLevel String
   dictionary Dictionary @relation(fields: [dictionaryId], references: [id])
   dictionaryId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   @@schema("knowledge")
 }
 
+model User{
+  id String @id @default(cuid())
+  name String
+  email String @unique
+  password String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  profiles Profile[]
+
+  @@schema("users")
+}
+
+model Profile{
+  id String @id @default(cuid())
+  user User @relation(fields: [userId], references: [id])
+  userId String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@schema("users")
+}
 
