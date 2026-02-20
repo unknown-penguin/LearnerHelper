@@ -49,6 +49,20 @@ export class UserService extends BaseHttpService<User> {
     }
   }
 
+  async updateCurrentUser(data: Partial<Pick<User, 'name' | 'email'>>): Promise<boolean> {
+    const user = this.loggedUser();
+    if (!user) return false;
+    try {
+      const updated = await this.request<User>().path(`/${user.id}`).body(data).put();
+      this.loggedUser.set(updated);
+      localStorage.setItem('currentUser', JSON.stringify(updated));
+      return true;
+    } catch (error) {
+      console.error('Update failed:', error);
+      return false;
+    }
+  }
+
   logoutUser(): void {
     this.loggedUser.set(null);
     localStorage.removeItem('currentUser');

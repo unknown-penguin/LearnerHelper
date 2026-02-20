@@ -6,8 +6,10 @@ import { ManageDictionaries } from './features/manage-dictionaries/pages/manage-
 import { QuizSetup } from './features/quiz/pages/quiz-setup';
 import { Quiz } from './features/quiz/pages/quiz';
 import { QuizResults } from './features/quiz/pages/quiz-results';
+import { Profile } from './features/profile/pages/profile';
 
 export const routes: Routes = [
+    {path: 'profile', component: Profile},
     {path: 'dictionary', component: Dictionary},
     {path: 'quiz-setup', component: QuizSetup},
     {path: 'quiz/:id', component: Quiz},
