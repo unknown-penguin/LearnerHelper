@@ -29,14 +29,10 @@
 					<label class="space-y-2">
 						<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Part of
 							speech</span>
-						<select formControlName="partOfSpeech"
-							class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100 focus:border-primary-500 focus:outline-none">
-							@for(option of partOfSpeechOptions; track option) {
-							<option [value]="option">
-								{{ option }}
-							</option>
-							}
-						</select>
+						<app-custom-select
+							formControlName="partOfSpeech"
+							[options]="partOfSpeechSelectOptions">
+						</app-custom-select>
 					</label>
 				</div>
 
@@ -55,14 +51,10 @@
 					<label class="space-y-2">
 						<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Language
 							level</span>
-						<select formControlName="languageLevel"
-							class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100 focus:border-primary-500 focus:outline-none">
-							@for(level of languageLevels; track level) {
-							<option [value]="level">
-								{{ level }}
-							</option>
-							}
-						</select>
+						<app-custom-select
+							formControlName="languageLevel"
+						[options]="languageLevelSelectOptions">
+						</app-custom-select>
 					</label>
 
 					<label class="space-y-2">

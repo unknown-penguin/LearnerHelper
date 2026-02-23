@@ -44,11 +44,12 @@
 			<div class="space-y-4">
 				<label class="block text-sm">
 					<span class="text-surface-300">Profile visibility</span>
-					<select [(ngModel)]="privacy.profileVisibility" class="mt-2 w-full rounded-lg border border-surface-800 bg-surface-950 px-3 py-2 text-sm text-surface-100 focus:border-primary-600 focus:outline-none focus:ring-1 focus:ring-primary-600">
-						<option value="public">Public</option>
-						<option value="team">Team</option>
-						<option value="private">Only me</option>
-					</select>
+					<div class="mt-2">
+						<app-custom-select
+							[(ngModel)]="privacy.profileVisibility"
+							[options]="profileVisibilityOptions">
+						</app-custom-select>
+					</div>
 				</label>
 				<label class="flex items-center justify-between rounded-xl border border-surface-800/80 bg-surface-950/40 px-4 py-3 text-sm">
 					<div>
@@ -71,19 +72,22 @@
 		<div class="grid gap-4 md:grid-cols-2">
 			<label class="block text-sm">
 				<span class="text-surface-300">Color scheme</span>
-				<select [ngModel]="themeService.current()" (ngModelChange)="themeService.set($event)" class="mt-2 w-full rounded-lg border border-surface-800 bg-surface-950 px-3 py-2 text-sm text-surface-100 focus:border-primary-600 focus:outline-none focus:ring-1 focus:ring-primary-600">
-				@for(t of themeService.themes; track t.id) {
-				<option [value]="t.id">{{ t.label }}</option>
-				}
-				</select>
+				<div class="mt-2">
+					<app-custom-select
+						[ngModel]="themeService.current()"
+						(ngModelChange)="themeService.set($event)"
+						[options]="themeOptions">
+					</app-custom-select>
+				</div>
 			</label>
 			<label class="block text-sm">
 				<span class="text-surface-300">Density</span>
-				<select [(ngModel)]="theme.density" class="mt-2 w-full rounded-lg border border-surface-800 bg-surface-950 px-3 py-2 text-sm text-surface-100 focus:border-primary-600 focus:outline-none focus:ring-1 focus:ring-primary-600">
-					<option value="comfortable">Comfortable</option>
-					<option value="compact">Compact</option>
-					<option value="cozy">Cozy</option>
-				</select>
+				<div class="mt-2">
+					<app-custom-select
+						[(ngModel)]="theme.density"
+						[options]="densityOptions">
+					</app-custom-select>
+				</div>
 			</label>
 		</div>
 	</section>

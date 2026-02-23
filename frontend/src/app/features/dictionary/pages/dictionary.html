@@ -30,8 +30,8 @@
 							class="flex w-full items-center justify-between px-4 py-2 text-sm text-surface-200 hover:bg-primary-900/40 hover:text-primary-50 transition-colors"
 							[class.bg-primary-900/60]="dict.id === dictionaryState.currentDictionaryId()">
 							<span>{{ dict.name }}</span>
-							@if(dict._count?.words !== undefined) {
-								<span class="text-xs text-surface-400">{{ dict._count?.words }} words</span>
+						@if(dict.wordCount !== undefined) {
+							<span class="text-xs text-surface-400">{{ dict.wordCount }} words</span>
 							}
 						</button>
 						}

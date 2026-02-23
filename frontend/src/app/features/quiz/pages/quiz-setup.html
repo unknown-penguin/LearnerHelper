@@ -30,7 +30,7 @@
 					<div class="p-6">
 						<h4 class="text-lg font-semibold text-surface-100 mb-2">{{ dict.name }}</h4>
 						<p class="text-sm text-surface-300">
-							{{ dict._count?.words || 0 }} words
+							{{ dict.wordCount || 0 }} words
 						</p>
 					</div>
 					@if(selectedDictionaryId() === dict.id) {

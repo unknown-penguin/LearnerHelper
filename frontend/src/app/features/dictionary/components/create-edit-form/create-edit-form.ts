@@ -3,10 +3,11 @@ import { Component, EventEmitter, inject, Input, OnChanges, Output, SimpleChange
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PartOfSpeech, WordEntry } from '../../models/wordEntity.model';
 import { LevelLabel } from '../level-label/level-label';
+import { CustomSelect, SelectOption } from '../../../../core/components/custom-select/custom-select';
 
 @Component({
   selector: 'app-create-edit-form',
-  imports: [CommonModule, ReactiveFormsModule, LevelLabel],
+  imports: [CommonModule, ReactiveFormsModule, LevelLabel, CustomSelect],
   templateUrl: './create-edit-form.html'
 })
 export class CreateEditForm implements OnChanges {
@@ -38,6 +39,9 @@ export class CreateEditForm implements OnChanges {
     'interjection',
   ];
   public readonly languageLevels = ['Beginner', 'Intermediate', 'Advanced'];
+
+  readonly partOfSpeechSelectOptions: SelectOption[] = this.partOfSpeechOptions.map((o) => ({ value: o, label: o }));
+  readonly languageLevelSelectOptions: SelectOption[] = this.languageLevels.map((l) => ({ value: l, label: l }));
 
   public form: FormGroup<{
     id: FormControl<string>;

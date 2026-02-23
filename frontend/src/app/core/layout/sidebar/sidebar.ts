@@ -48,6 +48,9 @@ export class Sidebar {
       }
     });
   }
+  addDictionary(): void {
+    this.router.navigate(['/manage-dictionaries'], { queryParams: { action: 'create' } });
+  }
 
   toggleDictionary(): void {
     this.isDictionaryExpanded.update((v) => !v);

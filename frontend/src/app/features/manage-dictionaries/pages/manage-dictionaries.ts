@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DictionaryStateService } from '../../dictionary/services/dictionary-state.service';
 import { LanguageService } from '../../dictionary/services/language.service';
 import { Dictionary } from '../../dictionary/models/dictionary.model';
@@ -8,19 +9,26 @@ import { BaseModalForm } from '../../../core/utils/base-modal-form';
 import { FormConfigFactory, FormDefaultValues, DictionaryFormValue } from '../../../core/utils/form-config.factory';
 import { findNameById } from '../../../core/utils/lookup.util';
 import { DataTableComponent, TableColumn } from '../../../core/components/data-table/data-table';
+import { CustomSelect, SelectOption } from '../../../core/components/custom-select/custom-select';
 
 
 @Component({
   selector: 'app-manage-dictionaries',
-  imports: [CommonModule, ReactiveFormsModule, DataTableComponent],
+  imports: [CommonModule, ReactiveFormsModule, DataTableComponent, CustomSelect],
   templateUrl: './manage-dictionaries.html',
 })
-export class ManageDictionaries extends BaseModalForm<Dictionary, DictionaryFormValue> {
+export class ManageDictionaries extends BaseModalForm<Dictionary, DictionaryFormValue> implements OnInit {
   readonly dictionaryState = inject(DictionaryStateService);
   readonly languageService = inject(LanguageService);
   private readonly formFactory = inject(FormConfigFactory);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
 
   readonly editingDictionary = this.editingItem;
+
+  get languageOptions(): SelectOption[] {
+    return this.languageService.all().map((l) => ({ value: l.id, label: `${l.name} (${l.code})` }));
+  }
 
   readonly columns: TableColumn<Dictionary>[] = [
     { 
@@ -39,11 +47,11 @@ export class ManageDictionaries extends BaseModalForm<Dictionary, DictionaryForm
       }
     },
     { 
-      field: '_count', 
+      field: 'wordCount', 
       label: 'Words', 
       width: '40%',
       cellClass: 'text-surface-300',
-      format: (row) => String(row._count?.words ?? 0)
+      format: (row) => String(row.wordCount ?? 0)
     },
   ];
 
@@ -55,6 +63,19 @@ export class ManageDictionaries extends BaseModalForm<Dictionary, DictionaryForm
   constructor() {
     super();
     this.form = this.formFactory.createDictionaryForm();
+  }
+
+  ngOnInit(): void {
+    this.route.queryParamMap.subscribe((params) => {
+      if (params.get('action') === 'create') {
+        this.openCreateForm();
+      }
+    });
+  }
+
+  override closeForm(): void {
+    super.closeForm();
+    this.router.navigate([], { queryParams: {}, replaceUrl: true });
   }
 
   protected override getDefaultFormValues(): DictionaryFormValue {

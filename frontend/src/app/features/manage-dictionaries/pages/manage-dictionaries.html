@@ -59,21 +59,18 @@
 			<label class="space-y-2">
 				<span
 					class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Language</span>
-						<select formControlName="languageId"
-							class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100 focus:border-primary-500 focus:outline-none">
-							<option value="" disabled>Select a language</option>
-						@for(lang of languageService.all(); track lang.id) {
-						<option [value]="lang.id">
-							{{ lang.name }} ({{ lang.code }})
-						</option>
-						}
-						</select>
-					@if(form.controls.languageId.touched && form.controls.languageId.invalid) {
-					<span class="text-xs text-danger-300">
-						Language is required.
-					</span>
-					}
-				</label>
+				<app-custom-select
+					formControlName="languageId"
+					placeholder="Select a language"
+					[showPlaceholderOption]="true"
+					[options]="languageOptions">
+				</app-custom-select>
+				@if(form.controls.languageId.touched && form.controls.languageId.invalid) {
+				<span class="text-xs text-danger-300">
+					Language is required.
+				</span>
+				}
+			</label>
 
 				<footer class="flex flex-wrap items-center justify-between gap-4 pt-4">
 					<div class="flex gap-2">
