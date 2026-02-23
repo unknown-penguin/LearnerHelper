@@ -22,9 +22,10 @@ export class UserService extends BaseHttpService<User> {
     if (stored) {
       try {
         const parsed: User = JSON.parse(stored);
-        const user = await this.request<User>()
+        const user: User = await this.request<User>()
           .path(`/${parsed.id}`)
           .get();
+        console.log(user);
         this.loggedUser.set(user);
         localStorage.setItem('currentUser', JSON.stringify(user));
       } catch {
@@ -40,7 +41,10 @@ export class UserService extends BaseHttpService<User> {
         .path('/login')
         .params({ email, password })
         .get();
+
       this.loggedUser.set(user);
+      console.log("User logged in:", user);
+
       localStorage.setItem('currentUser', JSON.stringify(user));
       return true;
     } catch (error) {

@@ -1,26 +1,38 @@
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 import { prisma } from 'src/prisma';
-import { Language } from '@prisma/client';
 import { CreateLanguageDto } from './dto/create-language.dto';
 import { UpdateLanguageDto } from './dto/update-language.dto';
+import { LanguageDto } from './dto/language.dto';
 
 @Injectable()
 export class LanguageService {
-  async getLanguages(): Promise<Language[]> {
-    return await prisma.language.findMany();
+  private toDto(l: { id: string; name: string; code: string; createdAt: Date; updatedAt: Date }): LanguageDto {
+    const dto = new LanguageDto();
+    dto.id = l.id;
+    dto.name = l.name;
+    dto.code = l.code;
+    dto.createdAt = l.createdAt;
+    dto.updatedAt = l.updatedAt;
+    return dto;
   }
 
-  async getLanguageById(id: string): Promise<Language | null> {
+  async getLanguages(): Promise<LanguageDto[]> {
+    const languages = await prisma.language.findMany();
+    return languages.map((l) => this.toDto(l));
+  }
+
+  async getLanguageById(id: string): Promise<LanguageDto> {
     const language = await prisma.language.findUnique({ where: { id } });
     if (!language) {
       throw new NotFoundException(`Language with ID ${id} not found`);
     }
-    return language;
+    return this.toDto(language);
   }
 
-  async createLanguage(data: CreateLanguageDto): Promise<Language> {
+  async createLanguage(data: CreateLanguageDto): Promise<LanguageDto> {
     try {
-      return await prisma.language.create({ data });
+      const language = await prisma.language.create({ data });
+      return this.toDto(language);
     } catch (error) {
       if (error.code === 'P2002') {
         throw new ConflictException('Language already exists');
@@ -29,9 +41,10 @@ export class LanguageService {
     }
   }
 
-  async updateLanguage(id: string, data: UpdateLanguageDto): Promise<Language> {
+  async updateLanguage(id: string, data: UpdateLanguageDto): Promise<LanguageDto> {
     try {
-      return await prisma.language.update({ where: { id }, data });
+      const language = await prisma.language.update({ where: { id }, data });
+      return this.toDto(language);
     } catch (error) {
       if (error.code === 'P2025') {
         throw new NotFoundException('Language not found');
@@ -43,9 +56,9 @@ export class LanguageService {
     }
   }
 
-  async deleteLanguage(id: string): Promise<Language> {
+  async deleteLanguage(id: string): Promise<void> {
     try {
-      return await prisma.language.delete({ where: { id } });
+      await prisma.language.delete({ where: { id } });
     } catch (error) {
       if (error.code === 'P2025') {
         throw new NotFoundException('Language not found');
