@@ -1,23 +1,24 @@
 <div
-	class="flex min-h-screen flex-col gap-6 bg-gradient-to-br from-surface-950 via-surface-950 to-primary-950 px-6 py-10 text-surface-100">
+	class="flex min-h-screen flex-col gap-6 bg-gradient-to-br from-surface-950 via-surface-950 to-primary-950 px-6 py-10 text-surface-100"
+	*transloco="let t; scope: 'quiz'; prefix: 'quiz'">
 	<div class="flex items-center justify-between">
 		<div class="border-l-4 border-primary-400/70 pl-3">
-			<p class="text-[11px] uppercase tracking-[0.24em] text-primary-200/80">Practice</p>
-			<h2 class="text-3xl font-semibold text-surface-100">Quiz</h2>
+			<p class="text-[11px] uppercase tracking-[0.24em] text-primary-200/80">{{t('practice')}}</p>
+			<h2 class="text-3xl font-semibold text-surface-100">{{t('quiz')}}</h2>
 		</div>
 	</div>
 
 	<div class="flex flex-col items-center justify-center py-16">
 		<div class="w-full max-w-2xl space-y-6">
 			<div class="text-center">
-				<h3 class="text-2xl font-semibold text-surface-100 mb-2">Select a Dictionary</h3>
-				<p class="text-sm text-surface-300">Choose which dictionary you'd like to practice</p>
+				<h3 class="text-2xl font-semibold text-surface-100 mb-2">{{t('setup.selectDictionary')}}</h3>
+				<p class="text-sm text-surface-300">{{t('setup.chooseDictionary')}}</p>
 			</div>
 
 			<div class="grid gap-4 md:grid-cols-2">
 				@if(quizStateService.availableDictionaries().length === 0) {
 				<div class="col-span-2 rounded-xl border border-surface-800/60 bg-surface-900/40 p-8 text-center">
-					<p class="text-surface-400">No dictionaries available. Create one first!</p>
+					<p class="text-surface-400">{{t('setup.noDictionaries')}}</p>
 				</div>
 				} @else {
 				@for(dict of quizStateService.availableDictionaries(); track dict.id) {
@@ -30,7 +31,7 @@
 					<div class="p-6">
 						<h4 class="text-lg font-semibold text-surface-100 mb-2">{{ dict.name }}</h4>
 						<p class="text-sm text-surface-300">
-							{{ dict.wordCount || 0 }} words
+								{{ dict.wordCount || 0 }} {{t('setup.words')}}
 						</p>
 					</div>
 					@if(selectedDictionaryId() === dict.id) {
@@ -51,7 +52,7 @@
 			<div class="flex justify-center pt-4">
 				<button (click)="startQuiz()"
 					class="rounded-full bg-primary-500 px-8 py-3 text-sm font-semibold text-surface-950 shadow-lg shadow-primary-500/30 transition hover:bg-primary-400">
-					Start Quiz
+					{{t('setup.startQuiz')}}
 				</button>
 			</div>
 			}

@@ -1,0 +1,55 @@
+{
+  "notifications": {
+    "label": "Notificaciones",
+    "deliveryChannels": "Canales de entrega",
+    "toggleCount": "3 controles",
+    "email": {
+      "label": "Correo electrónico",
+      "description": "Recibe resúmenes y alertas."
+    },
+    "push": {
+      "label": "Notificaciones push",
+      "description": "Notificaciones instantáneas en la aplicación."
+    },
+    "sms": {
+      "label": "SMS",
+      "description": "Solo alertas críticas."
+    }
+  },
+  "privacy": {
+    "label": "Privacidad",
+    "visibility": "Visibilidad",
+    "profileVisibility": "Visibilidad del perfil",
+    "searchEngineIndexing": {
+      "label": "Indexación de motores de búsqueda",
+      "description": "Permitir que los motores de búsqueda indexen."
+    }
+  },
+  "appearance": {
+    "label": "Apariencia",
+    "themeDensity": "Tema y densidad",
+    "colorScheme": "Esquema de colores",
+    "density": "Densidad",
+    "language": "Idioma"  },
+  "options": {
+    "visibility": {
+      "public": "Público",
+      "team": "Equipo",
+      "private": "Solo yo"
+    },
+    "density": {
+      "comfortable": "Cómodo",
+      "compact": "Compacto",
+      "cozy": "Acogedor"
+    },
+    "language": {
+      "en": "Inglés",
+      "es": "Español",
+      "bg": "Búlgaro"
+    },
+    "theme": {
+      "cyan": "Cian",
+      "green": "Verde",
+      "medium-gray": "Claro"
+    }  }
+}

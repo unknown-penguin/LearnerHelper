@@ -10,11 +10,13 @@ import { FormConfigFactory, FormDefaultValues, DictionaryFormValue } from '../..
 import { findNameById } from '../../../core/utils/lookup.util';
 import { DataTableComponent, TableColumn } from '../../../core/components/data-table/data-table';
 import { CustomSelect, SelectOption } from '../../../core/components/custom-select/custom-select';
+import { provideTranslocoScope, TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
 
 @Component({
   selector: 'app-manage-dictionaries',
-  imports: [CommonModule, ReactiveFormsModule, DataTableComponent, CustomSelect],
+  imports: [CommonModule, ReactiveFormsModule, DataTableComponent, CustomSelect, TranslocoDirective],
+  providers: [provideTranslocoScope('manage-dictionaries')],
   templateUrl: './manage-dictionaries.html',
 })
 export class ManageDictionaries extends BaseModalForm<Dictionary, DictionaryFormValue> implements OnInit {
@@ -23,6 +25,7 @@ export class ManageDictionaries extends BaseModalForm<Dictionary, DictionaryForm
   private readonly formFactory = inject(FormConfigFactory);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly translocoService = inject(TranslocoService);
 
   readonly editingDictionary = this.editingItem;
 
@@ -30,30 +33,32 @@ export class ManageDictionaries extends BaseModalForm<Dictionary, DictionaryForm
     return this.languageService.all().map((l) => ({ value: l.id, label: `${l.name} (${l.code})` }));
   }
 
-  readonly columns: TableColumn<Dictionary>[] = [
-    { 
-      field: 'name', 
-      label: 'Name', 
-      width: '35%',
-      cellClass: 'text-base font-semibold text-surface-100'
-    },
-    { 
-      field: 'languageId', 
-      label: 'Language', 
-      width: '25%',
-      format: (row) => {
-        const langName = this.getLanguageName(row.languageId);
-        return `<span class="inline-flex items-center rounded bg-primary-900/70 px-2.5 py-1 text-[11px] font-semibold text-primary-100 ring-1 ring-primary-600/40">${langName}</span>`;
-      }
-    },
-    { 
-      field: 'wordCount', 
-      label: 'Words', 
-      width: '40%',
-      cellClass: 'text-surface-300',
-      format: (row) => String(row.wordCount ?? 0)
-    },
-  ];
+  get columns(): TableColumn<Dictionary>[] {
+    return [
+      { 
+        field: 'name', 
+        label: this.translocoService.translate('manageDictionaries.columns.name'), 
+        width: '35%',
+        cellClass: 'text-base font-semibold text-surface-100'
+      },
+      { 
+        field: 'languageId', 
+        label: this.translocoService.translate('manageDictionaries.columns.language'), 
+        width: '25%',
+        format: (row) => {
+          const langName = this.getLanguageName(row.languageId);
+          return `<span class="inline-flex items-center rounded bg-primary-900/70 px-2.5 py-1 text-[11px] font-semibold text-primary-100 ring-1 ring-primary-600/40">${langName}</span>`;
+        }
+      },
+      { 
+        field: 'wordCount', 
+        label: this.translocoService.translate('manageDictionaries.columns.words'), 
+        width: '40%',
+        cellClass: 'text-surface-300',
+        format: (row) => String(row.wordCount ?? 0)
+      },
+    ];
+  }
 
   protected form: FormGroup<{
     name: FormControl<string>;

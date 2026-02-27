@@ -1,5 +1,5 @@
 @if(isOpen) {
-<div class="fixed inset-0 z-40">
+<div class="fixed inset-0 z-40" *transloco="let t; scope: 'dictionary'; prefix: 'dictionary'">
 	<div class="absolute inset-0 bg-surface-950/80 backdrop-blur-sm" (click)="onCancel()"></div>
 	<div class="relative z-10 flex min-h-full items-center justify-center px-4 py-10" (click)="onCancel()">
 		<section role="dialog" aria-modal="true"
@@ -7,8 +7,8 @@
 			(click)="$event.stopPropagation()">
 			<header class="flex flex-wrap items-center justify-between gap-4 border-b border-primary-900/50 pb-4">
 				<div>
-					<p class="text-[11px] uppercase tracking-[0.32em] text-primary-200/70">Dictionary</p>
-					<h2 class="text-2xl font-semibold text-surface-100">{{ isEditing ? 'Edit' : 'Create' }} term</h2>
+					<p class="text-[11px] uppercase tracking-[0.32em] text-primary-200/70">{{t('form.label')}}</p>
+					<h2 class="text-2xl font-semibold text-surface-100">{{ isEditing ? t('form.updateTerm') : t('form.createTerm') }}</h2>
 				</div>
 				<app-level-label [level]="form.controls.languageLevel.value"></app-level-label>
 			</header>
@@ -16,19 +16,18 @@
 			<form class="mt-6 space-y-5" [formGroup]="form" (ngSubmit)="onSubmit()">
 				<div class="grid gap-5 md:grid-cols-2">
 					<label class="space-y-2">
-						<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Word</span>
-						<input type="text" formControlName="word" placeholder="Enter the word"
+						<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">{{t('form.word')}}</span>
+						<input type="text" formControlName="word" [placeholder]="t('form.wordPlaceholder')"
 							class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100 placeholder:text-surface-500 focus:border-primary-500 focus:outline-none" />
 						@if(form.controls.word.touched && form.controls.word.invalid) {
 						<span class="text-xs text-danger-300">
-							Word is required.
+							{{t('form.wordRequired')}}
 						</span>
 						}
 					</label>
 
 					<label class="space-y-2">
-						<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Part of
-							speech</span>
+						<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">{{t('form.partOfSpeech')}}</span>
 						<app-custom-select
 							formControlName="partOfSpeech"
 							[options]="partOfSpeechSelectOptions">
@@ -37,20 +36,19 @@
 				</div>
 
 				<label class="space-y-2">
-					<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Definition</span>
-					<textarea rows="4" formControlName="definition" placeholder="Explain the meaning"
+					<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">{{t('form.definition')}}</span>
+					<textarea rows="4" formControlName="definition" [placeholder]="t('form.definitionPlaceholder')"
 						class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100 placeholder:text-surface-500 focus:border-primary-500 focus:outline-none"></textarea>
 					@if(form.controls.definition.touched && form.controls.definition.invalid) {
 					<span class="text-xs text-danger-300">
-						Definition is required.
+						{{t('form.definitionRequired')}}
 					</span>
 					}
 				</label>
 
 				<div class="grid gap-5 md:grid-cols-2">
 					<label class="space-y-2">
-						<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Language
-							level</span>
+						<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">{{t('form.languageLevel')}}</span>
 						<app-custom-select
 							formControlName="languageLevel"
 						[options]="languageLevelSelectOptions">
@@ -59,7 +57,7 @@
 
 					<label class="space-y-2">
 						<span
-							class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Language</span>
+							class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">{{t('form.language')}}</span>
 						<div
 							class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100">
 							{{ language || '—' }}
@@ -72,19 +70,19 @@
 						<button type="button"
 							class="rounded-full border border-surface-700/70 px-5 py-2 text-sm font-semibold text-surface-200 transition hover:border-surface-500 hover:text-surface-100"
 							(click)="onCancel()">
-							Cancel
+							{{t('form.cancel')}}
 						</button>
 						@if(isEditing) {
 						<button type="button"
 							class="rounded-full border border-danger-700/50 px-5 py-2 text-sm font-semibold text-danger-300 transition hover:bg-danger-900/50 hover:text-surface-100"
 							(click)="onDelete()">
-							Delete
+								{{t('form.delete')}}
 						</button>
 						}
 					</div>
 					<button type="submit"
 						class="rounded-full bg-primary-500 px-6 py-2 text-sm font-semibold text-surface-950 shadow-lg shadow-primary-500/30 transition hover:bg-primary-400">
-						{{ isEditing ? 'Update term' : 'Create term' }}
+						{{ isEditing ? t('form.updateTerm') : t('form.createTerm') }}
 					</button>
 				</footer>
 			</form>

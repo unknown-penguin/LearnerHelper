@@ -2,10 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuizStateService } from '../services/quiz.service';
+import { provideTranslocoScope, TranslocoDirective } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-quiz-setup',
-  imports: [CommonModule],
+  imports: [CommonModule, TranslocoDirective],
+  providers: [provideTranslocoScope('quiz')],
   templateUrl: './quiz-setup.html',
 })
 export class QuizSetup {

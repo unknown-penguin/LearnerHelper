@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { provideTranslocoScope, TranslocoDirective } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-quiz-results',
-  imports: [CommonModule],
+  imports: [CommonModule, TranslocoDirective],
+  providers: [provideTranslocoScope('quiz')],
   templateUrl: './quiz-results.html',
 })
 export class QuizResults implements OnInit {

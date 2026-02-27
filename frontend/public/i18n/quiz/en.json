@@ -1,0 +1,29 @@
+{
+  "practice": "Practice",
+  "quiz": "Quiz",
+  "results": "Quiz Results",
+  "setup": {
+    "selectDictionary": "Select a Dictionary",
+    "chooseDictionary": "Choose which dictionary you'd like to practice",
+    "noDictionaries": "No dictionaries available. Create one first!",
+    "words": "words",
+    "startQuiz": "Start Quiz"
+  },
+  "play": {
+    "question": "Question",
+    "of": "of",
+    "score": "Score:",
+    "definition": "Definition",
+    "yourAnswer": "Your Answer",
+    "typePlaceholder": "Type the word...",
+    "submitAnswer": "Submit Answer"
+  },
+  "result": {
+    "complete": "Quiz Complete!",
+    "youScored": "You scored",
+    "outOf": "out of",
+    "correct": "Correct",
+    "tryAgain": "Try Again",
+    "chooseAnother": "Choose Another Dictionary"
+  }
+}

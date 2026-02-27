@@ -1,0 +1,29 @@
+{
+  "practice": "Практика",
+  "quiz": "Тест",
+  "results": "Резултати от теста",
+  "setup": {
+    "selectDictionary": "Изберете речник",
+    "chooseDictionary": "Изберете кой речник искате да практикувате",
+    "noDictionaries": "Няма налични речници. Създайте първо един!",
+    "words": "думи",
+    "startQuiz": "Стартирай теста"
+  },
+  "play": {
+    "question": "Въпрос",
+    "of": "от",
+    "score": "Резултат:",
+    "definition": "Определение",
+    "yourAnswer": "Вашият отговор",
+    "typePlaceholder": "Напишете думата...",
+    "submitAnswer": "Изпрати отговор"
+  },
+  "result": {
+    "complete": "Тестът е завършен!",
+    "youScored": "Получихте",
+    "outOf": "от",
+    "correct": "Правилно",
+    "tryAgain": "Опитай отново",
+    "chooseAnother": "Избери друг речник"
+  }
+}

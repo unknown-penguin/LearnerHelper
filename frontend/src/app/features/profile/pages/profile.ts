@@ -3,14 +3,17 @@ import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { UserService } from '../../../core/services/user.service';
 import { Settings } from '../../settings/pages/settings';
+import { provideTranslocoScope, TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-profile',
-  imports: [FormsModule, DatePipe, Settings],
+  imports: [FormsModule, DatePipe, Settings, TranslocoDirective],
+  providers: [provideTranslocoScope('profile')],
   templateUrl: './profile.html',
 })
 export class Profile {
   private readonly userService = inject(UserService);
+  private readonly translocoService = inject(TranslocoService);
 
   readonly user = this.userService.currentUser;
 
@@ -41,7 +44,7 @@ export class Profile {
         this.saved.set(true);
         setTimeout(() => this.saved.set(false), 3000);
       } else {
-        this.error.set('Failed to save changes.');
+        this.error.set(this.translocoService.translate('profile.saveError'));
       }
     } finally {
       this.saving.set(false);

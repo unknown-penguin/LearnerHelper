@@ -1,0 +1,15 @@
+{
+  "account": "Акаунт",
+  "title": "Профил",
+  "overview": "Преглед",
+  "yourAccount": "Вашият акаунт",
+  "memberSince": "Член от",
+  "lastUpdated": "Последна промяна",
+  "details": "Детайли",
+  "editProfile": "Редактирай профил",
+  "name": "Име",
+  "email": "Имейл",
+  "saveChanges": "Запази промените",
+  "savedSuccessfully": "Промените са запазени успешно.",
+  "saveError": "Неуспешно запазване на промените."
+}

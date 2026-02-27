@@ -1,0 +1,27 @@
+{
+  "manage": "Gestionar",
+  "title": "Diccionarios",
+  "count": "diccionarios",
+  "new": "+ Nuevo",
+  "noDictionariesFound": "No se encontraron diccionarios. ¡Crea tu primer diccionario!",
+  "columns": {
+    "name": "Nombre",
+    "language": "Idioma",
+    "words": "Palabras"
+  },
+  "form": {
+    "label": "Diccionario",
+    "createDictionary": "Crear diccionario",
+    "editDictionary": "Editar diccionario",
+    "name": "Nombre",
+    "namePlaceholder": "ej. Mi diccionario de inglés",
+    "nameRequired": "El nombre es obligatorio.",
+    "language": "Idioma",
+    "languagePlaceholder": "Selecciona un idioma",
+    "languageRequired": "El idioma es obligatorio.",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "update": "Actualizar",
+    "create": "Crear"
+  }
+}

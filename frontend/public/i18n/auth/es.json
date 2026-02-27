@@ -1,0 +1,8 @@
+{
+  "welcomeBack": "Bienvenido de nuevo",
+  "signIn": "Iniciar sesión",
+  "email": "Correo electrónico",
+  "password": "Contraseña",
+  "cancel": "Cancelar",
+  "invalidCredentials": "Correo o contraseña incorrectos."
+}

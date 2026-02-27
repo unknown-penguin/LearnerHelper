@@ -1,0 +1,27 @@
+{
+  "manage": "Manage",
+  "title": "Languages",
+  "count": "languages",
+  "new": "+ New",
+  "noLanguagesFound": "No languages found. Add your first language!",
+  "columns": {
+    "name": "Name",
+    "code": "Code"
+  },
+  "form": {
+    "label": "Language",
+    "createLanguage": "Create Language",
+    "editLanguage": "Edit Language",
+    "name": "Name",
+    "namePlaceholder": "e.g. English",
+    "nameRequired": "Name is required.",
+    "code": "Code",
+    "codePlaceholder": "e.g. en",
+    "codeRequired": "Code is required (max 5 characters).",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "update": "Update",
+    "create": "Create"
+  },
+  "deleteConflict": "Cannot delete this language. It is used by {{ count }} dictionary(ies): {{ names }}"
+}

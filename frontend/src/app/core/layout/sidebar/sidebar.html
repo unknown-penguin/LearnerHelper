@@ -1,9 +1,10 @@
 <div
-    class="flex h-full w-64 flex-col bg-gradient-to-b from-surface-950 via-surface-950 to-primary-950 text-surface-100 shadow-2xl ring-1 ring-primary-900/40">
+    class="flex h-full w-64 flex-col bg-gradient-to-b from-surface-950 via-surface-950 to-primary-950 text-surface-100 shadow-2xl ring-1 ring-primary-900/40"
+    *transloco="let t; scope: 'sidebar'; prefix: 'sidebar'">
     <div class="flex items-center justify-between border-b border-primary-900/50 px-4 py-5">
         <div class="border-l-4 border-primary-400/70 pl-3">
-            <p class="text-[11px] uppercase tracking-[0.24em] text-primary-200/80">Learner</p>
-            <h2 class="text-xl font-semibold leading-tight text-surface-100">Helper</h2>
+            <p class="text-[11px] uppercase tracking-[0.24em] text-primary-200/80">{{t('brandTop')}}</p>
+            <h2 class="text-xl font-semibold leading-tight text-surface-100">{{t('brandBottom')}}</h2>
         </div>
     </div>
 
@@ -16,7 +17,7 @@
                         [class.bg-primary-900/50]="isDictionaryRoute()" [class.text-surface-100]="isDictionaryRoute()"
                         [class.shadow-inner]="isDictionaryRoute()" [class.ring-1]="isDictionaryRoute()"
                         [class.ring-primary-700/50]="isDictionaryRoute()" [class.text-surface-200]="!isDictionaryRoute()">
-                        <span>Dictionary</span>
+                        <span>{{t('nav.dictionary')}}</span>
                         <svg class="h-4 w-4 transition-transform" [class.rotate-90]="isDictionaryExpanded()"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
@@ -39,7 +40,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 shrink-0" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                         </svg>
-                        No dictionaries yet
+                        {{t('nav.noDictionaries')}}
                     </li>
                     } @else {
                     @for (dict of dictionaryState.allDictionaries(); track dict.id) {
@@ -79,28 +80,28 @@
                 <a routerLink="/quiz-setup"
                     routerLinkActive="bg-primary-900/50 text-surface-100 shadow-inner ring-1 ring-primary-700/50"
                     class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-surface-200 transition-colors hover:bg-primary-900/40 hover:text-primary-50">
-                    Quiz
+                    {{t('nav.quiz')}}
                 </a>
             </li>
             <li>
                 <a routerLink="/manage-dictionaries"
                     routerLinkActive="bg-primary-900/50 text-surface-100 shadow-inner ring-1 ring-primary-700/50"
                     class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-surface-200 transition-colors hover:bg-primary-900/40 hover:text-primary-50">
-                    Manage Dictionaries
+                    {{t('nav.manageDictionaries')}}
                 </a>
             </li>
             <li>
                 <a routerLink="/languages"
                     routerLinkActive="bg-primary-900/50 text-surface-100 shadow-inner ring-1 ring-primary-700/50"
                     class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-surface-200 transition-colors hover:bg-primary-900/40 hover:text-primary-50">
-                    Languages
+                    {{t('nav.languages')}}
                 </a>
             </li>
             <li>
                 <a routerLink="/profile"
                     routerLinkActive="bg-primary-900/50 text-surface-100 shadow-inner ring-1 ring-primary-700/50"
                     class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-surface-200 transition-colors hover:bg-primary-900/40 hover:text-primary-50">
-                    Settings
+                    {{t('nav.settings')}}
                 </a>
             </li>
         </ul>
@@ -115,19 +116,19 @@
                 </div>
                 <div class="min-w-0 text-left">
                     <p class="truncate text-sm font-semibold text-surface-100">{{ user?.name }}</p>
-                    <p class="text-[10px] uppercase tracking-[0.18em] text-primary-200/60">Logged in</p>
+                    <p class="text-[10px] uppercase tracking-[0.18em] text-primary-200/60">{{t('user.loggedIn')}}</p>
                 </div>
             </button>
             <button (click)="logoutUser()"
                 class="flex shrink-0 items-center gap-2 self-center rounded-lg px-3 py-2 text-sm font-medium text-surface-200 transition-colors hover:bg-primary-900/40 hover:text-primary-50">
-                Logout
+                {{t('user.logout')}}
             </button>
         </div>
         } @else {
         <div class="px-3 py-3">
             <button (click)="login()"
                 class="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-surface-200 transition-colors hover:bg-primary-900/40 hover:text-primary-50">
-                Login
+                {{t('user.login')}}
             </button>
         </div>
         }

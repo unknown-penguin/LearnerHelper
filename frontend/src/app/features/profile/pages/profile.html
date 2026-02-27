@@ -1,8 +1,9 @@
-<div class="flex min-h-screen flex-col gap-6 bg-gradient-to-br from-surface-950 via-surface-950 to-primary-950 px-6 py-10 text-surface-100">
+<div class="flex min-h-screen flex-col gap-6 bg-gradient-to-br from-surface-950 via-surface-950 to-primary-950 px-6 py-10 text-surface-100"
+    *transloco="let t; scope: 'profile'; prefix: 'profile'">
     <div class="flex items-center justify-between">
         <div class="border-l-4 border-primary-400/70 pl-3">
-            <p class="text-[11px] uppercase tracking-[0.24em] text-primary-200/80">Account</p>
-            <h1 class="text-3xl font-semibold text-surface-100">Profile</h1>
+            <p class="text-[11px] uppercase tracking-[0.24em] text-primary-200/80">{{t('account')}}</p>
+            <h1 class="text-3xl font-semibold text-surface-100">{{t('title')}}</h1>
         </div>
     </div>
 
@@ -11,8 +12,8 @@
         <!-- Avatar & info card -->
         <section class="rounded-2xl border border-primary-900/50 bg-surface-900/70 p-5 shadow-xl ring-1 ring-primary-800/40">
             <header class="mb-5 border-b border-primary-900/50 pb-4">
-                <p class="text-xs uppercase tracking-[0.18em] text-primary-200/80">Overview</p>
-                <h2 class="text-lg font-semibold text-surface-100">Your account</h2>
+                <p class="text-xs uppercase tracking-[0.18em] text-primary-200/80">{{t('overview')}}</p>
+                <h2 class="text-lg font-semibold text-surface-100">{{t('yourAccount')}}</h2>
             </header>
 
             <div class="flex items-center gap-4">
@@ -27,11 +28,11 @@
 
             <dl class="mt-5 space-y-3 text-sm">
                 <div class="flex items-center justify-between rounded-xl border border-surface-800/80 bg-surface-950/40 px-4 py-3">
-                    <dt class="text-surface-400">Member since</dt>
+                    <dt class="text-surface-400">{{t('memberSince')}}</dt>
                     <dd class="font-medium text-surface-100">{{ user()?.createdAt | date:'mediumDate' }}</dd>
                 </div>
                 <div class="flex items-center justify-between rounded-xl border border-surface-800/80 bg-surface-950/40 px-4 py-3">
-                    <dt class="text-surface-400">Last updated</dt>
+                    <dt class="text-surface-400">{{t('lastUpdated')}}</dt>
                     <dd class="font-medium text-surface-100">{{ user()?.updatedAt | date:'mediumDate' }}</dd>
                 </div>
             </dl>
@@ -40,8 +41,8 @@
         <!-- Edit form card -->
         <section class="rounded-2xl border border-primary-900/50 bg-surface-900/70 p-5 shadow-xl ring-1 ring-primary-800/40">
             <header class="mb-5 border-b border-primary-900/50 pb-4">
-                <p class="text-xs uppercase tracking-[0.18em] text-primary-200/80">Details</p>
-                <h2 class="text-lg font-semibold text-surface-100">Edit profile</h2>
+                <p class="text-xs uppercase tracking-[0.18em] text-primary-200/80">{{t('details')}}</p>
+                <h2 class="text-lg font-semibold text-surface-100">{{t('editProfile')}}</h2>
             </header>
 
             @if (error()) {
@@ -52,19 +53,19 @@
 
             @if (saved()) {
             <div class="mb-4 rounded-lg border border-green-700/40 bg-green-900/30 p-3 text-sm text-green-300">
-                Changes saved successfully.
+                {{t('savedSuccessfully')}}
             </div>
             }
 
             <form (ngSubmit)="save()" class="space-y-5">
                 <label class="space-y-2 block">
-                    <span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Name</span>
+                    <span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">{{t('name')}}</span>
                     <input type="text" [(ngModel)]="name" name="name" required
                         class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100 placeholder:text-surface-500 focus:border-primary-500 focus:outline-none" />
                 </label>
 
                 <label class="space-y-2 block">
-                    <span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Email</span>
+                    <span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">{{t('email')}}</span>
                     <input type="email" [(ngModel)]="email" name="email" required
                         class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100 placeholder:text-surface-500 focus:border-primary-500 focus:outline-none" />
                 </label>
@@ -78,7 +79,7 @@
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
                         </svg>
                         }
-                        Save changes
+                        {{t('saveChanges')}}
                     </button>
                 </footer>
             </form>

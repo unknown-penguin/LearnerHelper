@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { provideTranslocoScope, TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-level-label',
-  imports: [CommonModule],
+  imports: [CommonModule, TranslocoPipe],
+  providers: [provideTranslocoScope('dictionary')],
   templateUrl: './level-label.html'
 })
 export class LevelLabel {

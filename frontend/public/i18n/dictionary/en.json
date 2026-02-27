@@ -1,0 +1,50 @@
+{
+  "label": "Dictionary",
+  "noDictionarySelected": "No Dictionary Selected",
+  "noDictionariesAvailable": "No dictionaries available",
+  "words": "words",
+  "entries": "entries",
+  "new": "+ New",
+  "noEntriesFound": "No entries found. Add your first word!",
+  "level": "level",
+  "partsOfSpeech": {
+    "noun": "Noun",
+    "verb": "Verb",
+    "adjective": "Adjective",
+    "adverb": "Adverb",
+    "pronoun": "Pronoun",
+    "preposition": "Preposition",
+    "conjunction": "Conjunction",
+    "interjection": "Interjection"
+  },
+  "levels": {
+    "Beginner": "Beginner",
+    "Intermediate": "Intermediate",
+    "Advanced": "Advanced"
+  },
+  "columns": {
+    "word": "Word",
+    "partOfSpeech": "Part of Speech",
+    "definition": "Definition",
+    "language": "Language",
+    "level": "Level"
+  },
+  "form": {
+    "label": "Dictionary",
+    "create": "Create",
+    "edit": "Edit",
+    "word": "Word",
+    "wordPlaceholder": "Enter the word",
+    "wordRequired": "Word is required.",
+    "partOfSpeech": "Part of speech",
+    "definition": "Definition",
+    "definitionPlaceholder": "Explain the meaning",
+    "definitionRequired": "Definition is required.",
+    "languageLevel": "Language level",
+    "language": "Language",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "updateTerm": "Update term",
+    "createTerm": "Create term"
+  }
+}

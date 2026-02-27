@@ -15,10 +15,12 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs/operators';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
+import { provideTranslocoScope, TranslocoDirective } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterLink, RouterLinkActive, CommonModule],
+  imports: [RouterLink, RouterLinkActive, CommonModule, TranslocoDirective],
+  providers: [provideTranslocoScope('sidebar')],
   templateUrl: './sidebar.html',
 })
 export class Sidebar {

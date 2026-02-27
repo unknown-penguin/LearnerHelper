@@ -1,0 +1,15 @@
+{
+  "account": "Account",
+  "title": "Profile",
+  "overview": "Overview",
+  "yourAccount": "Your account",
+  "memberSince": "Member since",
+  "lastUpdated": "Last updated",
+  "details": "Details",
+  "editProfile": "Edit profile",
+  "name": "Name",
+  "email": "Email",
+  "saveChanges": "Save changes",
+  "savedSuccessfully": "Changes saved successfully.",
+  "saveError": "Failed to save changes."
+}

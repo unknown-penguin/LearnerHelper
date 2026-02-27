@@ -1,9 +1,10 @@
 <div
-	class="flex min-h-screen flex-col gap-6 bg-gradient-to-br from-surface-950 via-surface-950 to-primary-950 px-6 py-10 text-surface-100">
+	class="flex min-h-screen flex-col gap-6 bg-gradient-to-br from-surface-950 via-surface-950 to-primary-950 px-6 py-10 text-surface-100"
+	*transloco="let t; scope: 'quiz'; prefix: 'quiz'">
 	<div class="flex items-center justify-between">
 		<div class="border-l-4 border-primary-400/70 pl-3">
-			<p class="text-[11px] uppercase tracking-[0.24em] text-primary-200/80">Practice</p>
-			<h2 class="text-3xl font-semibold text-surface-100">Quiz</h2>
+			<p class="text-[11px] uppercase tracking-[0.24em] text-primary-200/80">{{t('practice')}}</p>
+			<h2 class="text-3xl font-semibold text-surface-100">{{t('quiz')}}</h2>
 		</div>
 	</div>
 
@@ -12,8 +13,8 @@
 		<div class="w-full max-w-3xl space-y-6">
 			<div class="space-y-2">
 				<div class="flex justify-between text-sm text-surface-300">
-					<span>Question {{ currentQuestionIndex() + 1 }} of {{ questions().length }}</span>
-					<span>Score: {{ score() }}/{{ currentQuestionIndex() }}</span>
+					<span>{{t('play.question')}} {{ currentQuestionIndex() + 1 }} {{t('play.of')}} {{ questions().length }}</span>
+					<span>{{t('play.score')}} {{ score() }}/{{ currentQuestionIndex() }}</span>
 				</div>
 				<div class="h-2 w-full overflow-hidden rounded-full bg-surface-800/60">
 					<div class="h-full bg-primary-500 transition-all duration-300" [style.width.%]="progress()"></div>
@@ -23,23 +24,22 @@
 			<div class="rounded-2xl border border-primary-900/60 bg-surface-900/70 p-8 shadow-2xl ring-1 ring-primary-700/40">
 				<div class="space-y-6">
 					<div class="text-center">
-						<p class="text-sm uppercase tracking-[0.2em] text-primary-200/80 mb-4">Definition</p>
+						<p class="text-sm uppercase tracking-[0.2em] text-primary-200/80 mb-4">{{t('play.definition')}}</p>
 						<p class="text-2xl font-medium text-surface-100">{{ currentQuestion()!.definition }}</p>
 					</div>
 
 					<div class="space-y-4">
 						<label class="space-y-2">
-							<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Your
-								Answer</span>
-							<input type="text" [(ngModel)]="userAnswer" (keyup.enter)="submitAnswer()"
-								placeholder="Type the word..."
+							<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">{{t('play.yourAnswer')}}</span>
+								<input type="text" [(ngModel)]="userAnswer" (keyup.enter)="submitAnswer()"
+									[placeholder]="t('play.typePlaceholder')"
 								class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-lg text-surface-100 placeholder:text-surface-500 focus:border-primary-500 focus:outline-none"
 								autofocus />
 						</label>
 
 						<button (click)="submitAnswer()" [disabled]="!userAnswer().trim()"
 							class="w-full rounded-full bg-primary-500 px-6 py-3 text-sm font-semibold text-surface-950 shadow-lg shadow-primary-500/30 transition hover:bg-primary-400 disabled:opacity-50 disabled:cursor-not-allowed">
-							Submit Answer
+								{{t('play.submitAnswer')}}
 						</button>
 					</div>
 				</div>

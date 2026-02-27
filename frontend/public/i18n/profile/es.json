@@ -1,0 +1,15 @@
+{
+  "account": "Cuenta",
+  "title": "Perfil",
+  "overview": "Resumen",
+  "yourAccount": "Tu cuenta",
+  "memberSince": "Miembro desde",
+  "lastUpdated": "Última actualización",
+  "details": "Detalles",
+  "editProfile": "Editar perfil",
+  "name": "Nombre",
+  "email": "Correo electrónico",
+  "saveChanges": "Guardar cambios",
+  "savedSuccessfully": "Cambios guardados correctamente.",
+  "saveError": "Error al guardar los cambios."
+}

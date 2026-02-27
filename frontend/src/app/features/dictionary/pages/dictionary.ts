@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, effect, inject, signal } from '@angular/core';
+import { provideTranslocoScope, TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 import { CreateEditForm } from '../components/create-edit-form/create-edit-form';
 import { WordEntry } from '../models/wordEntity.model';
 import { LevelLabel } from '../components/level-label/level-label';
@@ -10,11 +11,13 @@ import { DataTableComponent, TableColumn } from '../../../core/components/data-t
 
 @Component({
   selector: 'app-dictionary',
-  imports: [CommonModule, CreateEditForm, LevelLabel, DataTableComponent],
+  imports: [CommonModule, CreateEditForm, LevelLabel, DataTableComponent, TranslocoDirective],
   templateUrl: './dictionary.html',
+  providers: [provideTranslocoScope('dictionary')]
 })
 export class Dictionary {
   private readonly wordService = inject(WordService);
+  private readonly translocoService = inject(TranslocoService);
   readonly dictionaryState = inject(DictionaryStateService);
   private readonly languageService = inject(LanguageService);
 
@@ -23,38 +26,40 @@ export class Dictionary {
   selectedEntry: WordEntry | null = null;
   isDropdownOpen = signal(false);
 
-  readonly columns: TableColumn<WordEntry>[] = [
-    { 
-      field: 'word', 
-      label: 'Word', 
-      width: '15%',
-      cellClass: 'text-base font-semibold text-surface-100'
-    },
-    { 
-      field: 'partOfSpeech', 
-      label: 'Part of Speech', 
-      width: '15%',
-      cellClass: 'capitalize text-surface-300'
-    },
-    { 
-      field: 'definition', 
-      label: 'Definition', 
-      width: '45%',
-      cellClass: 'text-surface-100'
-    },
-    { 
-      field: 'language', 
-      label: 'Language', 
-      width: '12%',
-      format: (row) => `<span class="inline-flex items-center rounded bg-primary-900/70 px-2.5 py-1 text-[11px] font-semibold text-primary-100 ring-1 ring-primary-600/40">${row.language}</span>`
-    },
-    { 
-      field: 'languageLevel', 
-      label: 'Level', 
-      width: '13%',
-      component: true
-    },
-  ];
+  get columns(): TableColumn<WordEntry>[] {
+    return [
+      { 
+        field: 'word', 
+        label: this.translocoService.translate('dictionary.columns.word'), 
+        width: '15%',
+        cellClass: 'text-base font-semibold text-surface-100'
+      },
+      { 
+        field: 'partOfSpeech', 
+        label: this.translocoService.translate('dictionary.columns.partOfSpeech'), 
+        width: '15%',
+        cellClass: 'capitalize text-surface-300'
+      },
+      { 
+        field: 'definition', 
+        label: this.translocoService.translate('dictionary.columns.definition'), 
+        width: '45%',
+        cellClass: 'text-surface-100'
+      },
+      { 
+        field: 'language', 
+        label: this.translocoService.translate('dictionary.columns.language'), 
+        width: '12%',
+        format: (row) => `<span class="inline-flex items-center rounded bg-primary-900/70 px-2.5 py-1 text-[11px] font-semibold text-primary-100 ring-1 ring-primary-600/40">${row.language}</span>`
+      },
+      { 
+        field: 'languageLevel', 
+        label: this.translocoService.translate('dictionary.columns.level'), 
+        width: '13%',
+        component: true
+      },
+    ];
+  }
 
   readonly dictionaryLanguage = computed(() => {
     const dict = this.dictionaryState.selectedDictionary();

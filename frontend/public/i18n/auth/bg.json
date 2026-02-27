@@ -1,0 +1,8 @@
+{
+  "welcomeBack": "Добре дошли отново",
+  "signIn": "Влезте",
+  "email": "Имейл",
+  "password": "Парола",
+  "cancel": "Отказ",
+  "invalidCredentials": "Невалиден имейл или парола."
+}

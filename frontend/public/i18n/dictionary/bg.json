@@ -1,0 +1,50 @@
+{
+  "label": "Речник",
+  "noDictionarySelected": "Няма избран речник",
+  "noDictionariesAvailable": "Няма налични речници",
+  "words": "думи",
+  "entries": "записа",
+  "new": "+ Нов",
+  "noEntriesFound": "Няма намерени записи. Добавете първата си дума!",
+  "level": "ниво",
+  "partsOfSpeech": {
+    "noun": "Съществително",
+    "verb": "Глагол",
+    "adjective": "Прилагателно",
+    "adverb": "Наречие",
+    "pronoun": "Местоимение",
+    "preposition": "Предлог",
+    "conjunction": "Съюз",
+    "interjection": "Междуметие"
+  },
+  "levels": {
+    "Beginner": "Начинаещ",
+    "Intermediate": "Средно ниво",
+    "Advanced": "Напреднал"
+  },
+  "columns": {
+    "word": "Дума",
+    "partOfSpeech": "Част на речта",
+    "definition": "Определение",
+    "language": "Език",
+    "level": "Ниво"
+  },
+  "form": {
+    "label": "Речник",
+    "create": "Създай",
+    "edit": "Редактирай",
+    "word": "Дума",
+    "wordPlaceholder": "Въведете думата",
+    "wordRequired": "Думата е задължителна.",
+    "partOfSpeech": "Част на речта",
+    "definition": "Определение",
+    "definitionPlaceholder": "Обяснете значението",
+    "definitionRequired": "Определението е задължително.",
+    "languageLevel": "Езиково ниво",
+    "language": "Език",
+    "cancel": "Отказ",
+    "delete": "Изтрий",
+    "updateTerm": "Обнови термина",
+    "createTerm": "Създай термин"
+  }
+}

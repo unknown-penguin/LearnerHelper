@@ -4,10 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { WordService } from '../../dictionary/services/word.service';
 import { WordEntry } from '../../dictionary/models/wordEntity.model';
+import { provideTranslocoScope, TranslocoDirective } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-quiz',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslocoDirective],
+  providers: [provideTranslocoScope('quiz')],
   templateUrl: './quiz.html',
 })
 export class Quiz implements OnInit {

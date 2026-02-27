@@ -1,14 +1,17 @@
 import { Component, inject, signal, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../../core/services/user.service';
+import { provideTranslocoScope, TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule, TranslocoDirective],
   templateUrl: './login.html',
+  providers: [provideTranslocoScope('auth')]
 })
 export class Login {
   private readonly userService = inject(UserService);
+  private readonly translocoService = inject(TranslocoService);
 
   readonly closed = output<void>();
 
@@ -25,7 +28,7 @@ export class Login {
       if (success) {
         this.closed.emit();
       } else {
-        this.error.set('Invalid email or password.');
+        this.error.set(this.translocoService.translate('auth.invalidCredentials'));
       }
     } finally {
       this.loading.set(false);

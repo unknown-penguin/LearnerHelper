@@ -1,18 +1,19 @@
 <div
-	class="flex min-h-screen flex-col gap-6 bg-gradient-to-br from-surface-950 via-surface-950 to-primary-950 px-6 py-10 text-surface-100">
+	class="flex min-h-screen flex-col gap-6 bg-gradient-to-br from-surface-950 via-surface-950 to-primary-950 px-6 py-10 text-surface-100"
+	*transloco="let t; scope: 'manage-dictionaries'; prefix: 'manageDictionaries'">
 	<div class="flex items-center justify-between">
 		<div class="border-l-4 border-primary-400/70 pl-3">
-			<p class="text-[11px] uppercase tracking-[0.24em] text-primary-200/80">Manage</p>
-			<h2 class="text-3xl font-semibold text-surface-100">Dictionaries</h2>
+			<p class="text-[11px] uppercase tracking-[0.24em] text-primary-200/80">{{t('manage')}}</p>
+			<h2 class="text-3xl font-semibold text-surface-100">{{t('title')}}</h2>
 		</div>
 		<div class="flex items-center gap-4">
 			<span
 				class="rounded-full border border-primary-500/40 bg-primary-900/60 px-4 py-2 text-xs font-semibold text-primary-100 shadow-lg shadow-primary-900/40">
-				{{ dictionaryState.allDictionaries().length }} dictionaries
+				{{ dictionaryState.allDictionaries().length }} {{t('count')}}
 			</span>
 			<button (click)="openCreateForm()"
 				class="rounded-full border border-primary-500/40 bg-primary-900/60 px-4 py-2 text-xs font-semibold text-primary-100 shadow-lg shadow-primary-900/40 transition hover:bg-primary-900/70">
-				+ New
+				{{t('new')}}
 			</button>
 		</div>
 	</div>
@@ -21,7 +22,7 @@
 		[columns]="columns" 
 		[rows]="dictionaryState.allDictionaries()" 
 		[minWidth]="'1000px'"
-		[emptyMessage]="'No dictionaries found. Create your first dictionary!'"
+		[emptyMessage]="t('noDictionariesFound')"
 		(rowClick)="openEditForm($event)">
 	</app-data-table>
 
@@ -33,9 +34,8 @@
 				class="w-full max-w-lg rounded-2xl border border-primary-900/60 bg-surface-950/90 p-6 text-surface-100 shadow-2xl"
 				(click)="$event.stopPropagation()">
 				<header class="border-b border-primary-900/50 pb-4">
-					<p class="text-[11px] uppercase tracking-[0.32em] text-primary-200/70">Dictionary</p>
-					<h2 class="text-2xl font-semibold text-surface-100">{{ editingDictionary() ? 'Edit' : 'Create' }}
-						Dictionary</h2>
+					<p class="text-[11px] uppercase tracking-[0.32em] text-primary-200/70">{{t('form.label')}}</p>
+					<h2 class="text-2xl font-semibold text-surface-100">{{ editingDictionary() ? t('form.editDictionary') : t('form.createDictionary') }}</h2>
 				</header>
 
 				@if(errorMessage()) {
@@ -46,28 +46,28 @@
 
 				<form class="mt-6 space-y-5" [formGroup]="form" (ngSubmit)="onSubmit()">
 					<label class="space-y-2">
-						<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Name</span>
-						<input type="text" formControlName="name" placeholder="e.g. My English Dictionary"
+						<span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">{{t('form.name')}}</span>
+						<input type="text" formControlName="name" [placeholder]="t('form.namePlaceholder')"
 							class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100 placeholder:text-surface-500 focus:border-primary-500 focus:outline-none" />
 					@if(form.controls.name.touched && form.controls.name.invalid) {
 					<span class="text-xs text-danger-300">
-						Name is required.
+						{{t('form.nameRequired')}}
 					</span>
 					}
 			</label>
 
 			<label class="space-y-2">
 				<span
-					class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Language</span>
+					class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">{{t('form.language')}}</span>
 				<app-custom-select
 					formControlName="languageId"
-					placeholder="Select a language"
+					[placeholder]="t('form.languagePlaceholder')"
 					[showPlaceholderOption]="true"
 					[options]="languageOptions">
 				</app-custom-select>
 				@if(form.controls.languageId.touched && form.controls.languageId.invalid) {
 				<span class="text-xs text-danger-300">
-					Language is required.
+					{{t('form.languageRequired')}}
 				</span>
 				}
 			</label>
@@ -77,19 +77,19 @@
 							<button type="button"
 								class="rounded-full border border-surface-700/70 px-5 py-2 text-sm font-semibold text-surface-200 transition hover:border-surface-500 hover:text-surface-100"
 								(click)="closeForm()">
-								Cancel
+							{{t('form.cancel')}}
 							</button>
 							@if(editingDictionary()) {
 							<button type="button"
 								class="rounded-full border border-danger-700/50 px-5 py-2 text-sm font-semibold text-danger-300 transition hover:bg-danger-900/50 hover:text-surface-100"
 								(click)="onDelete(editingDictionary()!)">
-								Delete
+								{{t('form.delete')}}
 							</button>
 							}
 						</div>
 						<button type="submit"
 							class="rounded-full bg-primary-500 px-6 py-2 text-sm font-semibold text-surface-950 shadow-lg shadow-primary-500/30 transition hover:bg-primary-400">
-							{{ editingDictionary() ? 'Update' : 'Create' }}
+						{{ editingDictionary() ? t('form.update') : t('form.create') }}
 						</button>
 					</footer>
 				</form>

@@ -1,0 +1,50 @@
+{
+  "label": "Diccionario",
+  "noDictionarySelected": "Sin diccionario seleccionado",
+  "noDictionariesAvailable": "No hay diccionarios disponibles",
+  "words": "palabras",
+  "entries": "entradas",
+  "new": "+ Nuevo",
+  "noEntriesFound": "No se encontraron entradas. ¡Añade tu primera palabra!",
+  "level": "nivel",
+  "partsOfSpeech": {
+    "noun": "Sustantivo",
+    "verb": "Verbo",
+    "adjective": "Adjetivo",
+    "adverb": "Adverbio",
+    "pronoun": "Pronombre",
+    "preposition": "Preposición",
+    "conjunction": "Conjunción",
+    "interjection": "Interjección"
+  },
+  "levels": {
+    "Beginner": "Principiante",
+    "Intermediate": "Intermedio",
+    "Advanced": "Avanzado"
+  },
+  "columns": {
+    "word": "Palabra",
+    "partOfSpeech": "Parte del discurso",
+    "definition": "Definición",
+    "language": "Idioma",
+    "level": "Nivel"
+  },
+  "form": {
+    "label": "Diccionario",
+    "create": "Crear",
+    "edit": "Editar",
+    "word": "Palabra",
+    "wordPlaceholder": "Introduce la palabra",
+    "wordRequired": "La palabra es obligatoria.",
+    "partOfSpeech": "Parte del discurso",
+    "definition": "Definición",
+    "definitionPlaceholder": "Explica el significado",
+    "definitionRequired": "La definición es obligatoria.",
+    "languageLevel": "Nivel de idioma",
+    "language": "Idioma",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "updateTerm": "Actualizar término",
+    "createTerm": "Crear término"
+  }
+}

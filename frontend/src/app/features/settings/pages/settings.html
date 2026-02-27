@@ -1,33 +1,33 @@
-<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-4" *transloco="let t; scope: 'settings'; prefix: 'settings'">
 	<div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
 		<section class="rounded-2xl border border-primary-900/50 bg-surface-900/70 p-5 shadow-xl ring-1 ring-primary-800/40">
 			<header class="mb-4 flex items-center justify-between">
 				<div>
-					<p class="text-xs uppercase tracking-[0.18em] text-primary-200/80">Notifications</p>
-					<h2 class="text-lg font-semibold text-surface-100">Delivery channels</h2>
+					<p class="text-xs uppercase tracking-[0.18em] text-primary-200/80">{{t('notifications.label')}}</p>
+					<h2 class="text-lg font-semibold text-surface-100">{{t('notifications.deliveryChannels')}}</h2>
 				</div>
-				<span class="rounded-full bg-primary-900/60 px-3 py-1 text-[11px] font-semibold text-primary-100 ring-1 ring-primary-700/40">3 toggles</span>
+				<span class="rounded-full bg-primary-900/60 px-3 py-1 text-[11px] font-semibold text-primary-100 ring-1 ring-primary-700/40">{{t('notifications.toggleCount')}}</span>
 			</header>
 
 			<div class="space-y-3">
 				<label class="flex items-center justify-between rounded-xl border border-surface-800/80 bg-surface-950/40 px-4 py-3 text-sm">
 					<div>
-						<p class="font-semibold text-surface-100">Email</p>
-						<p class="text-xs text-surface-400">Receive summaries and alerts.</p>
+						<p class="font-semibold text-surface-100">{{t('notifications.email.label')}}</p>
+						<p class="text-xs text-surface-400">{{t('notifications.email.description')}}</p>
 					</div>
 					<input type="checkbox" [(ngModel)]="notifications.email" class="h-4 w-4 accent-primary-500" />
 				</label>
 				<label class="flex items-center justify-between rounded-xl border border-surface-800/80 bg-surface-950/40 px-4 py-3 text-sm">
 					<div>
-						<p class="font-semibold text-surface-100">Push</p>
-						<p class="text-xs text-surface-400">Instant notifications in app.</p>
+						<p class="font-semibold text-surface-100">{{t('notifications.push.label')}}</p>
+						<p class="text-xs text-surface-400">{{t('notifications.push.description')}}</p>
 					</div>
 					<input type="checkbox" [(ngModel)]="notifications.push" class="h-4 w-4 accent-primary-500" />
 				</label>
 				<label class="flex items-center justify-between rounded-xl border border-surface-800/80 bg-surface-950/40 px-4 py-3 text-sm">
 					<div>
-						<p class="font-semibold text-surface-100">SMS</p>
-						<p class="text-xs text-surface-400">Critical alerts only.</p>
+						<p class="font-semibold text-surface-100">{{t('notifications.sms.label')}}</p>
+						<p class="text-xs text-surface-400">{{t('notifications.sms.description')}}</p>
 					</div>
 					<input type="checkbox" [(ngModel)]="notifications.sms" class="h-4 w-4 accent-primary-500" />
 				</label>
@@ -37,13 +37,13 @@
 		<section class="rounded-2xl border border-primary-900/50 bg-surface-900/70 p-5 shadow-xl ring-1 ring-primary-800/40">
 			<header class="mb-4 flex items-center justify-between">
 				<div>
-					<p class="text-xs uppercase tracking-[0.18em] text-primary-200/80">Privacy</p>
-					<h2 class="text-lg font-semibold text-surface-100">Visibility</h2>
+					<p class="text-xs uppercase tracking-[0.18em] text-primary-200/80">{{t('privacy.label')}}</p>
+					<h2 class="text-lg font-semibold text-surface-100">{{t('privacy.visibility')}}</h2>
 				</div>
 			</header>
 			<div class="space-y-4">
 				<label class="block text-sm">
-					<span class="text-surface-300">Profile visibility</span>
+					<span class="text-surface-300">{{t('privacy.profileVisibility')}}</span>
 					<div class="mt-2">
 						<app-custom-select
 							[(ngModel)]="privacy.profileVisibility"
@@ -53,8 +53,8 @@
 				</label>
 				<label class="flex items-center justify-between rounded-xl border border-surface-800/80 bg-surface-950/40 px-4 py-3 text-sm">
 					<div>
-						<p class="font-semibold text-surface-100">Search indexing</p>
-						<p class="text-xs text-surface-400">Allow search engines to index.</p>
+						<p class="font-semibold text-surface-100">{{t('privacy.searchEngineIndexing.label')}}</p>
+						<p class="text-xs text-surface-400">{{t('privacy.searchEngineIndexing.description')}}</p>
 					</div>
 					<input type="checkbox" [(ngModel)]="privacy.searchEngineIndexing" class="h-4 w-4 accent-primary-500" />
 				</label>
@@ -65,13 +65,13 @@
 	<section class="rounded-2xl border border-primary-900/50 bg-surface-900/70 p-5 shadow-xl ring-1 ring-primary-800/40">
 		<header class="mb-4 flex items-center justify-between">
 			<div>
-				<p class="text-xs uppercase tracking-[0.18em] text-primary-200/80">Appearance</p>
-				<h2 class="text-lg font-semibold text-surface-100">Theme & density</h2>
+				<p class="text-xs uppercase tracking-[0.18em] text-primary-200/80">{{t('appearance.label')}}</p>
+				<h2 class="text-lg font-semibold text-surface-100">{{t('appearance.themeDensity')}}</h2>
 			</div>
 		</header>
 		<div class="grid gap-4 md:grid-cols-2">
 			<label class="block text-sm">
-				<span class="text-surface-300">Color scheme</span>
+				<span class="text-surface-300">{{t('appearance.colorScheme')}}</span>
 				<div class="mt-2">
 					<app-custom-select
 						[ngModel]="themeService.current()"
@@ -81,11 +81,20 @@
 				</div>
 			</label>
 			<label class="block text-sm">
-				<span class="text-surface-300">Density</span>
+				<span class="text-surface-300">{{t('appearance.density')}}</span>
 				<div class="mt-2">
 					<app-custom-select
 						[(ngModel)]="theme.density"
 						[options]="densityOptions">
+					</app-custom-select>
+				</div>
+			</label>
+			<label class="block text-sm">
+				<span class="text-surface-300">{{t('appearance.language')}}</span>
+				<div class="mt-2">
+					<app-custom-select
+						[(ngModel)]="interfaceLanguage"
+						[options]="languageOptions">
 					</app-custom-select>
 				</div>
 			</label>

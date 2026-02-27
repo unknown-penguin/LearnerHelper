@@ -1,0 +1,8 @@
+{
+  "welcomeBack": "Welcome back",
+  "signIn": "Sign In",
+  "email": "Email",
+  "password": "Password",
+  "cancel": "Cancel",
+  "invalidCredentials": "Invalid email or password."
+}

@@ -1,0 +1,17 @@
+{
+  "brandTop": "Learner",
+  "brandBottom": "Helper",
+  "nav": {
+    "dictionary": "Diccionario",
+    "noDictionaries": "Sin diccionarios aún",
+    "quiz": "Cuestionario",
+    "manageDictionaries": "Gestionar Diccionarios",
+    "languages": "Idiomas",
+    "settings": "Configuración"
+  },
+  "user": {
+    "loggedIn": "Conectado",
+    "logout": "Cerrar sesión",
+    "login": "Iniciar sesión"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "manage": "Управление",
+  "title": "Речници",
+  "count": "речника",
+  "new": "+ Нов",
+  "noDictionariesFound": "Няма намерени речници. Създайте първия си речник!",
+  "columns": {
+    "name": "Наименование",
+    "language": "Език",
+    "words": "Думи"
+  },
+  "form": {
+    "label": "Речник",
+    "createDictionary": "Създай речник",
+    "editDictionary": "Редактирай речник",
+    "name": "Наименование",
+    "namePlaceholder": "напр. Моят английски речник",
+    "nameRequired": "Наименованието е задължително.",
+    "language": "Език",
+    "languagePlaceholder": "Изберете език",
+    "languageRequired": "Езикът е задължителен.",
+    "cancel": "Отказ",
+    "delete": "Изтрий",
+    "update": "Обнови",
+    "create": "Създай"
+  }
+}

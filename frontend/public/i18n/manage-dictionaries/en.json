@@ -1,0 +1,27 @@
+{
+  "manage": "Manage",
+  "title": "Dictionaries",
+  "count": "dictionaries",
+  "new": "+ New",
+  "noDictionariesFound": "No dictionaries found. Create your first dictionary!",
+  "columns": {
+    "name": "Name",
+    "language": "Language",
+    "words": "Words"
+  },
+  "form": {
+    "label": "Dictionary",
+    "createDictionary": "Create Dictionary",
+    "editDictionary": "Edit Dictionary",
+    "name": "Name",
+    "namePlaceholder": "e.g. My English Dictionary",
+    "nameRequired": "Name is required.",
+    "language": "Language",
+    "languagePlaceholder": "Select a language",
+    "languageRequired": "Language is required.",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "update": "Update",
+    "create": "Create"
+  }
+}

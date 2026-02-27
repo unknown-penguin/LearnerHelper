@@ -1,0 +1,17 @@
+{
+  "brandTop": "Learner",
+  "brandBottom": "Helper",
+  "nav": {
+    "dictionary": "Речник",
+    "noDictionaries": "Няма речници",
+    "quiz": "Тест",
+    "manageDictionaries": "Управление на речници",
+    "languages": "Езици",
+    "settings": "Настройки"
+  },
+  "user": {
+    "loggedIn": "Влезли сте",
+    "logout": "Изход",
+    "login": "Вход"
+  }
+}

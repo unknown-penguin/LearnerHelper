@@ -1,0 +1,29 @@
+{
+  "practice": "Práctica",
+  "quiz": "Cuestionario",
+  "results": "Resultados del cuestionario",
+  "setup": {
+    "selectDictionary": "Selecciona un diccionario",
+    "chooseDictionary": "Elige qué diccionario te gustaría practicar",
+    "noDictionaries": "No hay diccionarios disponibles. ¡Crea uno primero!",
+    "words": "palabras",
+    "startQuiz": "Iniciar cuestionario"
+  },
+  "play": {
+    "question": "Pregunta",
+    "of": "de",
+    "score": "Puntuación:",
+    "definition": "Definición",
+    "yourAnswer": "Tu respuesta",
+    "typePlaceholder": "Escribe la palabra...",
+    "submitAnswer": "Enviar respuesta"
+  },
+  "result": {
+    "complete": "¡Cuestionario completo!",
+    "youScored": "Has obtenido",
+    "outOf": "de",
+    "correct": "Correcto",
+    "tryAgain": "Intentar de nuevo",
+    "chooseAnother": "Elegir otro diccionario"
+  }
+}

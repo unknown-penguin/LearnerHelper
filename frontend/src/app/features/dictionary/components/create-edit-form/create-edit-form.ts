@@ -4,13 +4,16 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { PartOfSpeech, WordEntry } from '../../models/wordEntity.model';
 import { LevelLabel } from '../level-label/level-label';
 import { CustomSelect, SelectOption } from '../../../../core/components/custom-select/custom-select';
+import { provideTranslocoScope, TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-create-edit-form',
-  imports: [CommonModule, ReactiveFormsModule, LevelLabel, CustomSelect],
+  imports: [CommonModule, ReactiveFormsModule, LevelLabel, CustomSelect, TranslocoDirective],
+  providers: [provideTranslocoScope('dictionary')],
   templateUrl: './create-edit-form.html'
 })
 export class CreateEditForm implements OnChanges {
+  private readonly translocoService = inject(TranslocoService);
   private readonly defaultValue: WordEntry = {
     id: '',
     word: '',
@@ -40,8 +43,19 @@ export class CreateEditForm implements OnChanges {
   ];
   public readonly languageLevels = ['Beginner', 'Intermediate', 'Advanced'];
 
-  readonly partOfSpeechSelectOptions: SelectOption[] = this.partOfSpeechOptions.map((o) => ({ value: o, label: o }));
-  readonly languageLevelSelectOptions: SelectOption[] = this.languageLevels.map((l) => ({ value: l, label: l }));
+  get partOfSpeechSelectOptions(): SelectOption[] {
+    return this.partOfSpeechOptions.map((o) => ({
+      value: o,
+      label: this.translocoService.translate(`dictionary.partsOfSpeech.${o}`),
+    }));
+  }
+
+  get languageLevelSelectOptions(): SelectOption[] {
+    return this.languageLevels.map((l) => ({
+      value: l,
+      label: this.translocoService.translate(`dictionary.levels.${l}`),
+    }));
+  }
 
   public form: FormGroup<{
     id: FormControl<string>;

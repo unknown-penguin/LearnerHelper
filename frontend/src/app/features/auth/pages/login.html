@@ -1,4 +1,4 @@
-<div class="fixed inset-0 z-40">
+<div class="fixed inset-0 z-40" *transloco="let t; scope: 'auth'; prefix: 'auth'">
     <div class="absolute inset-0 bg-surface-950/80 backdrop-blur-sm" (click)="close()"></div>
     <div class="relative z-10 flex min-h-full items-center justify-center px-4 py-10" (click)="close()">
         <section role="dialog" aria-modal="true"
@@ -7,8 +7,8 @@
 
             <header class="flex items-center justify-between border-b border-primary-900/50 pb-4">
                 <div class="border-l-4 border-primary-400/70 pl-3">
-                    <p class="text-[11px] uppercase tracking-[0.32em] text-primary-200/70">Welcome back</p>
-                    <h2 class="text-2xl font-semibold text-surface-100">Sign In</h2>
+                    <p class="text-[11px] uppercase tracking-[0.32em] text-primary-200/70">{{t('welcomeBack')}}</p>
+                    <h2 class="text-2xl font-semibold text-surface-100">{{t('signIn')}}</h2>
                 </div>
                 <button (click)="close()"
                     class="rounded-lg p-1.5 text-surface-400 transition-colors hover:bg-primary-900/40 hover:text-surface-100">
@@ -28,13 +28,13 @@
 
             <form class="mt-6 space-y-5" (ngSubmit)="submit()">
                 <label class="space-y-2 block">
-                    <span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Email</span>
+                    <span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">{{t('email')}}</span>
                     <input type="email" [(ngModel)]="email" name="email" required autocomplete="email"
                         class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100 placeholder:text-surface-500 focus:border-primary-500 focus:outline-none" />
                 </label>
 
                 <label class="space-y-2 block">
-                    <span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">Password</span>
+                    <span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">{{t('password')}}</span>
                     <input type="password" [(ngModel)]="password" name="password" required autocomplete="current-password"
                         class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100 placeholder:text-surface-500 focus:border-primary-500 focus:outline-none" />
                 </label>
@@ -42,8 +42,7 @@
                 <footer class="flex items-center justify-between gap-4 pt-2">
                     <button type="button"
                         class="rounded-full border border-surface-700/70 px-5 py-2 text-sm font-semibold text-surface-200 transition hover:border-surface-500 hover:text-surface-100"
-                        (click)="close()">
-                        Cancel
+                        (click)="close()">{{t('cancel')}}
                     </button>
                     <button type="submit" [disabled]="loading()"
                         class="flex items-center gap-2 rounded-full bg-primary-500 px-6 py-2 text-sm font-semibold text-surface-950 shadow-lg shadow-primary-500/30 transition hover:bg-primary-400 disabled:opacity-50 disabled:cursor-not-allowed">
@@ -53,7 +52,7 @@
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
                         </svg>
                         }
-                        Sign In
+                        {{t('signIn')}}
                     </button>
                 </footer>
             </form>

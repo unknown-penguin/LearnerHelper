@@ -1,0 +1,27 @@
+{
+  "manage": "Gestionar",
+  "title": "Idiomas",
+  "count": "idiomas",
+  "new": "+ Nuevo",
+  "noLanguagesFound": "No se encontraron idiomas. ¡Añade tu primer idioma!",
+  "columns": {
+    "name": "Nombre",
+    "code": "Código"
+  },
+  "form": {
+    "label": "Idioma",
+    "createLanguage": "Crear idioma",
+    "editLanguage": "Editar idioma",
+    "name": "Nombre",
+    "namePlaceholder": "ej. Español",
+    "nameRequired": "El nombre es obligatorio.",
+    "code": "Código",
+    "codePlaceholder": "ej. es",
+    "codeRequired": "El código es obligatorio (máx. 5 caracteres).",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "update": "Actualizar",
+    "create": "Crear"
+  },
+  "deleteConflict": "No se puede eliminar este idioma. Es usado por {{ count }} diccionario(s): {{ names }}"
+}

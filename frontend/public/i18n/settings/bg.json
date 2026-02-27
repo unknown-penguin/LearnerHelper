@@ -1,0 +1,57 @@
+{
+  "notifications": {
+    "label": "Известувания",
+    "deliveryChannels": "Канали за доставка",
+    "toggleCount": "3 превключвателя",
+    "email": {
+      "label": "Имейл",
+      "description": "Получавайте резюмета и предупреждения."
+    },
+    "push": {
+      "label": "Пуш известувания",
+      "description": "Мигновени известувания в приложението."
+    },
+    "sms": {
+      "label": "SMS",
+      "description": "Само критични предупреждения."
+    }
+  },
+  "privacy": {
+    "label": "Поверителност",
+    "visibility": "Видимост",
+    "profileVisibility": "Видимост на профила",
+    "searchEngineIndexing": {
+      "label": "Индексиране на търсачки",
+      "description": "Разрешете на търсачките да индексират."
+    }
+  },
+  "appearance": {
+    "label": "Облик",
+    "themeDensity": "Тема и плътност",
+    "colorScheme": "Цветна схема",
+    "density": "Плътност",
+    "language": "Език"
+  },
+  "options": {
+    "visibility": {
+      "public": "Публично",
+      "team": "Екип",
+      "private": "Само аз"
+    },
+    "density": {
+      "comfortable": "Комфортно",
+      "compact": "Компактно",
+      "cozy": "Уютно"
+    },
+    "language": {
+      "en": "Английски",
+      "es": "Испански",
+      "bg": "Български"
+    },
+    "theme": {
+      "cyan": "Циан",
+      "green": "Зелен",
+      "medium-gray": "Светъл"
+    }
+  }
+}
