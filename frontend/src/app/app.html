@@ -1,10 +1,6 @@
 <div class="flex h-screen w-full overflow-hidden bg-surface-950">
-  <app-sidebar [version]="version" [user]="user()" (loginRequested)="showLoginModal.set(true)"></app-sidebar>
+  <app-sidebar [version]="version" [user]="user()"></app-sidebar>
   <main class="flex-1 h-full overflow-y-auto">
     <router-outlet></router-outlet>
   </main>
 </div>
-
-@if (showLoginModal()) {
-<app-login (closed)="showLoginModal.set(false)"></app-login>
-}

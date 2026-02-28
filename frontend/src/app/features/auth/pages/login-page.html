@@ -1,0 +1,15 @@
+<div class="flex h-full items-center justify-center px-4 py-10"
+    *transloco="let t; scope: 'auth'; prefix: 'auth'">
+    <section
+        class="w-full max-w-sm rounded-2xl border border-primary-900/60 bg-surface-950/90 p-6 text-surface-100 shadow-2xl">
+
+        <header class="border-b border-primary-900/50 pb-4">
+            <div class="border-l-4 border-primary-400/70 pl-3">
+                <p class="text-[11px] uppercase tracking-[0.32em] text-primary-200/70">{{t('welcomeBack')}}</p>
+                <h2 class="text-2xl font-semibold text-surface-100">{{t('signIn')}}</h2>
+            </div>
+        </header>
+
+        <app-login-form (loggedIn)="onLoggedIn()"></app-login-form>
+    </section>
+</div>

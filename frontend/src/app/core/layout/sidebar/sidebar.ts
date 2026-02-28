@@ -74,6 +74,6 @@ export class Sidebar {
   }
 
   login(): void {
-    this.loginRequested.emit();
+    this.router.navigate(['/login']);
   }
 }

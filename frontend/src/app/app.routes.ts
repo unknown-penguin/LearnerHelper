@@ -6,9 +6,12 @@ import { QuizSetup } from './features/quiz/pages/quiz-setup';
 import { Quiz } from './features/quiz/pages/quiz';
 import { QuizResults } from './features/quiz/pages/quiz-results';
 import { Profile } from './features/profile/pages/profile';
+import { LoginPage } from './features/auth/pages/login-page';
+import { authGuard } from './core/guards/auth-guard-guard';
 
 export const routes: Routes = [
-    {path: 'profile', component: Profile},
+    {path: 'login', component: LoginPage},
+    {path: 'profile', component: Profile, canActivate: [authGuard]},
     {path: 'dictionary', component: Dictionary},
     {path: 'quiz-setup', component: QuizSetup},
     {path: 'quiz/:id', component: Quiz},
