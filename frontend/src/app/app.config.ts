@@ -5,6 +5,7 @@ import { provideTransloco } from '@jsverse/transloco';
 import { TranslocoHttpLoader } from './transloco-loader';
 
 import { routes } from './app.routes';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { errorInterceptor } from './core/interceptors/error.interceptor';
 
 const LANG_STORAGE_KEY = 'learner-helper-lang';
@@ -19,8 +20,8 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([errorInterceptor])),
-    provideHttpClient(), provideTransloco({
+    provideHttpClient(withInterceptors([authInterceptor, errorInterceptor])),
+    provideTransloco({
         config: { 
           availableLangs: AVAILABLE_LANGS,
           defaultLang: getSavedLang(),

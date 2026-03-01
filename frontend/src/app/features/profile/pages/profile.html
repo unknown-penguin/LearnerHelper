@@ -60,13 +60,13 @@
             <form (ngSubmit)="save()" class="space-y-5">
                 <label class="space-y-2 block">
                     <span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">{{t('name')}}</span>
-                    <input type="text" [(ngModel)]="name" name="name" required
+                    <input type="text" [(ngModel)]="form.name" name="name" required
                         class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100 placeholder:text-surface-500 focus:border-primary-500 focus:outline-none" />
                 </label>
 
                 <label class="space-y-2 block">
                     <span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200/80">{{t('email')}}</span>
-                    <input type="email" [(ngModel)]="email" name="email" required
+                    <input type="email" [(ngModel)]="form.email" name="email" required
                         class="w-full rounded-xl border border-primary-900/60 bg-surface-950/70 px-4 py-3 text-sm text-surface-100 placeholder:text-surface-500 focus:border-primary-500 focus:outline-none" />
                 </label>
 

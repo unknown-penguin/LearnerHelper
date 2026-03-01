@@ -1,9 +1,12 @@
-import { Component, inject, signal, effect } from '@angular/core';
+import { Component, inject, signal, effect, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { UserService } from '../../../core/services/user.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { Settings } from '../../settings/pages/settings';
 import { provideTranslocoScope, TranslocoDirective, TranslocoService } from '@jsverse/transloco';
+import { UserService } from '../../../core/services/user.service';
+import { User } from '../../../core/models/user.model';
+import { ProfileForm } from '../models/profile';
 
 @Component({
   selector: 'app-profile',
@@ -11,14 +14,14 @@ import { provideTranslocoScope, TranslocoDirective, TranslocoService } from '@js
   providers: [provideTranslocoScope('profile')],
   templateUrl: './profile.html',
 })
-export class Profile {
+export class Profile implements OnInit {
+  private readonly authService = inject(AuthService);
   private readonly userService = inject(UserService);
   private readonly translocoService = inject(TranslocoService);
 
-  readonly user = this.userService.currentUser;
+  protected readonly user = signal<User | null>(null);
 
-  name = '';
-  email = '';
+  protected form: ProfileForm = { name: '', email: '' };
 
   saving = signal(false);
   saved = signal(false);
@@ -28,10 +31,17 @@ export class Profile {
     effect(() => {
       const u = this.user();
       if (u) {
-        this.name = u.name;
-        this.email = u.email;
+        this.form.name = u.name;
+        this.form.email = u.email;
       }
     });
+  }
+
+  ngOnInit(): void {
+    const id = this.authService.user()?.id;
+    if (id) {
+      this.userService.getUserById(id).then(u => this.user.set(u));
+    }
   }
 
   async save(): Promise<void> {
@@ -39,8 +49,9 @@ export class Profile {
     this.saved.set(false);
     this.error.set(null);
     try {
-      const success = await this.userService.updateCurrentUser({ name: this.name, email: this.email });
+      const success = await this.authService.updateCurrentUser({ name: this.form.name, email: this.form.email });
       if (success) {
+        this.user.set(this.authService.user());
         this.saved.set(true);
         setTimeout(() => this.saved.set(false), 3000);
       } else {

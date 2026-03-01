@@ -112,10 +112,10 @@
         <div class="flex items-center justify-between gap-2 px-3 py-2">
             <button routerLink="/profile" class="flex min-w-0 items-center gap-2.5 rounded-lg px-2 py-2 transition-colors hover:bg-primary-900/40">
                 <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary-900/60 ring-1 ring-primary-700/50 text-xs font-semibold text-primary-100">
-                    {{ (user?.name || 'G')[0].toUpperCase() }}
+                    {{ (user()?.name || 'G')[0].toUpperCase() }}
                 </div>
                 <div class="min-w-0 text-left">
-                    <p class="truncate text-sm font-semibold text-surface-100">{{ user?.name }}</p>
+                    <p class="truncate text-sm font-semibold text-surface-100">{{ user()?.name }}</p>
                     <p class="text-[10px] uppercase tracking-[0.18em] text-primary-200/60">{{t('user.loggedIn')}}</p>
                 </div>
             </button>

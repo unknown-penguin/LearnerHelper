@@ -1,6 +1,6 @@
 import { Component, inject, input, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { UserService } from '../../../core/services/user.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { provideTranslocoScope, TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 
 @Component({
@@ -10,7 +10,7 @@ import { provideTranslocoScope, TranslocoDirective, TranslocoService } from '@js
   providers: [provideTranslocoScope('auth')]
 })
 export class LoginForm {
-  private readonly userService = inject(UserService);
+  private readonly authService = inject(AuthService);
   private readonly translocoService = inject(TranslocoService);
 
   readonly showCancel = input(false);
@@ -26,7 +26,7 @@ export class LoginForm {
     this.error.set(null);
     this.loading.set(true);
     try {
-      const success = await this.userService.loginUser(this.email, this.password);
+      const success = await this.authService.login(this.email, this.password);
       if (success) {
         this.loggedIn.emit();
       } else {

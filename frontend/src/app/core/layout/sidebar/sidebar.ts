@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs/operators';
 import { User } from '../../models/user.model';
-import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
 import { provideTranslocoScope, TranslocoDirective } from '@jsverse/transloco';
 
 @Component({
@@ -24,13 +24,13 @@ import { provideTranslocoScope, TranslocoDirective } from '@jsverse/transloco';
   templateUrl: './sidebar.html',
 })
 export class Sidebar {
-  @Input() user!: User | null;
   @Input() version!: string;
 
   private readonly router = inject(Router);
   readonly dictionaryState = inject(DictionaryStateService);
-  private readonly userService = inject(UserService);
-  protected readonly isLoggedIn = this.userService.isLoggedIn;
+  private readonly authService = inject(AuthService);
+  protected readonly isLoggedIn = this.authService.isLoggedIn;
+  protected readonly user = this.authService.user;
   isDictionaryExpanded = signal(true);
 
   readonly currentUrl = toSignal(this.router.events.pipe(map(() => this.router.url)), {
@@ -70,7 +70,7 @@ export class Sidebar {
   @Output() loginRequested = new EventEmitter<void>();
 
   logoutUser(): void {
-    this.userService.logoutUser();
+    this.authService.logout();
   }
 
   login(): void {

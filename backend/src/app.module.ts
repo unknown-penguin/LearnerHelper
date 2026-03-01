@@ -26,10 +26,13 @@ import { RoleProfile } from './role/role.profile';
 import { PermissionController } from './permission/permission.controller';
 import { PermissionService } from './permission/permission.service';
 import { PermissionProfile } from './permission/permission.profile';
+import { jwtConfig } from './config/jwt.config';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
     AutomapperModule.forRoot({ strategyInitializer: classes() }),
+    JwtModule.register(jwtConfig)
   ],
   controllers: [
     AppController,
