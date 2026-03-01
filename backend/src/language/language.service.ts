@@ -1,24 +1,19 @@
 import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import { InjectMapper } from '@automapper/nestjs';
+import { Mapper } from '@automapper/core';
 import { prisma } from 'src/prisma';
 import { CreateLanguageDto } from './dto/create-language.dto';
 import { UpdateLanguageDto } from './dto/update-language.dto';
 import { LanguageDto } from './dto/language.dto';
+import { LanguageEntity } from './entities/language.entity';
 
 @Injectable()
 export class LanguageService {
-  private toDto(l: { id: string; name: string; code: string; createdAt: Date; updatedAt: Date }): LanguageDto {
-    const dto = new LanguageDto();
-    dto.id = l.id;
-    dto.name = l.name;
-    dto.code = l.code;
-    dto.createdAt = l.createdAt;
-    dto.updatedAt = l.updatedAt;
-    return dto;
-  }
+  constructor(@InjectMapper() private readonly mapper: Mapper) {}
 
   async getLanguages(): Promise<LanguageDto[]> {
     const languages = await prisma.language.findMany();
-    return languages.map((l) => this.toDto(l));
+    return this.mapper.mapArray(languages as LanguageEntity[], LanguageEntity, LanguageDto);
   }
 
   async getLanguageById(id: string): Promise<LanguageDto> {
@@ -26,13 +21,13 @@ export class LanguageService {
     if (!language) {
       throw new NotFoundException(`Language with ID ${id} not found`);
     }
-    return this.toDto(language);
+    return this.mapper.map(language as LanguageEntity, LanguageEntity, LanguageDto);
   }
 
   async createLanguage(data: CreateLanguageDto): Promise<LanguageDto> {
     try {
       const language = await prisma.language.create({ data });
-      return this.toDto(language);
+      return this.mapper.map(language as LanguageEntity, LanguageEntity, LanguageDto);
     } catch (error) {
       if (error.code === 'P2002') {
         throw new ConflictException('Language already exists');
@@ -44,7 +39,7 @@ export class LanguageService {
   async updateLanguage(id: string, data: UpdateLanguageDto): Promise<LanguageDto> {
     try {
       const language = await prisma.language.update({ where: { id }, data });
-      return this.toDto(language);
+      return this.mapper.map(language as LanguageEntity, LanguageEntity, LanguageDto);
     } catch (error) {
       if (error.code === 'P2025') {
         throw new NotFoundException('Language not found');

@@ -1,16 +1,27 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { IsEmail, IsString, IsNotEmpty, MinLength } from 'class-validator';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDto } from './dto/user.dto';
 
+class LoginDto {
+  @IsEmail()
+  email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(8)
+  password: string;
+}
+
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get('login')
-  login(@Query('email') email: string, @Query('password') password: string): Promise<UserDto> {
-    return this.userService.login(email, password);
+  @Post('login')
+  login(@Body() body: LoginDto): Promise<UserDto> {
+    return this.userService.login(body.email, body.password);
   }
 
   @Get()
@@ -23,12 +34,7 @@ export class UserController {
     return this.userService.getUserById(id);
   }
 
-  @Get(':id/verify')
-  verifyUser(@Param('id') id: string): Promise<void> {
-    return this.userService.verifyUser(id);
-  }
-
-  @Post('createUser')
+  @Post()
   createUser(@Body() data: CreateUserDto): Promise<UserDto> {
     return this.userService.createUser(data);
   }

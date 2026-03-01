@@ -1,7 +1,18 @@
+import { AutoMap } from '@automapper/classes';
+
 export class UserDto {
+  @AutoMap()
   id: string;
+
+  @AutoMap()
   name: string;
+
+  @AutoMap()
   email: string;
+
+  @AutoMap()
   createdAt: Date;
+
+  @AutoMap()
   updatedAt: Date;
 }

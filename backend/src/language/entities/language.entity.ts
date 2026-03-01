@@ -1,6 +1,6 @@
 import { AutoMap } from '@automapper/classes';
 
-export class LanguageDto {
+export class LanguageEntity {
   @AutoMap()
   id: string;
 

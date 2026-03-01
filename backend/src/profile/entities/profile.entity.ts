@@ -1,14 +1,11 @@
 import { AutoMap } from '@automapper/classes';
 
-export class LanguageDto {
+export class ProfileEntity {
   @AutoMap()
   id: string;
 
   @AutoMap()
-  name: string;
-
-  @AutoMap()
-  code: string;
+  userId: string;
 
   @AutoMap()
   createdAt: Date;

@@ -1,6 +1,6 @@
 import { AutoMap } from '@automapper/classes';
 
-export class LanguageDto {
+export class UserEntity {
   @AutoMap()
   id: string;
 
@@ -8,7 +8,7 @@ export class LanguageDto {
   name: string;
 
   @AutoMap()
-  code: string;
+  email: string;
 
   @AutoMap()
   createdAt: Date;

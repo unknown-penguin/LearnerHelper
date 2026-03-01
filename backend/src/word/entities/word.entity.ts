@@ -1,7 +1,7 @@
 import { PartOfSpeech } from '@prisma/client';
 import { AutoMap } from '@automapper/classes';
 
-export class WordDto {
+export class WordEntity {
   @AutoMap()
   id: string;
 

@@ -1,6 +1,6 @@
 import { AutoMap } from '@automapper/classes';
 
-export class LanguageDto {
+export class DictionaryEntity {
   @AutoMap()
   id: string;
 
@@ -8,11 +8,13 @@ export class LanguageDto {
   name: string;
 
   @AutoMap()
-  code: string;
+  languageId: string;
 
   @AutoMap()
   createdAt: Date;
 
   @AutoMap()
   updatedAt: Date;
+
+  _count: { words: number };
 }

@@ -1,9 +1,10 @@
 import { Controller, Get, Post, Put, Delete, Param, Query, Body } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
-import { WordService, WordWithLanguage } from './word.service';
+import { WordService } from './word.service';
 import { CreateWordDto } from './dto/create-word.dto';
 import { UpdateWordDto } from './dto/update-word.dto';
 import { WordDto } from './dto/word.dto';
+import { WordWithLanguage } from './dto/word-with-language.dto';
 
 @ApiTags('words')
 @Controller('words')
