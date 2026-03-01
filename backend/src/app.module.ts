@@ -15,6 +15,8 @@ import { LanguageProfile } from './language/language.profile';
 import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
 import { UserProfile } from './user/user.profile';
+import { AuthController } from './auth/auth.controller';
+import { AuthService } from './auth/auth.service';
 import { ProfileController } from './profile/profile.controller';
 import { ProfileService } from './profile/profile.service';
 import { ProfileProfile } from './profile/profile.profile';
@@ -35,6 +37,7 @@ import { PermissionProfile } from './permission/permission.profile';
     WordController,
     LanguageController,
     UserController,
+    AuthController,
     ProfileController,
     RoleController,
     PermissionController,
@@ -45,6 +48,7 @@ import { PermissionProfile } from './permission/permission.profile';
     WordService, WordProfile,
     LanguageService, LanguageProfile,
     UserService, UserProfile,
+    AuthService,
     ProfileService, ProfileProfile,
     RoleService, RoleProfile,
     PermissionService, PermissionProfile,
