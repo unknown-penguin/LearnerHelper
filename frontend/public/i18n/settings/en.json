@@ -53,5 +53,8 @@
       "green": "Green",
       "medium-gray": "Light"
     }
-  }
+  },
+  "save": "Save settings",
+  "savedSuccessfully": "Settings saved successfully",
+  "saveError": "Failed to save settings"
 }

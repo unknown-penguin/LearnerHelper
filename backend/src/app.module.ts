@@ -26,6 +26,9 @@ import { RoleProfile } from './role/role.profile';
 import { PermissionController } from './permission/permission.controller';
 import { PermissionService } from './permission/permission.service';
 import { PermissionProfile } from './permission/permission.profile';
+import { SettingsController } from './settings/settings.controller';
+import { SettingsService } from './settings/settings.service';
+import { SettingsProfile } from './settings/settings.profile';
 import { jwtConfig } from './config/jwt.config';
 import { JwtModule } from '@nestjs/jwt';
 
@@ -44,6 +47,7 @@ import { JwtModule } from '@nestjs/jwt';
     ProfileController,
     RoleController,
     PermissionController,
+    SettingsController,
   ],
   providers: [
     AppService,
@@ -55,6 +59,7 @@ import { JwtModule } from '@nestjs/jwt';
     ProfileService, ProfileProfile,
     RoleService, RoleProfile,
     PermissionService, PermissionProfile,
+    SettingsService, SettingsProfile,
   ],
 })
 export class AppModule {}

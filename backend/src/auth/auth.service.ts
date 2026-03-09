@@ -50,8 +50,17 @@ export class AuthService {
   }
 
   async register(data: CreateUserDto): Promise<UserDto> {
-    data.password = await argon2.hash(data.password);
-    const user = await prisma.user.create({ data });
+    const hashedPassword = await argon2.hash(data.password);
+    const user = await prisma.user.create({
+      data: {
+        name: data.name,
+        email: data.email,
+        password: hashedPassword,
+        settings: {
+          create: {},
+        },
+      },
+    });
     return this.mapper.map(user as UserEntity, UserEntity, UserDto);
   }
 }

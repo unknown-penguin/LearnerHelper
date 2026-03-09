@@ -70,6 +70,7 @@ model User{
   password String
   profile Profile?
   roles Role[]
+  settings Settings?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
@@ -101,6 +102,24 @@ model Permission{
   id String @id @default(uuid()) @db.Uuid
   name String @unique
   roles Role[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@schema("users")
+}
+
+model Settings{
+  id String @id @default(uuid()) @db.Uuid
+  emailNotifications Boolean @default(true)
+  pushNotifications Boolean @default(true)
+  smsNotifications Boolean @default(false)
+  profileVisibility String @default("team")
+  searchEngineIndexing Boolean @default(false)
+  theme String @default("cyan")
+  density String @default("comfortable")
+  language String @default("en")
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @unique @db.Uuid
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 

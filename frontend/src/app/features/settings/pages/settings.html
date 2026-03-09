@@ -75,7 +75,7 @@
 				<div class="mt-2">
 					<app-custom-select
 						[ngModel]="themeService.current()"
-						(ngModelChange)="themeService.set($event)"
+						(ngModelChange)="setTheme($event)"
 						[options]="themeOptions">
 					</app-custom-select>
 				</div>
@@ -100,4 +100,23 @@
 			</label>
 		</div>
 	</section>
+
+	<footer class="flex items-center justify-end gap-4">
+		@if (error()) {
+			<p class="text-sm text-danger-300">{{ error() }}</p>
+		}
+		@if (saved()) {
+			<p class="text-sm text-green-300">{{t('savedSuccessfully')}}</p>
+		}
+		<button type="button" (click)="save()" [disabled]="saving()"
+			class="flex items-center gap-2 rounded-full bg-primary-500 px-6 py-2 text-sm font-semibold text-surface-950 shadow-lg shadow-primary-500/30 transition hover:bg-primary-400 disabled:opacity-50 disabled:cursor-not-allowed">
+			@if (saving()) {
+				<svg class="h-4 w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+					<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+					<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+				</svg>
+			}
+			{{t('save')}}
+		</button>
+	</footer>
 </div>

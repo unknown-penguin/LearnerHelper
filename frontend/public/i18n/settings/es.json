@@ -51,5 +51,9 @@
       "cyan": "Cian",
       "green": "Verde",
       "medium-gray": "Claro"
-    }  }
+    }
+  },
+  "save": "Guardar ajustes",
+  "savedSuccessfully": "Configuración guardada correctamente",
+  "saveError": "Error al guardar la configuración"
 }
